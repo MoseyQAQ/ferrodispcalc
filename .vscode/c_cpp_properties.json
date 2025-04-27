@@ -11,7 +11,8 @@
                 "/usr/local/include",
                 "/usr/include/x86_64-linux-gnu",
                 "/usr/include",
-                "/shared_storage/home/lidenan/code/eigen-3.4.0/"
+                "/shared_storage/home/lidenan/code/eigen-3.4.0/",
+                "/Users/mosey/devtools/eigen-3.4.0"
             ],
             "defines": [],
             "cStandard": "c17",

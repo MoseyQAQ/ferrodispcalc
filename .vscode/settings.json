@@ -77,6 +77,19 @@
         "strstream": "cpp",
         "cfenv": "cpp",
         "source_location": "cpp",
-        "stdfloat": "cpp"
+        "stdfloat": "cpp",
+        "__bit_reference": "cpp",
+        "__hash_table": "cpp",
+        "__locale": "cpp",
+        "__node_handle": "cpp",
+        "__split_buffer": "cpp",
+        "ios": "cpp",
+        "locale": "cpp",
+        "__verbose_abort": "cpp",
+        "bitset": "cpp",
+        "execution": "cpp",
+        "print": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
     }
 }
