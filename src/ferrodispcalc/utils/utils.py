@@ -14,9 +14,9 @@ def crystal_lattice_to_cartesian(atoms: Atoms, vector: np.ndarray) -> np.ndarray
     '''
     cell = atoms.cell.array.copy()
     La, Lb, Lc, _, _, _ = atoms.cell.cellpar()
-    cell[:, 0] /= La
-    cell[:, 1] /= Lb
-    cell[:, 2] /= Lc
+    cell[0, :] /= La
+    cell[1, :] /= Lb
+    cell[2, :] /= Lc
 
     vector = cell.T @ vector
     return vector
@@ -34,9 +34,9 @@ def cartesian_to_crystal_lattice(atoms: Atoms, vector: np.ndarray) -> np.ndarray
     '''
     cell = atoms.cell.array.copy()
     La, Lb, Lc, _, _, _ = atoms.cell.cellpar()
-    cell[:, 0] *= La
-    cell[:, 1] *= Lb
-    cell[:, 2] *= Lc
+    cell[0, :] /= La
+    cell[1, :] /= Lb
+    cell[2, :] /= Lc
 
     vector = np.linalg.inv(cell.T) @ vector
     return vector
