@@ -40,3 +40,31 @@ def cartesian_to_crystal_lattice(atoms: Atoms, vector: np.ndarray) -> np.ndarray
 
     vector = np.linalg.inv(cell.T) @ vector
     return vector
+
+def c2l(atoms: Atoms, vector: np.ndarray) -> np.ndarray:
+    '''
+    Map the vector along the cartesian coordinates to the crystal lattice.
+    Alias for cartesian_to_crystal_lattice.
+    
+    Args:
+    ---
+    atoms: Atoms
+        The Atoms object containing the crystal structure.
+    vector: np.ndarray
+        The vector in cartesian coordinates to be converted.
+    '''
+    return cartesian_to_crystal_lattice(atoms, vector)
+
+def l2c(atoms: Atoms, vector: np.ndarray) -> np.ndarray:
+    '''
+    Map the vector along the crystal lattice to the cartesian coordinates.
+    Alias for crystal_lattice_to_cartesian.
+    
+    Args:
+    ---
+    atoms: Atoms
+        The Atoms object containing the crystal structure.
+    vector: np.ndarray
+        The vector in crystal lattice coordinates to be converted.
+    '''
+    return crystal_lattice_to_cartesian(atoms, vector)
