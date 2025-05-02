@@ -1,6 +1,30 @@
 from ase import Atoms 
 import numpy as np
 
+def get_polarization_quanta(atoms: Atoms) -> np.ndarray:
+    '''
+    Calculate the polarization quanta along the crystal lattice vectors.
+
+    Args:
+    ---
+    atoms: Atoms
+        The Atoms object containing the crystal structure.
+
+    Returns:
+    ---
+    mod: np.ndarray
+        The polarization quanta ([modA, modB, modC]) along the crystal lattice vectors.  
+    '''
+    cell = atoms.cell.array.copy()
+    La, Lb, Lc, _, _, _ = atoms.cell.cellpar()
+    volume = atoms.get_volume()
+
+    modA = La / volume * 1602
+    modB = Lb / volume * 1602
+    modC = Lc / volume * 1602
+    mod = np.array([modA, modB, modC])
+    return mod
+
 def crystal_lattice_to_cartesian(atoms: Atoms, vector: np.ndarray) -> np.ndarray:
     '''
     Map the vector along the crystal lattice to the cartesian coordinates.
