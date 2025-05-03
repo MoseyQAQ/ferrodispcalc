@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-python@v5
       - name: Install dependencies
         run: |
-          pip install sphinx sphinx-book-theme myst_parser
+          pip install sphinx sphinx-book-theme myst_parser; pip3 install -e .
       - name: Sphinx build
         run: |
           sphinx-apidoc -o docs/source src/ferrodispcalc ; sphinx-build docs/source _build
