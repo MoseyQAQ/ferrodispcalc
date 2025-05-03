@@ -39,3 +39,7 @@ Features
    :caption: Getting Started
 
    getting-started/index
+   
+   :caption: API Reference
+
+   modules
