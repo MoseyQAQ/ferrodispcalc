@@ -1,7 +1,7 @@
 from ase import Atoms 
 import numpy as np
 
-def get_polarization_quanta(atoms: Atoms) -> np.ndarray:
+def get_polarization_quanta(atoms:Atoms=None, cell:np.ndarray=None) -> np.ndarray:
     '''
     Calculate the polarization quanta along the crystal lattice vectors.
 
@@ -15,7 +15,11 @@ def get_polarization_quanta(atoms: Atoms) -> np.ndarray:
     mod: np.ndarray
         The polarization quanta ([modA, modB, modC]) along the crystal lattice vectors.  
     '''
-    cell = atoms.cell.array.copy()
+    if cell is None and atoms is not None:
+        cell = atoms.cell.array.copy()
+    if cell is None and atoms is None:
+        raise ValueError("Either cell or atoms must be provided.")
+    
     La, Lb, Lc, _, _, _ = atoms.cell.cellpar()
     volume = atoms.get_volume()
 
@@ -25,7 +29,7 @@ def get_polarization_quanta(atoms: Atoms) -> np.ndarray:
     mod = np.array([modA, modB, modC])
     return mod
 
-def crystal_lattice_to_cartesian(atoms: Atoms, vector: np.ndarray) -> np.ndarray:
+def crystal_lattice_to_cartesian(vector: np.ndarray, cell: np.ndarray=None, atoms: Atoms=None) -> np.ndarray:
     '''
     Map the vector along the crystal lattice to the cartesian coordinates.
     
@@ -36,7 +40,11 @@ def crystal_lattice_to_cartesian(atoms: Atoms, vector: np.ndarray) -> np.ndarray
     vector: np.ndarray
         The vector in crystal lattice coordinates to be converted.
     '''
-    cell = atoms.cell.array.copy()
+    if cell is None and atoms is not None:
+        cell = atoms.cell.array.copy()
+    if cell is None and atoms is None:
+        raise ValueError("Either cell or atoms must be provided.")
+    
     La, Lb, Lc, _, _, _ = atoms.cell.cellpar()
     cell[0, :] /= La
     cell[1, :] /= Lb
@@ -45,7 +53,7 @@ def crystal_lattice_to_cartesian(atoms: Atoms, vector: np.ndarray) -> np.ndarray
     vector = cell.T @ vector
     return vector
 
-def cartesian_to_crystal_lattice(atoms: Atoms, vector: np.ndarray) -> np.ndarray:
+def cartesian_to_crystal_lattice(vector: np.ndarray, cell: np.ndarray=None, atoms: Atoms=None) -> np.ndarray:
     '''
     Map the vector along the cartesian coordinates to the crystal lattice.
     
@@ -56,7 +64,11 @@ def cartesian_to_crystal_lattice(atoms: Atoms, vector: np.ndarray) -> np.ndarray
     vector: np.ndarray
         The vector in cartesian coordinates to be converted.
     '''
-    cell = atoms.cell.array.copy()
+    if cell is None and atoms is not None:
+        cell = atoms.cell.array.copy()
+    if cell is None and atoms is None:
+        raise ValueError("Either cell or atoms must be provided.")
+    
     La, Lb, Lc, _, _, _ = atoms.cell.cellpar()
     cell[0, :] /= La
     cell[1, :] /= Lb
@@ -65,7 +77,7 @@ def cartesian_to_crystal_lattice(atoms: Atoms, vector: np.ndarray) -> np.ndarray
     vector = np.linalg.inv(cell.T) @ vector
     return vector
 
-def c2l(atoms: Atoms, vector: np.ndarray) -> np.ndarray:
+def c2l(vector: np.ndarray, cell: np.ndarray=None, atoms: Atoms=None) -> np.ndarray:
     '''
     Map the vector along the cartesian coordinates to the crystal lattice.
     Alias for cartesian_to_crystal_lattice.
@@ -77,9 +89,9 @@ def c2l(atoms: Atoms, vector: np.ndarray) -> np.ndarray:
     vector: np.ndarray
         The vector in cartesian coordinates to be converted.
     '''
-    return cartesian_to_crystal_lattice(atoms, vector)
+    return cartesian_to_crystal_lattice(vector, cell, atoms)
 
-def l2c(atoms: Atoms, vector: np.ndarray) -> np.ndarray:
+def l2c(vector: np.ndarray, cell: np.ndarray=None, atoms: Atoms=None) -> np.ndarray:
     '''
     Map the vector along the crystal lattice to the cartesian coordinates.
     Alias for crystal_lattice_to_cartesian.
@@ -91,4 +103,4 @@ def l2c(atoms: Atoms, vector: np.ndarray) -> np.ndarray:
     vector: np.ndarray
         The vector in crystal lattice coordinates to be converted.
     '''
-    return crystal_lattice_to_cartesian(atoms, vector)
+    return crystal_lattice_to_cartesian(vector, cell, atoms)
