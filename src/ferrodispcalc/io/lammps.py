@@ -41,10 +41,12 @@ class LAMMPSdump:
         '''
         self.file_name = file_name
         self.type_map = type_map
+        self.f = None # file object
+        self.natoms = None # number of atoms in the lammps dump file
 
     def get_first_frame(self) -> Atoms:
         '''
-        Get the first frame in the lammps dump file. Return the structure in pymatgen format.
+        Get the first frame in the lammps dump file. Return the structure in ASE/atoms format.
 
         Parameters:
         ----------
@@ -61,6 +63,21 @@ class LAMMPSdump:
         f.close()
         stru = Atoms(symbols=type_index, positions=coord, cell=cell, pbc=True)
         return stru
+    
+    def get_next_frame(self) -> Atoms:
+        '''
+        Read the next frame in the lammps dump file iteratively.
+        '''
+        if self.f is None:
+            self.f = open(self.file_name, 'r')
+        if self.natoms is None:
+            self.natoms = self.get_natoms()
+        
+        cell, type_index, coord = self._read_lmp_traj(self.f)
+        stru = Atoms(symbols=type_index, positions=coord, cell=cell, pbc=True)
+
+        return stru
+
     
     def get_nframes(self) -> int:
         '''
