@@ -1,6 +1,7 @@
 from ferrodispcalc.compute.backend import ComputeBackend
 from ase import Atoms
 import numpy as np
+from tqdm import tqdm
 
 class PyCompute(ComputeBackend):
     def get_averaged_structure(self, select: list[int]) -> Atoms:
@@ -113,3 +114,83 @@ class PyCompute(ComputeBackend):
                 displacement[i, j] = np.mean(neighbors_coords_diff, axis=0)
         
         return displacement
+    
+    def get_local_lattice(self, select: list[int], nl: np.ndarray) -> np.ndarray:
+        """
+        Calculates the local lattice vectors for each unit cell.
+
+        This method determines the local lattice by classifying neighbor atoms
+        based on their position relative to a central atom and averaging their
+        displacement vectors.
+
+        Args:
+            select: A list of frame indices to include in the calculation.
+            nl: The neighbor list array (n_unitcells, 9), with the first column
+                being the central atom and the rest being its neighbors. Indices
+                are 1-based.
+
+        Returns:
+            A NumPy array of shape (nframes, n_unitcells, 9) containing the
+            flattened local lattice vectors (ax,ay,az,bx,by,bz,cx,cy,cz).
+        """
+        traj: list[Atoms] = self.traj
+        coords = np.array([atoms.get_positions() for atoms in traj])
+        cells = np.array([atoms.get_cell().array for atoms in traj])
+        coords = coords[select]
+        cells = cells[select]
+
+        nframes = coords.shape[0]
+        n_unitcells = nl.shape[0]
+        nl_zero_based = nl - 1  # Convert to 0-based index
+
+        all_local_lattices = np.full((nframes, n_unitcells, 9), np.nan)
+
+        # walk through frames
+        for i in tqdm(range(nframes), desc="Calculating local lattice vectors"):
+            cell = cells[i]
+            inv_cell = np.linalg.inv(cell)
+            frame_coords = coords[i]
+
+            # walk through all unit cells
+            for j in range(n_unitcells):
+                center_idx = nl_zero_based[j, 0]
+                neighbor_indices = nl_zero_based[j, 1:]
+                
+                center_pos = frame_coords[center_idx]
+                neighbor_pos = frame_coords[neighbor_indices]
+
+                # Calculate vectors from center to neighbors, applying MIC
+                vectors_cart = neighbor_pos - center_pos
+                vectors_frac = np.dot(vectors_cart, inv_cell)
+                vectors_frac[vectors_frac > 0.5] -= 1.0
+                vectors_frac[vectors_frac < -0.5] += 1.0
+                vectors = np.dot(vectors_frac, cell)
+
+                # Classify vectors into alpha/beta groups based on cartesian components
+                alpha_a = vectors[vectors[:, 0] < 0]
+                beta_a = vectors[vectors[:, 0] >= 0]
+
+                alpha_b = vectors[vectors[:, 1] < 0]
+                beta_b = vectors[vectors[:, 1] >= 0]
+                
+                alpha_c = vectors[vectors[:, 2] < 0]
+                beta_c = vectors[vectors[:, 2] >= 0]
+                
+                # Define calculation function
+                def get_lattice_vector(beta, alpha):
+                    # Check for valid groups to prevent errors with faulty neighbor lists
+                    if alpha.shape[0] == 0 or beta.shape[0] == 0:
+                        return np.array([np.nan, np.nan, np.nan])
+                    return 0.25 * (np.sum(beta, axis=0) - np.sum(alpha, axis=0))
+
+                # Calculate the three local lattice vectors
+                lattice_vector_a = get_lattice_vector(beta_a, alpha_a)
+                lattice_vector_b = get_lattice_vector(beta_b, alpha_b)
+                lattice_vector_c = get_lattice_vector(beta_c, alpha_c)
+
+                # Store the flattened 3x3 local lattice matrix
+                all_local_lattices[i, j, :] = np.hstack(
+                    (lattice_vector_a, lattice_vector_b, lattice_vector_c)
+                )
+
+        return all_local_lattices

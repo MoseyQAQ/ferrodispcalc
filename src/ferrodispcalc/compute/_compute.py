@@ -82,8 +82,10 @@ class Compute:
         self.polarization = self.backend.get_polarization(select, nl_ba, nl_bx, born_effective_charge)
         return self.polarization
     
-    def get_local_lattice():
-        raise NotImplementedError('get_local_lattice() is not implemented yet.')
+    def get_local_lattice(self, nl_ba: np.ndarray, select: slice=None) -> np.ndarray:
+        select = convert_slice_to_list(self.traj, select)
+        self.local_lattice = self.backend.get_local_lattice(select, nl_ba)
+        return self.local_lattice
     
     def get_rotation():
         raise NotImplementedError('get_rotation() is not implemented yet.')
