@@ -44,8 +44,10 @@ Todo list:
 
 //structs Frame: store cell and coordinates of a frame
 struct Frame {
-    Eigen::Matrix3d cell;
-    Eigen::MatrixXd coords;
+    Eigen::Matrix3d cell;               // Cell matrix
+    Eigen::MatrixXd coords;             // Atomic coordinates
+    std::vector<int> ids;               // Atomic ordering (IDs) in LAMMPS
+    Eigen::MatrixXd properties;         // Per-atom properties
 };
 
 // struct Traj: store all frames and atom types
@@ -74,6 +76,12 @@ Eigen::Matrix3d read_cell(std::ifstream &file) {
         std::getline(file, line);
         std::istringstream iss(line);
         std::vector<double> lineData((std::istream_iterator<double>(iss)), std::istream_iterator<double>());
+
+        // Handle cases where only two columns (lo, hi) are provided
+        if (lineData.size() == 2) {
+            lineData.push_back(0.0); // Add a default tilt factor of 0.0
+        }
+
         bounds.insert(bounds.end(), lineData.begin(), lineData.end());
     }
 
@@ -102,7 +110,48 @@ Eigen::Matrix3d read_cell(std::ifstream &file) {
     return cell;
 }
 
+/* Parse the number of atomic properties and their names from a LAMMPS dump file */
+int parse_properties(const std::string &filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open file " << filename << std::endl;
+        exit(1);
+    }
+
+    // Skip the first 8 lines
+    skip_lines(file, 8);
+
+    // Read the line containing "ITEM: ATOMS ..."
+    std::string line;
+    std::getline(file, line);
+
+    // Parse the line to extract column names
+    std::istringstream iss(line);
+    std::vector<std::string> tokens((std::istream_iterator<std::string>(iss)), std::istream_iterator<std::string>());
+
+    // Find the position of "z"
+    auto it_z = std::find(tokens.begin(), tokens.end(), "z");
+    if (it_z == tokens.end()) {
+        throw std::runtime_error("Error: Could not find 'z' column in the ATOMS line");
+    }
+
+    // Collect property names after "z"
+    std::vector<std::string> property_names(it_z + 1, tokens.end());
+    int num_properties = property_names.size();
+
+    // Print the number of properties and their names
+    std::cout << "Number of atomic properties: " << num_properties << std::endl;
+    std::cout << "Atomic properties: ";
+    for (const auto &name : property_names) {
+        std::cout << name << " ";
+    }
+    std::cout << std::endl;
+
+    return num_properties;
+}
+
 /* Read coordinates from lammps dump file */
+/*
 Eigen::MatrixXd read_coords(std::ifstream &file, int n_atoms) {
     Eigen::MatrixXd coords(n_atoms, 3); // 3 columns for x, y, z
     std::string line;
@@ -115,6 +164,73 @@ Eigen::MatrixXd read_coords(std::ifstream &file, int n_atoms) {
         coords(i, 2) = lineData[4];
     }
     return coords;
+}
+*/
+/* Read coordinates and properties from LAMMPS dump file */
+void read_coords(std::ifstream &file, Frame &frame, int n_atoms, int num_properties) {
+    // Initialize coordinates and properties matrices
+    frame.coords = Eigen::MatrixXd(n_atoms, 3); // 3 columns for x, y, z
+    frame.properties = Eigen::MatrixXd(n_atoms, num_properties); // num_properties columns for properties
+    frame.ids.resize(n_atoms); // Resize the ids vector to store atomic IDs
+
+    std::string line;
+    for (int i = 0; i < n_atoms; ++i) {
+        std::getline(file, line);
+        std::istringstream iss(line);
+        // std::vector<double> lineData((std::istream_iterator<double>(iss)), std::istream_iterator<double>());
+        
+        // Tokenize the line into individual strings
+        std::vector<std::string> tokens;
+        std::string token;
+        while (iss >> token) {
+            tokens.push_back(token);
+        }
+        
+        // Convert tokens to doubles, handling errors
+        std::vector<double> lineData;
+        for (const auto &t : tokens) {
+            try {
+                double value = std::stod(t);
+                lineData.push_back(value);
+            } catch (const std::invalid_argument &e) {
+                std::cerr << "Error: Invalid number format: " << t << " (" << e.what() << ")" << std::endl;
+                lineData.push_back(0.0); // Replace invalid numbers with 0
+            } catch (const std::out_of_range &e) {
+                // std::cerr << "Warning: Number out of range: " << t << " (" << e.what() << ")" << std::endl;
+                lineData.push_back(0.0); // Replace out-of-range numbers with 0
+            }
+        }
+
+        // Check if the line has enough data
+        if (lineData.size() < 5 + num_properties) {
+            std::cerr << "Error: Incomplete data in line " << i + 1 << std::endl;
+            std::cerr << "Raw line content: " << line << std::endl;
+            std::cerr << "Line data: ";
+            for (const auto &data : lineData) {
+                std::cerr << data << " ";
+            }
+            std::cerr << std::endl;
+            for (char c : line) {
+                std::cerr << "[" << c << "] (" << static_cast<int>(c) << ") ";
+            }
+            std::cerr << std::endl;
+            std::cerr << "Expected at least " << (5 + num_properties) << " values, but got " << lineData.size() << std::endl;
+            exit(1);
+        }
+
+        // Read ID
+        frame.ids[i] = static_cast<int>(lineData[0]);
+
+        // Read coordinates (x, y, z)
+        frame.coords(i, 0) = lineData[2];
+        frame.coords(i, 1) = lineData[3];
+        frame.coords(i, 2) = lineData[4];
+
+        // Read properties (starting from index 5)
+        for (int j = 0; j < num_properties; ++j) {
+            frame.properties(i, j) = lineData[5 + j];
+        }
+    }
 }
 
 /* get number of frames */
@@ -166,7 +282,7 @@ int get_natoms(std::string filename) {
 }
 
 /* read single frame */
-Frame read_single_frame(std::ifstream &file, int n_atoms) {
+Frame read_single_frame(std::ifstream &file, int n_atoms, int num_properties = 0) {
     Frame frame;
     
     // Since we are already at the beginning of the frame, 
@@ -174,7 +290,7 @@ Frame read_single_frame(std::ifstream &file, int n_atoms) {
     skip_lines(file, 4);
     frame.cell = read_cell(file);
     skip_lines(file, 1);
-    frame.coords = read_coords(file, n_atoms);
+    read_coords(file, frame, n_atoms, num_properties);
     
     return frame;
 }
@@ -184,27 +300,45 @@ std::vector<int> read_atom_types(std::string filename, int n_atoms) {
     // The atom types here is integer, not string
     std::ifstream file(filename);
     std::string line;
-    std::vector<int> atom_types(n_atoms);
+    std::vector<std::pair<int, int>> id_type_pairs; // Pair of (ID, type)
     skip_lines(file, 9);
 
+    // Read the atom types and IDs
     for (int i = 0; i < n_atoms; ++i) {
         std::getline(file, line);
         std::istringstream iss(line);
         std::vector<int> lineData((std::istream_iterator<int>(iss)), std::istream_iterator<int>());
-        atom_types[i] = lineData[1];
+
+        if (lineData.size() < 2) {
+            std::cerr << "Error: Incomplete data in line " << i + 1 << std::endl;
+            exit(1);
+        }
+
+        id_type_pairs.emplace_back(lineData[0], lineData[1]); // Store (ID, type)
+    }
+
+    // Sort by atom IDs
+    std::sort(id_type_pairs.begin(), id_type_pairs.end(), [](const std::pair<int, int> &a, const std::pair<int, int> &b) {
+        return a.first < b.first;
+    });
+
+    // Extract sorted atom types
+    std::vector<int> atom_types(n_atoms);
+    for (int i = 0; i < n_atoms; ++i) {
+        atom_types[i] = id_type_pairs[i].second;
     }
 
     return atom_types;
 }
 
 /* read all frames */
-Traj read_all_frames(std::string filename, int n_atoms, int n_frames) {
+Traj read_all_frames(std::string filename, int n_atoms, int n_frames, int num_properties = 0) {
     std::ifstream file(filename);
     std::vector<Frame> frames;
     Traj traj;
     traj.atom_types = read_atom_types(filename, n_atoms);
     for (int i = 0; i < n_frames; ++i) {
-        Frame frame = read_single_frame(file, n_atoms);
+        Frame frame = read_single_frame(file, n_atoms, num_properties);
         frames.push_back(frame);
     }
     traj.frames = frames;
@@ -212,7 +346,9 @@ Traj read_all_frames(std::string filename, int n_atoms, int n_frames) {
 }
 
 /* read selected frames */
-std::vector<Frame> read_selected_frames(std::string filename, int n_atoms, std::vector<std::streampos> frame_positions, int start, int end, int step) {
+std::vector<Frame> read_selected_frames(std::string filename, int n_atoms, std::vector<std::streampos> frame_positions, 
+                                        int start, int end, int step,
+                                        int num_properties = 0) {
     // check if the start and end are within the range
     if (start < 0 || end > frame_positions.size() || start > end) {
         std::cerr << "Error: Invalid start or end frame" << std::endl;
@@ -226,7 +362,7 @@ std::vector<Frame> read_selected_frames(std::string filename, int n_atoms, std::
     // read frames from start to end with step
     for (int i = start; i < end; i += step) {
         file.seekg(frame_positions[i]);
-        Frame frame = read_single_frame(file, n_atoms);
+        Frame frame = read_single_frame(file, n_atoms, num_properties);
         frames.push_back(frame);
     }
 
