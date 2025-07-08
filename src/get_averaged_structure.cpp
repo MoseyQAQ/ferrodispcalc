@@ -26,11 +26,16 @@ Email: lidenan@westlake.edu.cn
 #include <iterator>
 #include <Eigen/Dense>
 #include <iomanip>
+#include <numeric>
+#include <algorithm>
 #include "basic.hpp"
 
 // define functions
+Eigen::MatrixXd get_avg_properties(const std::vector<Frame> &frames, int natoms, int num_properties);
 Eigen::Matrix3d get_avg_cell(std::vector<Frame> frames);
 Eigen::MatrixXd get_avg_coords(std::vector<Frame> frames, int natoms);
+Frame sort_frame_by_id(const Frame &frame);
+void write_atomic_properties(const std::string &filename, const Eigen::MatrixXd &avg_properties);
 void write_xsf(std::string filename, Eigen::Matrix3d cell, Eigen::MatrixXd coords, std::vector<int> atom_types, std::vector<std::string> type_map);
 
 /* Main function */
@@ -77,15 +82,39 @@ int main(int argc, char** argv) {
     }
     std::cout << std::endl;
 
+    // parse atomic properties
+    int num_properties = parse_properties(input_file);
+
     // read selected frames
-    std::vector<Frame> frames = read_selected_frames(input_file, natoms, frame_pos, start_frame, end_frame, step);
+    std::vector<Frame> frames = read_selected_frames(input_file, natoms, frame_pos, start_frame, end_frame, step, num_properties);
+    std::cout << "Frames read: " << frames.size() << std::endl;
+
+    // Sort the first frame by IDs if necessary
+    frames[0] = sort_frame_by_id(frames[0]);
+
+    // Ensure all frames follow the same order as the first frame
+    for (int i = 1; i < frames.size(); ++i) {
+        frames[i] = sort_frame_by_id(frames[i]);
+    }
+
+    // Calculate the average cell, coordinates, and properties
     Eigen::Matrix3d avg_cell = get_avg_cell(frames);
     Eigen::MatrixXd avg_coords = get_avg_coords(frames, natoms);
-    std::cout << "Frames read: " << frames.size() << std::endl;
+    Eigen::MatrixXd avg_properties;
+    if (num_properties > 0) {
+        avg_properties = get_avg_properties(frames, natoms, num_properties);
+    }
 
     // write output file
     std::cout << "Writing file: " << output_file << std::endl;
     write_xsf(output_file, avg_cell, avg_coords, atom_types, type_map);
+
+    // Write averaged atomic properties to a file if num_properties > 0
+    if (num_properties > 0) {
+        std::string properties_file = "properties_" + output_file;
+        std::cout << "Writing atomic properties to file: " << properties_file << std::endl;
+        write_atomic_properties(properties_file, avg_properties);
+    }
 
     return 0;
 }
@@ -97,6 +126,7 @@ Eigen::Matrix3d get_avg_cell(std::vector<Frame> frames) {
         avg_cell += frames[i].cell;
     }
     avg_cell /= frames.size();
+
     return avg_cell;
 }
 
@@ -107,7 +137,7 @@ Eigen::MatrixXd get_avg_coords(std::vector<Frame> frames, int natoms) {
     Eigen::MatrixXd coord_init = frames[0].coords;
 
     for (int i = 1; i < frames.size(); ++i) {
-
+        
         // check the periodic boundary conditions
         Eigen::MatrixXd coord_current = frames[i].coords;
         Eigen::MatrixXd coord_current_frac = coord_current * frames[i].cell.inverse();
@@ -148,4 +178,80 @@ void write_xsf(std::string filename, Eigen::Matrix3d cell, Eigen::MatrixXd coord
     for (int i = 0; i < coords.rows(); ++i) {
         file << type_map[atom_types[i]-1] << " " << coords.row(i) << std::endl;
     }
+}
+
+/* Check and sort the first frame by IDs */
+Frame sort_frame_by_id(const Frame &frame) {
+    // Create a vector of indices for sorting
+    std::vector<int> indices(frame.ids.size());
+    std::iota(indices.begin(), indices.end(), 0); // Fill with 0, 1, ..., n-1
+
+    // Check if IDs are already sorted
+    if (std::is_sorted(frame.ids.begin(), frame.ids.end())) {
+        return frame; // Return the original frame if IDs are sorted
+    }
+
+    // Sort indices based on the IDs
+    std::sort(indices.begin(), indices.end(), [&frame](int i, int j) {
+        return frame.ids[i] < frame.ids[j];
+    });
+
+    // Create a new frame with sorted data
+    Frame sorted_frame;
+    sorted_frame.ids.resize(frame.ids.size());
+    sorted_frame.coords = Eigen::MatrixXd(frame.coords.rows(), frame.coords.cols());
+    sorted_frame.properties = Eigen::MatrixXd(frame.properties.rows(), frame.properties.cols());
+    sorted_frame.cell = frame.cell; // Cell isn't sorted, just copied
+
+    for (int i = 0; i < indices.size(); ++i) {
+        sorted_frame.ids[i] = frame.ids[indices[i]];
+        sorted_frame.coords.row(i) = frame.coords.row(indices[i]);
+        if (frame.properties.rows() > 0) { // Check if properties exist
+            sorted_frame.properties.row(i) = frame.properties.row(indices[i]);
+        }
+    }
+
+    return sorted_frame;
+}
+
+/* Calculate the averaged atomic properties */
+Eigen::MatrixXd get_avg_properties(const std::vector<Frame> &frames, int natoms, int num_properties) {
+    // Initialize the averaged properties matrix
+    Eigen::MatrixXd avg_properties = Eigen::MatrixXd::Zero(natoms, num_properties);
+
+    // Accumulate properties from all frames
+    for (const auto &frame : frames) {
+        avg_properties += frame.properties;
+    }
+
+    // Divide by the number of frames to get the average
+    avg_properties /= frames.size();
+
+    return avg_properties;
+}
+
+/* Write averaged atomic properties to a file */
+void write_atomic_properties(const std::string &filename, const Eigen::MatrixXd &avg_properties) {
+    // Open the file for writing
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open file " << filename << " for writing." << std::endl;
+        exit(1);
+    }
+
+    // Set precision to 4 decimal places
+    file << std::fixed << std::setprecision(4);
+
+    // Write the properties matrix
+    for (int i = 0; i < avg_properties.rows(); ++i) {
+        for (int j = 0; j < avg_properties.cols(); ++j) {
+            file << avg_properties(i, j);
+            if (j < avg_properties.cols() - 1) {
+                file << " "; // Add space between columns
+            }
+        }
+        file << "\n"; // Newline after each row
+    }
+
+    file.close();
 }
