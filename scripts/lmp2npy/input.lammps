@@ -1,0 +1,28 @@
+variable i loop 40
+label loop
+
+units           metal
+boundary        p p p
+atom_style      atomic
+
+read_data       conf/${i}.conf
+neighbor        1.0 bin
+
+mass            1 207.200000
+mass            2 47.867000
+mass            3 15.999400
+
+pair_style      deepmd ../../compressed.pb
+pair_coeff      * *
+
+compute 1 all pe
+variable pppp equal c_1
+fix extra all print 1  "${i} ${pppp}" append pe.dat
+dump                2 all custom 1 pe.lammpstrj id type x y z fx fy fz 
+dump_modify     2 sort id append yes
+
+run 0
+
+clear
+next i
+jump SELF loop
