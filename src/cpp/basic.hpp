@@ -1,6 +1,7 @@
 #include <vector>
 #include <string>
 #include <array>
+#include <array>
 #include <unordered_map>
 
 using Lattice = std::array<std::array<double, 3>, 3>;
