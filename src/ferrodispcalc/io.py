@@ -1,6 +1,6 @@
 from ase import Atoms 
 
-def read_xyz(filename: str, select_frames: list = None, cache: bool = True):
+def read_xyz(filename: str, select_frames: list = None, cache: bool = True) -> list[Atoms]:
     '''
     Read an XYZ trajectory file and return a list of ASE Atoms objects.
 
@@ -11,5 +11,14 @@ def read_xyz(filename: str, select_frames: list = None, cache: bool = True):
     '''
     pass
 
-def read_lammps_dump(filename: str):
+def read_lammps_dump(filename: str) -> list[Atoms]:
+    '''
+    Read a LAMMPS dump file and return a list of ASE Atoms objects.
+
+    Parameters:
+    filename (str): Path to the LAMMPS dump file.
+
+    Returns:
+    list[Atoms]: List of ASE Atoms objects.
+    '''
     pass
