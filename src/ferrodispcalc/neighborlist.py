@@ -9,7 +9,13 @@ def build_neighbor_list(atoms: Atoms,
                         cutoff: float,
                         neighbor_num: int,
                         defect: bool=False) -> np.ndarray:
-    
+    # check the dim of cell, the small cell may cause error in neighbor list
+    # the cutoff for this check is 4 Ang.
+    CUTOFF = 4.0
+    cellpar = atoms.cell.cellpar()[[0,1,2]]
+    if np.any(cellpar < CUTOFF):
+        print("Warning: The cell length is smaller than 4 Angstrom, which may lead to unexpected error!")
+        
     stru = AseAtomsAdaptor.get_structure(atoms)
     # initialize the index list
     center_elements_index = []

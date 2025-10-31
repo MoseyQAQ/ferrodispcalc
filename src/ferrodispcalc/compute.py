@@ -40,7 +40,6 @@ def calculate_displacement(traj: list[Atoms], nl: np.ndarray, select: list[int] 
         
     return displacement
 
-
 def calculate_polarization(traj, 
                            nl_ba:  np.ndarray, 
                            nl_bx: np.ndarray, 

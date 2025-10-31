@@ -1,4 +1,5 @@
 from ase import Atoms 
+import dpdata
 
 def read_xyz(filename: str, select_frames: list = None, cache: bool = True) -> list[Atoms]:
     '''
@@ -22,3 +23,8 @@ def read_lammps_dump(filename: str) -> list[Atoms]:
     list[Atoms]: List of ASE Atoms objects.
     '''
     pass
+
+def read_lammps_data(filename: str, type_map: list[str]) -> Atoms:
+    sys = dpdata.System(filename, fmt='lmp', type_map=type_map)
+    atoms =  sys.to_ase_structure()[0]
+    return atoms
