@@ -9,6 +9,66 @@ def build_neighbor_list(atoms: Atoms,
                         cutoff: float,
                         neighbor_num: int,
                         defect: bool=False) -> np.ndarray:
+    """Build neighbor lists for selected atom types.
+
+    Find the neighbor of selected center atoms within a cutoff radius. And return
+    the 1-based neighbor list array.
+
+    Parameters
+    ----------
+    atoms : ase.Atoms
+        ASE Atoms object containing atomic positions, cell and element types.
+    center_elements : list[str]
+        Element symbols to treat as centers (e.g. ["Ti", "Ba"]).
+    neighbor_elements : list[str]
+        Element symbols considered as neighbors (e.g. ["O"]).
+    cutoff : float
+        Cutoff radius used to search for neighbors (Unit: Angstrom).
+    neighbor_num : int
+        Number of neighbors to keep per center. If fewer neighbors are found and
+        ``defect`` is False a :class:`ValueError` is raised; if ``defect`` is
+        True missing neighbor slots are filled with the center index.
+    defect : bool, optional
+        When True, allow centers with fewer than ``neighbor_num`` neighbors and
+        fill missing entries with the center index (default: False).
+
+    Returns
+    -------
+    np.ndarray
+        Integer array of shape ``(n_centers, neighbor_num + 1)``. Each row
+        contains the center atom index followed by the neighbor atom indices.
+        Indices are 1-based.
+
+    Raises
+    ------
+    ValueError
+        If any center atom has fewer than ``neighbor_num`` neighbors and
+        ``defect`` is False.
+
+    Notes
+    -----
+    - Internally the function uses :meth:`pymatgen.core.Structure.get_neighbor_list`.
+    - A small-cell check prints a warning if any cell vector length is less than
+      4.0 Å.
+    - Ensure that the provided ``atoms`` object has periodic boundary
+      conditions (PBC) and a valid cell when you expect PBC behavior.
+
+    Examples
+    --------
+        from ase.io import read
+        from ferrodispcalc.neighborlist import build_neighbor_list
+
+        atoms = read("POSCAR")
+        nl = build_neighbor_list(
+            atoms,
+            center_elements=['Pb', 'Sr'],
+            neighbor_elements=['O'],
+            cutoff=4.0,
+            neighbor_num=12,
+            defect=False
+        )
+    """
+    
     # check the dim of cell, the small cell may cause error in neighbor list
     # the cutoff for this check is 4 Ang.
     CUTOFF = 4.0
@@ -77,3 +137,30 @@ def build_neighbor_list(atoms: Atoms,
     nl = np.concatenate([center_elements_index[:,np.newaxis], neighbor_elements_index], axis=1)
     nl +=1 # convert the index to 1-based
     return nl
+
+def save_neighbor_list(nl: np.ndarray, file_name: str, zero_based: bool=False) -> None:
+    """Save a neighbor list array to a text file.
+
+    Parameters
+    ----------
+    nl : np.ndarray
+        Neighbor list array as returned by :func:`build_neighbor_list`. The
+        function expects an integer array where each row contains a center
+        index followed by neighbor indices.
+    file_name : str
+        Output file path. The neighbor list will be written as a text file
+        with fixed-width integer columns.
+    zero_based : bool, optional
+        If True, convert indices to zero-based before saving. By default the
+        neighbor list uses 1-based indices and ``zero_based`` is False.
+
+    Examples
+    --------
+    >>> from ferrodispcalc.neighborlist import save_neighbor_list, build_neighbor_list
+    >>> nl = build_neighbor_list(...)
+    >>> save_neighbor_list(nl, 'nl.dat', zero_based=False)
+    """
+
+    nl_to_save = nl-1 if zero_based else nl
+    np.savetxt(file_name, nl_to_save, fmt='%5d')
+    print(f"Neighbor list saved to {file_name}")

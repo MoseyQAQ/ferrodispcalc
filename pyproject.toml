@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ferrodispcalc"
+dynamic = ["version"]
+description = "Ferroelectric displacement calculation utilities"
+requires-python = ">=3.9"
+authors = [ { name = "MoseyQAQ" } ]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering",
+]
+
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "ase",
+    "pymatgen",
+    "dpdata"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/MoseyQAQ/ferrodispcalc"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "ferrodispcalc.__version__" }
+
+[project.optional-dependencies]
+test = ['pytest']

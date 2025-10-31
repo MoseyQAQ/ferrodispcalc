@@ -173,3 +173,6 @@ ferrodispcalc/1.vasp
 ferrodispcalc/nl.dat
 ferrodispcalc/test.py
 ferrodispcalc/Sc8_0.vasp
+
+# MacOS
+.DS_Store
