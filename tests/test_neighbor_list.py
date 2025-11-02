@@ -1,5 +1,5 @@
-import numpy as np
 import pytest
+import numpy as np
 from pathlib import Path
 from ferrodispcalc.neighborlist import build_neighbor_list
 from ase.io import read 
