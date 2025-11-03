@@ -1,6 +1,6 @@
 import numpy as np
 from ase import Atoms
-
+np.set_printoptions(precision=2, suppress=True)
 
 def calculate_displacement(traj: list[Atoms], nl: np.ndarray, select: list[int] | slice = None) -> np.ndarray:
 
@@ -89,7 +89,7 @@ def calculate_polarization(traj,
             b_coords_frac = np.dot(b_coords, cell_inv)
             a_coords_frac = np.dot(a_coords, cell_inv)
             x_coords_frac = np.dot(x_coords, cell_inv)
-
+            
             # 4. apply mic to frac coordinates, and update coordinates of a and x
             a_coords_diff_frac = a_coords_frac - b_coords_frac
             x_coords_diff_frac = x_coords_frac - b_coords_frac
@@ -102,13 +102,13 @@ def calculate_polarization(traj,
 
             # 5. calculate polarization
             polarization[i, j] = b_coords * bec[b_id] + np.sum(a_coords * bec[a_id][:, np.newaxis], axis=0) / 8 + np.sum(x_coords * bec[x_id][:, np.newaxis], axis=0) / 2
-            
+        
         # 6. convert to C/m^2
         polarization[i] = polarization[i] * conversion_factor / volume_per_uc
         
     return polarization
 
-def compute_averaged_structure(traj: list[Atoms], select: list[int] | slice = None) -> Atoms:
+def calculate_averaged_structure(traj: list[Atoms], select: list[int] | slice = None) -> Atoms:
     
     # 1. determine frames to select
     nframe = len(traj)

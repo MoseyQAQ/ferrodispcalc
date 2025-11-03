@@ -1,15 +1,29 @@
 '''
-type_map.py: 
-    This file contains the common type map.
-
-type_map: map the element into an integer.
+Used for common configuration, including type map and born effective charges.
 
 Author: Denan Li
 Last modified: 2024-07-15
 Email: lidenan@westlake.edu.cn
 '''
 
+# Type Map: map the element to the int.
 UniPero: list[str] = ['Ba','Pb','Ca','Sr','Bi',
             'K','Na','Hf','Ti','Zr',
             'Nb','Mg','In','Zn','O']
 PSTO: list[str]=['Sr','Pb','Ti','O']
+
+TypeMap = {
+    'UniPero': UniPero,
+    'PSTO': PSTO
+}
+
+# Commonly used Born effective charges for perovskites.
+PTO = {
+    'Pb': 3.44,
+    'Ti': 5.18,
+    'O': -(3.44+5.18)/3
+}
+
+BEC = {
+    'PTO': PTO
+}

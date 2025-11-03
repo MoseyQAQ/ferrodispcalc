@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from pathlib import Path
-from ferrodispcalc.compute import compute_averaged_structure
+from ferrodispcalc.compute import calculate_averaged_structure
 from ase.io import read 
 
 DATA_DIR = Path(__file__).parent / "data"
@@ -9,7 +9,7 @@ DATA_DIR = Path(__file__).parent / "data"
 def test_averaged_structure():
     traj = read(DATA_DIR / "PTO-300K.traj", index=":")
     ref = read(DATA_DIR / "PTO-300K-avg.vasp")
-    avg = compute_averaged_structure(traj, select=slice(0, 20, 1))
+    avg = calculate_averaged_structure(traj, select=slice(0, 20, 1))
 
     cell = avg.get_cell().array
     ref_cell = ref.get_cell().array

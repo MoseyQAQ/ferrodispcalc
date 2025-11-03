@@ -6,6 +6,13 @@ from ase.io import read
 
 DATA_DIR = Path(__file__).parent / "data"
 
+def sort_neighbor_list(nl):
+    '''Help function to sort neighbor lists for comparison.'''
+    centers = nl[:, 0:1]
+    neighbors = nl[:, 1:]
+    neighbors_sorted = np.sort(neighbors, axis=1)
+    return np.hstack((centers, neighbors_sorted))
+
 def test_build_neighbor_list():
     # 1. Load atoms and reference
     atoms_pto = read(DATA_DIR / "PTO-T.vasp")
@@ -41,7 +48,14 @@ def test_build_neighbor_list():
             neighbor_num=8,
             defect=False
         )
+        
+        nl_ao = sort_neighbor_list(nl_ao)
+        nl_bo = sort_neighbor_list(nl_bo)
+        nl_ba = sort_neighbor_list(nl_ba)
+        nl_ao_ref = sort_neighbor_list(nl['ao'])
+        nl_bo_ref = sort_neighbor_list(nl['bo'])
+        nl_ba_ref = sort_neighbor_list(nl['ba'])
 
-        assert np.allclose(nl_ao, nl['ao'])
-        assert np.allclose(nl_bo, nl['bo'])
-        assert np.allclose(nl_ba, nl['ba'])
+        assert np.allclose(nl_ao, nl_ao_ref)
+        assert np.allclose(nl_bo, nl_bo_ref)
+        assert np.allclose(nl_ba, nl_ba_ref)
