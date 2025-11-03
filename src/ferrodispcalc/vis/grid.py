@@ -15,9 +15,9 @@ def grid_data(atoms: Atoms,
 
     # 2. get the layer tags and size
     def __get_layers(atoms, axis, tol):
-        tag_x, _ = get_layers(clean_atoms, axis[0], tolerance=tol)
-        tag_y, _ = get_layers(clean_atoms, axis[1], tolerance=tol)
-        tag_z, _ = get_layers(clean_atoms, axis[2], tolerance=tol)
+        tag_x, _ = get_layers(atoms, axis[0], tolerance=tol)
+        tag_y, _ = get_layers(atoms, axis[1], tolerance=tol)
+        tag_z, _ = get_layers(atoms, axis[2], tolerance=tol)
         tag = np.concatenate((tag_x[:, np.newaxis], tag_y[:, np.newaxis], tag_z[:, np.newaxis]), axis=1)
         size = [len(set(tag_x)), len(set(tag_y)), len(set(tag_z))]
         return tag, size
@@ -26,6 +26,7 @@ def grid_data(atoms: Atoms,
 
     # 3. check target size; if not matched, try to avoid boundary issues
     if target_size is not None and not np.allclose(size, target_size):
+        print(f"Warning: Target size = {target_size}, actual size = {size}.\n Try to avoid boundary issues by shifting positions.")
         clean_atoms.positions += 1 # avoid boundary issues
         tag, size = __get_layers(clean_atoms, axis, tol)
         

@@ -64,6 +64,10 @@ def calculate_polarization(traj,
     natoms = _nl_ba.shape[0] # it's number of unit cells actually
     polarization = np.full((nframes, natoms, 3), np.nan) # shape: (nframes, natoms, 3)
     bec = np.array([born_effective_charge[atom.symbol] for atom in traj[0]]) # convet born effective charge to list
+    # the sum of bec should be small
+    if np.abs(np.sum(bec)) > 1.0E-5:
+        print(f"Warning: The sum of Born charge is {np.sum(bec)}. May lead to unphysical results.")
+
     conversion_factor = 1.602176E-19 * 1.0E-10 * 1.0E30 # convert to C/m^2
     
     # walk through frames
