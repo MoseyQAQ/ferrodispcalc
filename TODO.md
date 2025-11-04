@@ -1,4 +1,4 @@
-1. 绘图部分：代码，测试griding doing
+1. 绘图部分：1d 2d 3d + time-dependent
 2. 有用的function：极化量子相关
 3. IO部分
 4. LAMMPS plugin

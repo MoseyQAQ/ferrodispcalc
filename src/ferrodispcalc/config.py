@@ -4,6 +4,9 @@ Used for common configuration, including type map and born effective charges.
 Author: Denan Li
 Last modified: 2024-07-15
 Email: lidenan@westlake.edu.cn
+
+Todo:
+use data classes to manage the configuration.
 '''
 
 # Type Map: map the element to the int.
@@ -27,3 +30,5 @@ PTO = {
 BEC = {
     'PTO': PTO
 }
+
+# commonly used structure: PbTiO3, BaTiO3, SrTiO3, etc
