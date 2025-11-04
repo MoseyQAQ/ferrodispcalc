@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def line_profile(data: np.ndarray,
-                 ax: plt.Axes | None= None,
+                 ax: plt.Axes,
                  along: str = 'x',
-                 savepath: str | None = None,
-                 field_prefix: str | None = None,
-                 call_back: callable = None):
+                 savepath: str,
+                 field_prefix: str,
+                 call_back: callable):
     
     # 1. perfrom some checks on the input
     if data.ndim != 4 or data.shape[3] != 3:
@@ -21,6 +21,7 @@ def line_profile(data: np.ndarray,
     if field_prefix is None:
         field_prefix = 'v'
 
+    # 2. compute the mean profile along the specified axis
     mean_data = None
     x_label = ''
     if along == 'x':    
@@ -33,6 +34,7 @@ def line_profile(data: np.ndarray,
         mean_data = np.mean(data, axis=(0,1))  # Average over x and y
         x_label = 'Z-axis'
 
+    # 3. plot the mean profiles
     ax.plot(mean_data[:,0], label=f'${field_prefix}_x$', marker='o')
     ax.plot(mean_data[:,1], label=f'${field_prefix}_y$', marker='o')
     ax.plot(mean_data[:,2], label=f'${field_prefix}_z$', marker='o')
@@ -40,8 +42,10 @@ def line_profile(data: np.ndarray,
     ax.set_ylabel(f'${field_prefix}$')
     ax.legend()
 
+    # 4. execute the callback function if provided
     if call_back is not None:
         call_back(ax)
     
+    # 5. save the figure if savepath is provided
     if savepath is not None:
         plt.savefig(savepath, dpi=600) # a hardcoded dpi value, consider remove later
