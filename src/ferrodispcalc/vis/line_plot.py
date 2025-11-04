@@ -6,7 +6,7 @@ def line_profile(data: np.ndarray,
                  along: str = 'x',
                  savepath: str | None = None,
                  field_prefix: str | None = None,
-                 call_back: callable | None = None):
+                 call_back: callable = None):
     
     # 1. perfrom some checks on the input
     if data.ndim != 4 or data.shape[3] != 3:
@@ -18,10 +18,8 @@ def line_profile(data: np.ndarray,
     if along not in ['x', 'y', 'z']:
         raise ValueError(f"Invalid 'along' parameter: {along}. Expected 'x', 'y', or 'z'.")
     
-    if field_prefix is not None:
-        field_label = f"${field_prefix}_"
-    else:
-        field_label = "$v_"
+    if field_prefix is None:
+        field_prefix = 'v'
 
     mean_data = None
     x_label = ''
@@ -35,11 +33,11 @@ def line_profile(data: np.ndarray,
         mean_data = np.mean(data, axis=(0,1))  # Average over x and y
         x_label = 'Z-axis'
 
-    ax.plot(mean_data[:,0], label=f'{field_label}x$', marker='o')
-    ax.plot(mean_data[:,1], label=f'{field_label}y$', marker='o')
-    ax.plot(mean_data[:,2], label=f'{field_label}z$', marker='o')
+    ax.plot(mean_data[:,0], label=f'${field_prefix}_x$', marker='o')
+    ax.plot(mean_data[:,1], label=f'${field_prefix}_y$', marker='o')
+    ax.plot(mean_data[:,2], label=f'${field_prefix}_z$', marker='o')
     ax.set_xlabel(x_label)
-    ax.set_ylabel(f'{field_label}$')
+    ax.set_ylabel(f'${field_prefix}$')
     ax.legend()
 
     if call_back is not None:
