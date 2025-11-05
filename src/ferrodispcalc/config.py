@@ -4,21 +4,17 @@ Used for common configuration, including type map and born effective charges.
 Author: Denan Li
 Last modified: 2024-07-15
 Email: lidenan@westlake.edu.cn
-
-Todo:
-use data classes to manage the configuration.
 '''
 
-# Type Map: map the element to the int.
-UniPero: list[str] = ['Ba','Pb','Ca','Sr','Bi',
+from dataclasses import dataclass
+
+# 1. Type Map: Map the element to type
+@dataclass(frozen=True)
+class TypeMap:
+    UniPero: list[str] = ['Ba','Pb','Ca','Sr','Bi',
             'K','Na','Hf','Ti','Zr',
             'Nb','Mg','In','Zn','O']
-PSTO: list[str]=['Sr','Pb','Ti','O']
-
-TypeMap = {
-    'UniPero': UniPero,
-    'PSTO': PSTO
-}
+    PSTO: list[str]=['Sr','Pb','Ti','O']
 
 # Commonly used Born effective charges for perovskites.
 PTO = {
