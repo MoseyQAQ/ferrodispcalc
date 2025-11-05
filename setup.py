@@ -21,6 +21,7 @@ elif sys.platform == 'darwin':
     cpp_args = [
         '-std=c++17'
     ]
+    link_args = []
 else:
     # GCC/Clang 标志
     cpp_args = [
