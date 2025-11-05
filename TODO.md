@@ -4,3 +4,4 @@
 4. LAMMPS plugin
 5.  文档和example
 6.  新的重大feature：限制性优化、g的计算、界面能的计算、DW构造、MC模拟、等！MD建模
+7.  内置DP模型

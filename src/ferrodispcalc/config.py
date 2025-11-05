@@ -7,14 +7,15 @@ Email: lidenan@westlake.edu.cn
 '''
 
 from dataclasses import dataclass
+from typing import Tuple
 
 # 1. Type Map: Map the element to type
 @dataclass(frozen=True)
 class TypeMap:
-    UniPero: list[str] = ['Ba','Pb','Ca','Sr','Bi',
+    UniPero: Tuple[str] = ('Ba','Pb','Ca','Sr','Bi',
             'K','Na','Hf','Ti','Zr',
-            'Nb','Mg','In','Zn','O']
-    PSTO: list[str]=['Sr','Pb','Ti','O']
+            'Nb','Mg','In','Zn','O')
+    PSTO: Tuple[str] = ('Sr','Pb','Ti','O')
 
 # Commonly used Born effective charges for perovskites.
 PTO = {
