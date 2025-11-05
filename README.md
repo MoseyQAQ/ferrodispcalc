@@ -16,7 +16,7 @@ Utilities for preprocessing and postprocessing molecular simulations of ferroele
 
 ## Gallery
 -------
-### The local polarization of (PbTiO$_3$)/(SrTiO$_3$) superlattice in real space.
+### The local polarization of (PbTiO<sub>3</sub>)/(SrTiO<sub>3</sub>) superlattice in real space.
 
 <div align=center>  
 <img src="./gallery/PTO-STO-superlattice/profile/YZ_0.png" width=40%>
@@ -24,7 +24,7 @@ Utilities for preprocessing and postprocessing molecular simulations of ferroele
 
 __Path:__ `./gallery/PTO-STO-superlattice/plot.py` 
 
-### Profile of Head-to-head charged 180-degree doamin wall in PbTiO$_3$
+### Profile of Head-to-head charged 180-degree domain wall in PbTiO<sub>3</sub>
 
 <div align=center>  
 <img src="./gallery/PTO-HH-DW/PTO-HH-DW-profile.png" width=100%>
