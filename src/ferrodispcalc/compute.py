@@ -1,5 +1,6 @@
 import numpy as np
 from ase import Atoms
+from tqdm import tqdm
 np.set_printoptions(precision=2, suppress=True)
 
 def __select_traj(traj: list[Atoms] | Atoms, select: list[int] | slice | None = None) -> list[Atoms]:
@@ -30,7 +31,8 @@ def calculate_displacement(traj: list[Atoms] | Atoms, nl: np.ndarray, select: li
     displacement = np.full((nframes, natoms, 3), np.nan) # shape: (nframes, nneighbors, 3)
         
     # 3. walk through frames
-    for i in range(nframes):
+    ranger = tqdm(range(nframes), desc="Calculating Displacement") if nframes > 10 else range(nframes)
+    for i in ranger:
         # 3.1 select center atoms and their coordinates
         center_id = _nl[:, 0]
         center_coords = coords[i, center_id]
@@ -78,7 +80,8 @@ def calculate_polarization(traj,
     conversion_factor = 1.602176E-19 * 1.0E-10 * 1.0E30 # convert to C/m^2
     
     # walk through frames
-    for i in range(nframes):
+    ranger = tqdm(range(nframes), desc="Calculating Polarization") if nframes > 10 else range(nframes)
+    for i in ranger:
         cell = cells[i]
         cell_inv = np.linalg.inv(cell)
         volume = np.abs(np.linalg.det(cell))
@@ -132,7 +135,9 @@ def calculate_octahedral_tilt(traj: list[Atoms] | Atoms, nl_bo: np.ndarray, sele
     assert _nl.shape[1] == 7, "Neighbor list for octahedral tilt calculation must have 6 neighbors."
     octahedral_tilt = np.full((nframes, natoms, 3), np.nan) # shape: (nframes, natoms, 3)
 
-    for i in range(nframes):
+    # 3. walk through frames
+    ranger = tqdm(range(nframes), desc="Calculating Octahedral Tilt") if nframes > 10 else range(nframes)
+    for i in ranger:
         center_id = _nl[:, 0]
         center_coords = coords[i, center_id]
         cell = cells[i]
