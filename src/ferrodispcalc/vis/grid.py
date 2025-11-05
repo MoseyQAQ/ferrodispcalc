@@ -5,7 +5,7 @@ from ase import Atoms
 def grid_data(atoms: Atoms,
               data: np.ndarray,
               element: list[str],
-              target_size: tuple[int, int, int],
+              target_size: tuple[int, int, int] | None = None,
               tol: float = 1.0,
               axis: tuple[tuple, tuple, tuple] = ((1, 0, 0), (0, 1, 0), (0, 0, 1))):
 
