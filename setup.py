@@ -16,6 +16,11 @@ if sys.platform == 'win32':
         '/D_WIN32'
     ]
     link_args = []
+elif sys.platform == 'darwin':
+    # For now, openMP is disabled in MacOS due to complexity in setup.
+    cpp_args = [
+        '-std=c++17'
+    ]
 else:
     # GCC/Clang 标志
     cpp_args = [
