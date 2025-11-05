@@ -2,12 +2,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def line_profile(data: np.ndarray,
-                 ax: plt.Axes,
-                 along: str,
-                 savepath: str,
-                 field_prefix: str,
-                 call_back: callable):
-    
+                 ax: plt.Axes = None,
+                 along: str = 'x',
+                 savepath: str = None,
+                 field_prefix: str = None,
+                 call_back: callable = None):
+
     # 1. perfrom some checks on the input
     if data.ndim != 4 or data.shape[3] != 3:
         raise ValueError(f"Your data shape: {data.shape}. Expected shape: (nx, ny, nz, 3).")

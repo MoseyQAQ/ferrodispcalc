@@ -163,14 +163,16 @@ def plane_profile(data: np.ndarray,
 
     # 3. 解析 select 字典
     if select is None:
-        select = {}
+        select = {'x': list(range(size[0])),
+                  'y': list(range(size[1])),
+                  'z': list(range(size[2]))}
     
     # 'z' 键用于选择 XY 平面 (沿 z 轴切片)
     # 'y' 键用于选择 XZ 平面 (沿 y 轴切片)
     # 'x' 键用于选择 YZ 平面 (沿 x 轴切片)
-    indices_z = select.get('z', range(size[2]))
-    indices_y = select.get('y', range(size[1]))
-    indices_x = select.get('x', range(size[0]))
+    indices_z = select.get('z', [])
+    indices_y = select.get('y', [])
+    indices_x = select.get('x', [])
 
     # --- 4. 循环绘图 ---
 
