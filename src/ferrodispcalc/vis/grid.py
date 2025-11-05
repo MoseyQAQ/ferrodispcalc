@@ -5,9 +5,9 @@ from ase import Atoms
 def grid_data(atoms: Atoms,
               data: np.ndarray,
               element: list[str],
+              target_size: tuple[int, int, int],
               tol: float = 1.0,
-              axis: tuple[tuple, tuple, tuple] = ((1, 0, 0), (0, 1, 0), (0, 0, 1)),
-              target_size: tuple[int, int, int] | None = None):
+              axis: tuple[tuple, tuple, tuple] = ((1, 0, 0), (0, 1, 0), (0, 0, 1))):
 
     # 1. get the atoms of interest
     element_index = [idx for idx, i in enumerate(atoms) if i.symbol in element]

@@ -102,7 +102,7 @@ def __plot_plane(dx: np.ndarray,
     plt.savefig(save_path, bbox_inches='tight', dpi=300)
     plt.close(fig)  # 关闭图像以释放内存
 
-def plot_planes(data: np.ndarray,
+def plane_profile(data: np.ndarray,
                 save_dir: Union[str, Path] = 'plane_plots',
                 relative: bool = True,
                 select: Optional[Dict[str, List[int]]] = None,

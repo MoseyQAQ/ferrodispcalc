@@ -29,8 +29,8 @@ def test_grid_data_single_frame():
         element=['Ti']
     )
 
-    ref_ao = ref['s_ao']
-    ref_bo = ref['s_bo']
+    ref_ao = ref['ao_single']
+    ref_bo = ref['bo_single']
 
     assert np.allclose(grid_ao, ref_ao, equal_nan=True)
     assert np.allclose(grid_bo, ref_bo, equal_nan=True)
@@ -53,8 +53,8 @@ def test_grid_data_multi_frame():
         element=['Ti']
     )
     
-    ref_ao = ref['m_ao']
-    ref_bo = ref['m_bo']
+    ref_ao = ref['ao_multi']
+    ref_bo = ref['bo_multi']
 
     assert np.allclose(grid_ao, ref_ao, equal_nan=True)
     assert np.allclose(grid_bo, ref_bo, equal_nan=True)

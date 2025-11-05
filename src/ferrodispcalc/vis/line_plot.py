@@ -3,7 +3,7 @@ import numpy as np
 
 def line_profile(data: np.ndarray,
                  ax: plt.Axes,
-                 along: str = 'x',
+                 along: str,
                  savepath: str,
                  field_prefix: str,
                  call_back: callable):
