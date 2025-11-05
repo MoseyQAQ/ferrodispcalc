@@ -166,15 +166,12 @@ def calculate_octahedral_tilt(traj: list[Atoms] | Atoms, nl_bo: np.ndarray, sele
             y_vector = (neighbors_coords[y_pos_idx] - neighbors_coords[y_neg_idx])
             z_vector = (neighbors_coords[z_pos_idx] - neighbors_coords[z_neg_idx])
 
-            print(x_vector, y_vector, z_vector) # debug
-
             x_angle = np.arccos(np.dot(x_vector, np.array([1,0,0])) / np.linalg.norm(x_vector))
             y_angle = np.arccos(np.dot(y_vector, np.array([0,1,0])) / np.linalg.norm(y_vector))
             z_angle = np.arccos(np.dot(z_vector, np.array([0,0,1])) / np.linalg.norm(z_vector))
 
             octahedral_tilt[i, j] = np.rad2deg([x_angle, y_angle, z_angle])
-            print(octahedral_tilt[i, j]) # debug
-            print("----") # debug
+            
     if nframes == 1:
         octahedral_tilt = octahedral_tilt[0]
         

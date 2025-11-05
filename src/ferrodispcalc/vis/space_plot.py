@@ -1,2 +1,2 @@
 def space_profile():
-    pass
+    raise NotImplementedError("This function is not yet implemented.")
