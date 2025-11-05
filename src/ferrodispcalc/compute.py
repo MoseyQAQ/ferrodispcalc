@@ -2,7 +2,7 @@ import numpy as np
 from ase import Atoms
 np.set_printoptions(precision=2, suppress=True)
 
-def __select_traj(traj: list[Atoms] | Atoms, select: list[int] | slice | None) -> list[Atoms]:
+def __select_traj(traj: list[Atoms] | Atoms, select: list[int] | slice | None = None) -> list[Atoms]:
     nframe = len(traj)
 
     # 1. default: select last 50% frames

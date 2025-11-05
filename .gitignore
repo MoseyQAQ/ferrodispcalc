@@ -176,3 +176,14 @@ ferrodispcalc/Sc8_0.vasp
 
 # MacOS
 .DS_Store
+
+# C/C++ build artifacts
+*.so
+*.pyd
+*.dll
+build/
+dist/
+*.egg-info/
+
+# index file
+*.idx
