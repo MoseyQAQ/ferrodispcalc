@@ -31,7 +31,7 @@ def test_calculate_polarization():
 
     # 3. Calculate displacements
     bec = {'Pb': 3.44,'Ti': 5.18,'O': -(3.44+5.18)/3}
-    P = calculate_polarization([atoms], nl_ba, nl_bo, born_effective_charge=bec,select=slice(0,1,1))[0]
+    P = calculate_polarization(atoms, nl_ba, nl_bo, born_effective_charge=bec)
 
     # 4. Compare with reference
     assert np.allclose(P, P_ref, atol=1e-5)
