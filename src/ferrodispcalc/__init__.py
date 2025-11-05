@@ -1,2 +1,3 @@
-from ._build_neighbor_list import NeighborList
-from .compute._compute import Compute
+__version__ = "0.1.0"
+
+__all__ = ["__version__"]

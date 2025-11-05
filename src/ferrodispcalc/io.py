@@ -1,0 +1,30 @@
+from ase import Atoms 
+import dpdata
+
+def read_xyz(filename: str, select_frames: list = None, cache: bool = True) -> list[Atoms]:
+    '''
+    Read an XYZ trajectory file and return a list of ASE Atoms objects.
+
+    Parameters:
+    filename (str): Path to the XYZ file.
+    select_frames (list, optional): List of frame indices to read. If None, read all frames. Defaults to None.
+    cache (bool, optional): Whether to cache the read frames in memory. Defaults to True.
+    '''
+    pass
+
+def read_lammps_dump(filename: str) -> list[Atoms]:
+    '''
+    Read a LAMMPS dump file and return a list of ASE Atoms objects.
+
+    Parameters:
+    filename (str): Path to the LAMMPS dump file.
+
+    Returns:
+    list[Atoms]: List of ASE Atoms objects.
+    '''
+    pass
+
+def read_lammps_data(filename: str, type_map: list[str]) -> Atoms:
+    sys = dpdata.System(filename, fmt='lmp', type_map=type_map)
+    atoms =  sys.to_ase_structure()[0]
+    return atoms
