@@ -396,6 +396,12 @@ Frame LAMMPSReader::parse_frame_chunk(const char* frame_start, const char* frame
     frame.cell[2][1] = yz;
     frame.cell[2][2] = zhi_bound - zlo_bound;
 
+    // 3 个原点
+    const double origin_x = xlo;
+    const double origin_y = ylo;
+    const double origin_z = zlo_bound;
+
+
     // --- 5. 解析 ATOMS ---
     if (!std::getline(iss, line) || line.find("ITEM: ATOMS") == std::string::npos) {
         throw std::runtime_error("Parser: 'ITEM: ATOMS' not found.");
@@ -452,9 +458,9 @@ Frame LAMMPSReader::parse_frame_chunk(const char* frame_start, const char* frame
         
         // 存储数据 (按文件中的顺序，即索引 i)
         frame.types[i] = static_cast<int>(line_data[type_col]);
-        frame.positions[i * 3 + 0] = line_data[x_col];
-        frame.positions[i * 3 + 1] = line_data[y_col];
-        frame.positions[i * 3 + 2] = line_data[z_col];
+        frame.positions[i * 3 + 0] = line_data[x_col] - origin_x;
+        frame.positions[i * 3 + 1] = line_data[y_col] - origin_y;
+        frame.positions[i * 3 + 2] = line_data[z_col] - origin_z;
 
         // 存储其他属性
         for (const auto& prop : other_prop_cols) {
