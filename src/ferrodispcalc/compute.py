@@ -29,25 +29,31 @@ def calculate_displacement(traj: list[Atoms] | Atoms, nl: np.ndarray, select: li
     natoms = nl.shape[0]
     _nl = nl - 1 # convert to zero-based index
     displacement = np.full((nframes, natoms, 3), np.nan) # shape: (nframes, nneighbors, 3)
-        
+    
+    # 2. get indices
+    center_id = _nl[:, 0]
+    neighbors_id = _nl[:, 1:]
+
     # 3. walk through frames
     ranger = tqdm(range(nframes), desc="Calculating Displacement") if nframes > 10 else range(nframes)
     for i in ranger:
         # 3.1 select center atoms and their coordinates
-        center_id = _nl[:, 0]
-        center_coords = coords[i, center_id]
         cell = cells[i]
+        cell_inv = np.linalg.inv(cell)
+        frame_coords = coords[i]
+        center_coords = frame_coords[center_id] # shape: (natoms, 3)
+        neighbors_coords = frame_coords[neighbors_id] # shape: (natoms, num_neighbor, 3)
 
-        # 3.2 walk through neighbors
-        for j, neighbors in enumerate(_nl):
-            neighbors_id = neighbors[1:]
-            neighbors_coords = coords[i,neighbors_id]
-            neighbors_coords_diff = center_coords[j] - neighbors_coords
-            neighbors_coords_diff_frac = np.dot(neighbors_coords_diff, np.linalg.inv(cell))
-            neighbors_coords_diff_frac[neighbors_coords_diff_frac > 0.5] -= 1
-            neighbors_coords_diff_frac[neighbors_coords_diff_frac < -0.5] += 1
-            neighbors_coords_diff = np.dot(neighbors_coords_diff_frac, cell)
-            displacement[i, j] = np.mean(neighbors_coords_diff, axis=0)
+        # 3.2 update coordinates to account for MIC
+        center_coords_expanded = center_coords[:, np.newaxis, :]
+        neighbors_coords_diff = center_coords_expanded - neighbors_coords # shape: (natoms, num_neighbor, 3)
+        neighbors_coords_diff_frac = np.dot(neighbors_coords_diff, cell_inv)
+        neighbors_coords_diff_frac[neighbors_coords_diff_frac > 0.5] -= 1
+        neighbors_coords_diff_frac[neighbors_coords_diff_frac < -0.5] += 1
+
+        # 3.3 calculate displacement
+        neighbors_coords_diff = np.dot(neighbors_coords_diff_frac, cell)
+        displacement[i] = np.mean(neighbors_coords_diff, axis=1)
     
     if nframes == 1:
         displacement = displacement[0]
@@ -68,6 +74,7 @@ def calculate_polarization(traj,
     _nl_ba = nl_ba - 1
     _nl_bx = nl_bx - 1
     assert np.allclose(_nl_ba[:, 0], _nl_bx[:, 0]), "The center atom indices in nl_ba and nl_bx must be the same."
+    assert _nl_ba.shape[1] == 9 and _nl_bx.shape[1] == 7, "Neighbor list for polarization calculation must have 8 A-site neighbors and 6 X-site neighbors."
 
     nframes = coords.shape[0]
     natoms = _nl_ba.shape[0] # it's number of unit cells actually
@@ -78,7 +85,15 @@ def calculate_polarization(traj,
         print(f"Warning: The sum of Born charge is {np.sum(bec)}. May lead to unphysical results.")
 
     conversion_factor = 1.602176E-19 * 1.0E-10 * 1.0E30 # convert to C/m^2
-    
+
+    # get indices and bec
+    b_id = _nl_ba[:, 0] # shape: (natoms,)
+    a_id = _nl_ba[:, 1:] # shape: (natoms, 8)
+    x_id = _nl_bx[:, 1:] # shape: (natoms, 6)
+    bec_b = bec[b_id] # shape: (natoms,)
+    bec_a = bec[a_id] # shape: (natoms, 8)
+    bec_x = bec[x_id] # shape: (natoms, 6)
+
     # walk through frames
     ranger = tqdm(range(nframes), desc="Calculating Polarization") if nframes > 10 else range(nframes)
     for i in ranger:
@@ -86,39 +101,32 @@ def calculate_polarization(traj,
         cell_inv = np.linalg.inv(cell)
         volume = np.abs(np.linalg.det(cell))
         volume_per_uc = volume / natoms
-            
-        # walk through all unit cells
-        for j in range(natoms):
-            # 1. get id
-            b_id = _nl_ba[j, 0]
-            a_id = _nl_ba[j, 1:]
-            x_id = _nl_bx[j, 1:]
 
-            # 2. get coordinates
-            b_coords = coords[i, b_id]
-            a_coords = coords[i, a_id]
-            x_coords = coords[i, x_id]
+        # get the coordinates
+        frame_coords = coords[i]
+        b_coords = frame_coords[b_id] # shape: (natoms, 3)
+        a_coords = frame_coords[a_id] # shape: (natoms, 8, 3)
+        x_coords = frame_coords[x_id] # shape: (natoms, 6, 3)
+        b_coords_frac = np.dot(b_coords, cell_inv) # shape: (natoms, 3)
+        a_coords_frac = np.dot(a_coords, cell_inv) # shape: (natoms, 8, 3)
+        x_coords_frac = np.dot(x_coords, cell_inv) # shape: (natoms, 6, 3)
 
-            # 3. get frac coordinates
-            b_coords_frac = np.dot(b_coords, cell_inv)
-            a_coords_frac = np.dot(a_coords, cell_inv)
-            x_coords_frac = np.dot(x_coords, cell_inv)
-            
-            # 4. apply mic to frac coordinates, and update coordinates of a and x
-            a_coords_diff_frac = a_coords_frac - b_coords_frac
-            x_coords_diff_frac = x_coords_frac - b_coords_frac
-            a_coords_frac[a_coords_diff_frac > 0.5] -= 1
-            a_coords_frac[a_coords_diff_frac < -0.5] += 1
-            x_coords_frac[x_coords_diff_frac > 0.5] -= 1
-            x_coords_frac[x_coords_diff_frac < -0.5] += 1
-            a_coords = np.dot(a_coords_frac, cell)
-            x_coords = np.dot(x_coords_frac, cell)
+        # update coordinates to account for MIC
+        b_frac_expanded = b_coords_frac[:, np.newaxis, :] # shape: (natoms, 1, 3)
+        a_coords_diff_frac = a_coords_frac - b_frac_expanded # shape: (natoms, 8, 3)
+        x_coords_diff_frac = x_coords_frac - b_frac_expanded # shape: (natoms, 6, 3)
+        a_coords_frac[a_coords_diff_frac > 0.5] -= 1
+        a_coords_frac[a_coords_diff_frac < -0.5] += 1
+        x_coords_frac[x_coords_diff_frac > 0.5] -= 1
+        x_coords_frac[x_coords_diff_frac < -0.5] += 1
+        a_coords = np.dot(a_coords_frac, cell) # shape: (natoms, 8, 3)
+        x_coords = np.dot(x_coords_frac, cell) # shape: (natoms, 6, 3)
 
-            # 5. calculate polarization
-            polarization[i, j] = b_coords * bec[b_id] + np.sum(a_coords * bec[a_id][:, np.newaxis], axis=0) / 8 + np.sum(x_coords * bec[x_id][:, np.newaxis], axis=0) / 2
-        
-        # 6. convert to C/m^2
-        polarization[i] = polarization[i] * conversion_factor / volume_per_uc
+        # calculate polarization
+        pol_b = b_coords * bec_b[:, np.newaxis] # shape: (natoms, 3)
+        pol_a = np.sum(a_coords * bec_a[:, :, np.newaxis], axis=1) / 8 # shape: (natoms, 3)
+        pol_x = np.sum(x_coords * bec_x[:, :, np.newaxis], axis=1) / 2 # shape: (natoms, 3)
+        polarization[i] = (pol_b + pol_a + pol_x) * conversion_factor / volume_per_uc
     
     if nframes == 1:
         polarization = polarization[0]
