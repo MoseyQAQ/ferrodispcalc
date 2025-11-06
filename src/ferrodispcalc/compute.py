@@ -195,13 +195,21 @@ def calculate_averaged_structure(traj: list[Atoms], select: list[int] | slice | 
     selected_traj: list[Atoms] = __select_traj(traj, select)
     coords = np.array([atoms.get_positions() for atoms in selected_traj])
     cells = np.array([atoms.get_cell().array for atoms in selected_traj])
+    nframes = len(selected_traj)
 
-    # 3. update coordinates to account for PBC
-    coords_frac = np.array([np.dot(coords[i], np.linalg.inv(cells[i])) for i in range(len(coords))])
+    cells_inv = np.linalg.inv(cells)
+    coords_frac = np.matmul(coords, cells_inv)
     coords_frac_diff = coords_frac - coords_frac[0]
     coords_frac[coords_frac_diff > 0.5] -= 1
     coords_frac[coords_frac_diff < -0.5] += 1
-    coords = np.array([np.dot(coords_frac[i], cells[i]) for i in range(len(coords))])
+    coords_unwrapped = np.matmul(coords_frac, cells)
+
+    # 3. update coordinates to account for PBC
+    #coords_frac = np.array([np.dot(coords[i], np.linalg.inv(cells[i])) for i in range(len(coords))])
+    #coords_frac_diff = coords_frac - coords_frac[0]
+    #coords_frac[coords_frac_diff > 0.5] -= 1
+    #coords_frac[coords_frac_diff < -0.5] += 1
+    #coords = np.array([np.dot(coords_frac[i], cells[i]) for i in range(len(coords))])
 
     # 4. compute averaged structure
     avg_cell = np.mean(cells, axis=0)
