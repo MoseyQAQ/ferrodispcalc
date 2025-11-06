@@ -10,9 +10,13 @@ type_map = ['Sr', 'Pb', 'Ti', 'O']
 def test_io_lmp_dump():
     # 1. Load reference
     ref_traj = read(DATA_DIR / 'test.traj', index=':')
+    for atoms in ref_traj:
+        atoms.wrap()
 
     # 2. Load using ferrodispcalc
     traj = read_lammps_dump(DATA_DIR / "test.lammpstrj", type_map=type_map)
+    for atoms in traj:
+        atoms.wrap()
 
     # 3. Compare
     cells_ref = np.array([atoms.get_cell().array for atoms in ref_traj])
@@ -26,9 +30,13 @@ def test_io_lmp_dump():
 def test_io_lmp_dump_select():
     # 1. Load reference
     ref_traj = read(DATA_DIR / 'test.traj', index=slice(2,5))
+    for atoms in ref_traj:
+        atoms.wrap()
 
     # 2. Load using ferrodispcalc
     traj = read_lammps_dump(DATA_DIR / "test.lammpstrj", type_map=type_map, select=slice(2,5))
+    for atoms in traj:
+        atoms.wrap()
 
     # 3. Compare
     cells_ref = np.array([atoms.get_cell().array for atoms in ref_traj])
