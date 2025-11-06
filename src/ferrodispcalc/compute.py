@@ -195,7 +195,6 @@ def calculate_averaged_structure(traj: list[Atoms], select: list[int] | slice | 
     selected_traj: list[Atoms] = __select_traj(traj, select)
     coords = np.array([atoms.get_positions() for atoms in selected_traj])
     cells = np.array([atoms.get_cell().array for atoms in selected_traj])
-    nframes = len(selected_traj)
 
     cells_inv = np.linalg.inv(cells)
     coords_frac = np.matmul(coords, cells_inv)
@@ -213,7 +212,7 @@ def calculate_averaged_structure(traj: list[Atoms], select: list[int] | slice | 
 
     # 4. compute averaged structure
     avg_cell = np.mean(cells, axis=0)
-    avg_coords = np.mean(coords, axis=0)
+    avg_coords = np.mean(coords_unwrapped, axis=0)
     symbols = [atom.symbol for atom in traj[0]]
     atoms = Atoms(symbols=symbols, positions=avg_coords, cell=avg_cell, pbc=True)
     return atoms
