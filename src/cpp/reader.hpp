@@ -13,7 +13,11 @@
 #include <stdexcept>
 #include <cmath>
 #include <iomanip>
-#include <omp.h>
+
+#ifdef _OPENMP
+#include <omp.h>        // For OpenMP parallel read
+#endif
+
 #include "basic.hpp"
 #ifndef NOMINMAX
 #define NOMINMAX
