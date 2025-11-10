@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 from typing import Union, Dict, List, Tuple, Optional
+from matplotlib import animation
+
 
 def __cal_angle(dx: np.ndarray, dy: np.ndarray) -> np.ndarray:
     """
@@ -223,3 +225,165 @@ def plane_profile(data: np.ndarray,
                      xlabel="[010] (Y-axis)",
                      ylabel="[001] (Z-axis)",
                      save_dir=save_dir)
+        
+def plane_profile_multi(data: np.ndarray,
+                          select: List[Union[str, int, Union[slice, List[int]]]],
+                          save_name: Union[str, Path] = 'plane_plots.gif',
+                          relative: bool = True,
+                          hot: bool = True,
+                          fig_size: Union[str, Tuple[float, float]] = 'auto',
+                          fps: int = 10):
+    """
+    Plot 2D cross-sections of 5D vector data (nframe, nx, ny, nz, 3)
+    and save as a GIF using matplotlib.animation.
+    (使用 matplotlib.animation 绘制 5D 矢量数据的 2D 横截面并另存为 GIF)
+
+    Parameters:
+    -----------
+    data: np.ndarray
+        The 5D vector data in (nframe, nx, ny, nz, 3) format.
+    select: list
+        Defines the plot. Format: [plane_name, layer_index, frame_spec]
+        e.g., ['xz', 0, slice(0, None, 2)] -> XZ plane, y_index=0, every 2nd frame.
+    save_name: str | Path
+        The output filename (e.g., 'animation.gif').
+    relative: bool
+        Whether to plot the vector in the relative scale.
+    hot: bool
+        Whether to plot the angle in the hot colormap.
+    fig_size: str | tuple
+        The figure size: 'auto', 'default', or a (width, height) tuple.
+    fps: int
+        Frames per second for the output GIF.
+    """
+    
+    # 1. 解析 select 输入
+    plane_name = select[0].lower() # e.g., 'xz'
+    layer_index = select[1]      # e.g., 0
+    frame_spec = select[2]       # e.g., slice(0, None, 1)
+
+    # 2. 获取帧索引
+    nframe = data.shape[0]
+    if isinstance(frame_spec, slice):
+        frame_indices = list(range(nframe))[frame_spec]
+    else:
+        frame_indices = frame_spec
+        
+    if not frame_indices:
+        print("No frames selected to animate.")
+        return
+
+    # 3. 准备 quiver (矢量) 参数
+    quiver_kwargs = {}
+    if not relative:
+        quiver_kwargs['scale'] = 1
+        quiver_kwargs['scale_units'] = 'xy'
+            
+    # 4. 准备 fig_size (图像大小)
+    size = data.shape[1:4] # (nx, ny, nz)
+    fig_size_tuple: Optional[Tuple[float, float]] = None
+    
+    if fig_size == 'auto':
+        if plane_name == 'xy':
+            fig_size_tuple = (1.0 * size[0], 1.0 * size[1]) # (nx, ny)
+        elif plane_name == 'xz':
+            fig_size_tuple = (1.0 * size[0], 1.0 * size[2]) # (nx, nz)
+        elif plane_name == 'yz':
+            fig_size_tuple = (1.0 * size[1], 1.0 * size[2]) # (ny, nz)
+    elif fig_size == 'default':
+        fig_size_tuple = None
+    elif isinstance(fig_size, tuple):
+        fig_size_tuple = fig_size
+
+    # 5. 定义轴标签
+    labels = {
+        'xy': ("[100] (X-axis)", "[010] (Y-axis)"),
+        'xz': ("[100] (X-axis)", "[001] (Z-axis)"),
+        'yz': ("[010] (Y-axis)", "[001] (Z-axis)")
+    }
+    xlabel, ylabel = labels[plane_name]
+
+    # --- 6. 设置 Animation ---
+
+    # 6.1. 创建 Figure 和 Artists (仅一次)
+    if fig_size_tuple is not None:
+        fig, ax = plt.subplots(figsize=fig_size_tuple)
+    else:
+        fig, ax = plt.subplots()
+
+    # 6.2. 绘制第一帧 (frame_indices[0]) 作为初始状态
+    first_frame_index = frame_indices[0]
+    if plane_name == 'xy':
+        dx = data[first_frame_index, :, :, layer_index, 0].T 
+        dy = data[first_frame_index, :, :, layer_index, 1].T
+    elif plane_name == 'xz':
+        dx = data[first_frame_index, :, layer_index, :, 0].T
+        dy = data[first_frame_index, :, layer_index, :, 2].T
+    elif plane_name == 'yz':
+        dx = data[first_frame_index, layer_index, :, :, 1].T
+        dy = data[first_frame_index, layer_index, :, :, 2].T
+    
+    angle = __cal_angle(dx, dy)
+    
+    # 存储对 artists 的引用
+    qv = ax.quiver(dx, dy, **quiver_kwargs)
+    sc = None
+    if hot:
+        sc = ax.imshow(angle, cmap='hsv', vmax=360, vmin=0, aspect=1.0, 
+                      origin='lower', interpolation='none')
+    
+    title_obj = ax.set_title(f"{plane_name.upper()} plane, layer {layer_index}, frame {first_frame_index}")
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+
+    # 6.3. 定义 update 函数
+    def update(frame_index: int):
+        """
+        Animation update function.
+        (动画更新功能)
+        """
+        # (切片逻辑)
+        if plane_name == 'xy':
+            dx = data[frame_index, :, :, layer_index, 0].T 
+            dy = data[frame_index, :, :, layer_index, 1].T
+        elif plane_name == 'xz':
+            dx = data[frame_index, :, layer_index, :, 0].T
+            dy = data[frame_index, :, layer_index, :, 2].T
+        elif plane_name == 'yz':
+            dx = data[frame_index, layer_index, :, :, 1].T
+            dy = data[frame_index, layer_index, :, :, 2].T
+
+        # 更新 Artists 数据
+        qv.set_UVC(dx, dy)
+        
+        artists_to_return = [qv]
+        
+        if hot and sc is not None:
+            angle = __cal_angle(dx, dy)
+            sc.set_data(angle)
+            artists_to_return.append(sc)
+        
+        title_obj.set_text(f"{plane_name.upper()} plane, layer {layer_index}, frame {frame_index}")
+        artists_to_return.append(title_obj)
+        return tuple(artists_to_return)
+
+    # 6.4. 创建并保存动画
+    print(f"Creating animation ({len(frame_indices)} frames)...")
+    
+    # interval = 1000ms / fps
+    interval = 1000.0 / fps
+    
+    # blit=True 极大提高性能，它只重绘已更改的 artists
+    anim = animation.FuncAnimation(fig, update, frames=frame_indices, 
+                                   interval=interval, blit=True)
+    
+    # 7. 保存动画为 GIF
+    try:
+        anim.save(save_name, writer='pillow', fps=fps)
+        print(f"Successfully saved animation to {save_name}")
+    except Exception as e:
+        print(f"Failed to save animation: {e}")
+        print("Make sure 'pillow' (PIL) library is installed: pip install pillow")
+    
+    # 清理
+    plt.close(fig)
