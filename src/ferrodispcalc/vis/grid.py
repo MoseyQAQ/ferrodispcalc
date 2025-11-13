@@ -7,7 +7,8 @@ def grid_data(atoms: Atoms,
               element: list[str],
               target_size: tuple[int, int, int] | None = None,
               tol: float = 1.0,
-              axis: tuple[tuple, tuple, tuple] = ((1, 0, 0), (0, 1, 0), (0, 0, 1))):
+              axis: tuple[tuple, tuple, tuple] = ((1, 0, 0), (0, 1, 0), (0, 0, 1)),
+              return_coord: bool = False) -> np.ndarray | tuple[np.ndarray, np.ndarray]:
 
     # 1. get the atoms of interest
     element_index = [idx for idx, i in enumerate(atoms) if i.symbol in element]
@@ -49,4 +50,11 @@ def grid_data(atoms: Atoms,
     else:
         raise ValueError(f"We only accept data with shape [n_atoms, n_features] or [nframe, n_atoms, n_features]. Your data shape is {data.shape}.")
     
-    return results
+    # 5. if required, return the coordinates
+    if return_coord:
+        coord = np.full((size[0], size[1], size[2], 3), np.nan)
+        for i in range(len(clean_atoms)):
+            coord[tag[i,0], tag[i,1], tag[i,2], :] = clean_atoms.positions[i, :]
+        return results, coord
+    else:
+        return results
