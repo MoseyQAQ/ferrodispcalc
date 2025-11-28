@@ -1,6 +1,7 @@
 from ase import Atoms 
 import dpdata
-from typing import List, Union
+from typing import List, Union, Dict
+import numpy as np
 import pathlib
 try:
     import ferrodispcalc._cpp_bindings as _cpp
@@ -163,3 +164,28 @@ def read_lammps_data(filename: str, type_map: list[str]) -> Atoms:
     sys = dpdata.System(filename, fmt='lmp', type_map=type_map)
     atoms =  sys.to_ase_structure()[0]
     return atoms
+
+def read_lammps_log(file_name: str) -> Dict:
+    with open(file_name, 'r') as f:
+        line_idx = []
+        end_line_idx = []
+        for i, line in enumerate(f):
+            if line.startswith('Per MPI rank memory'):
+                line_idx.append(i+1)
+            if 'Loop time of' in line:
+                end_line_idx.append(i)
+                break
+    start_line_idx = line_idx[-1]
+    end_line_idx = end_line_idx[-1]
+    nframes = end_line_idx - start_line_idx - 1
+    keys = np.genfromtxt(file_name, skip_header=start_line_idx, max_rows=1, dtype=str)
+    data=np.genfromtxt(file_name, skip_header=start_line_idx+1, max_rows=nframes)
+    
+    assert len(keys) == data.shape[1], "Keys and data columns do not match."
+
+    data = {key: data[:, i] for i, key in enumerate(keys)}
+    data['nframes'] = nframes
+    print(f"Read {nframes} frames from {file_name}")
+    print(f"Found Keys: {keys}")
+
+    return data
