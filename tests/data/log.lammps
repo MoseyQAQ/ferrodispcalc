@@ -1,0 +1,1192 @@
+INFO: Will utilize CUDA MPS and run 2 Ranks-per-GPU.
+INFO: For 8V100 nodes, setting 'UCX_NET_DEVICES' to 'mlx5_3:1'. 
+
+Loading lammps/29aug2024-dpv3
+  Loading requirement: gcc/13.3.0 aocl/5.0.0-gcc fftw/3.3.10 cuda/12.4.1
+    nccl/2.26.2-cuda12.4 openmpi/5.0.7-cuda12.4-classic
+    lammps/29aug2024-cuda12.4-ompi5.0.7-sm70
+LAMMPS (29 Aug 2024 - Update 2)
+  using 2 OpenMP thread(s) per MPI task
+Loaded 1 plugins from /opt/apps/lammps/lmp240829_kk_gpu_cuda124_ompi507_sm70/lib/plugin
+2025-11-29 00:36:49.980182: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-11-29 00:36:49.980212: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-11-29 00:36:49.980204: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-11-29 00:36:49.980205: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-11-29 00:36:49.980667: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-11-29 00:36:49.980675: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-11-29 00:36:49.981055: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1764347809.989533 3273061 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1764347809.989530 3273060 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1764347809.989530 3273062 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1764347809.989951 3273069 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1764347809.990281 3273065 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1764347809.990750 3273068 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1764347809.991030 3273064 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1764347809.992423 3273060 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+E0000 00:00:1764347809.992425 3273062 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+E0000 00:00:1764347809.992429 3273061 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+E0000 00:00:1764347809.992915 3273069 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+E0000 00:00:1764347809.993206 3273065 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+E0000 00:00:1764347809.993722 3273068 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+E0000 00:00:1764347809.993974 3273064 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-11-29 00:36:49.995389: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+Loaded 1 plugins from /opt/apps/conda_env/deepmd-kit-3.0.3/lib/deepmd_lmp
+using multi-threaded neighbor list subroutines
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1764347810.005274 3273063 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1764347810.008123 3273063 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+Reading restart file ...
+  restart file = 29 Aug 2024, LAMMPS = 29 Aug 2024
+  restoring atom style atomic from restart
+  triclinic box = (0 0 -0.014804373) to (59.37 59.37 59.714804) with tilt (0 0 0)
+  2 by 2 by 2 MPI processor grid
+DeePMD-kit WARNING: Environmental variable DP_INTRA_OP_PARALLELISM_THREADS is not set. Tune DP_INTRA_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTER_OP_PARALLELISM_THREADS is not set. Tune DP_INTER_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+Summary of lammps deepmd module ...
+  >>> Info of deepmd-kit:
+  installed to:       /opt/apps/conda_env/deepmd-kit-3.0.3
+  source:             
+  source branch:      HEAD
+  source commit:      d8dccd5
+  source commit at:   2025-05-24 16:39:43 +0800
+  support model ver.: 1.1 
+  build variant:      cuda
+  build with tf inc:  /opt/apps/conda_env/deepmd-kit-3.0.3/lib/python3.12/site-packages/tensorflow/include;/opt/apps/conda_env/deepmd-kit-3.0.3/include
+  build with tf lib:  /opt/apps/conda_env/deepmd-kit-3.0.3/lib/python3.12/site-packages/tensorflow/libtensorflow_cc.so.2
+  build with pt lib:  torch;torch_library;/opt/apps/conda_env/deepmd-kit-3.0.3/lib/python3.12/site-packages/torch/lib/libc10.so;CUDA::nvrtc;torch::nvtoolsext;/opt/apps/conda_env/deepmd-kit-3.0.3/lib/python3.12/site-packages/torch/lib/libc10_cuda.so
+  set tf intra_op_parallelism_threads: 0
+  set tf inter_op_parallelism_threads: 0
+  >>> Info of lammps module:
+  use deepmd-kit at:  /opt/apps/conda_env/deepmd-kit-3.0.3  restoring pair style deepmd from restart
+  16875 atoms
+  read_restart CPU = 0.003 seconds
+3375 atoms in group Pb
+3375 atoms in group Ti
+10125 atoms in group O
+DeePMD-kit WARNING: Environmental variable DP_INTRA_OP_PARALLELISM_THREADS is not set. Tune DP_INTRA_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTER_OP_PARALLELISM_THREADS is not set. Tune DP_INTER_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTRA_OP_PARALLELISM_THREADS is not set. Tune DP_INTRA_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTER_OP_PARALLELISM_THREADS is not set. Tune DP_INTER_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTRA_OP_PARALLELISM_THREADS is not set. Tune DP_INTRA_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTER_OP_PARALLELISM_THREADS is not set. Tune DP_INTER_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTRA_OP_PARALLELISM_THREADS is not set. Tune DP_INTRA_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTER_OP_PARALLELISM_THREADS is not set. Tune DP_INTER_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTRA_OP_PARALLELISM_THREADS is not set. Tune DP_INTRA_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTER_OP_PARALLELISM_THREADS is not set. Tune DP_INTER_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTRA_OP_PARALLELISM_THREADS is not set. Tune DP_INTRA_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTER_OP_PARALLELISM_THREADS is not set. Tune DP_INTER_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTRA_OP_PARALLELISM_THREADS is not set. Tune DP_INTRA_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTER_OP_PARALLELISM_THREADS is not set. Tune DP_INTER_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTRA_OP_PARALLELISM_THREADS is not set. Tune DP_INTRA_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+DeePMD-kit WARNING: Environmental variable DP_INTER_OP_PARALLELISM_THREADS is not set. Tune DP_INTER_OP_PARALLELISM_THREADS for the best performance. See https://deepmd.rtfd.io/parallelism/ for more information.
+2025-11-29 00:36:51.575499: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1764347811.596597 3273061 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14529 MB memory:  -> device: 1, name: Tesla V100-SXM2-16GB, pci bus id: 0000:85:00.0, compute capability: 7.0
+2025-11-29 00:36:51.603574: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1764347811.607854 3273064 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14529 MB memory:  -> device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:84:00.0, compute capability: 7.0
+2025-11-29 00:36:51.608329: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-11-29 00:36:51.611426: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-11-29 00:36:51.614119: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-11-29 00:36:51.615178: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1764347811.620449 3273062 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14529 MB memory:  -> device: 2, name: Tesla V100-SXM2-16GB, pci bus id: 0000:c4:00.0, compute capability: 7.0
+I0000 00:00:1764347811.622975 3273065 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14529 MB memory:  -> device: 1, name: Tesla V100-SXM2-16GB, pci bus id: 0000:85:00.0, compute capability: 7.0
+I0000 00:00:1764347811.623857 3273063 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14529 MB memory:  -> device: 3, name: Tesla V100-SXM2-16GB, pci bus id: 0000:c5:00.0, compute capability: 7.0
+I0000 00:00:1764347811.624163 3273060 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14529 MB memory:  -> device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:84:00.0, compute capability: 7.0
+2025-11-29 00:36:51.644690: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-11-29 00:36:51.644676: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1764347811.649765 3273068 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14529 MB memory:  -> device: 2, name: Tesla V100-SXM2-16GB, pci bus id: 0000:c4:00.0, compute capability: 7.0
+I0000 00:00:1764347811.649845 3273069 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 14529 MB memory:  -> device: 3, name: Tesla V100-SXM2-16GB, pci bus id: 0000:c5:00.0, compute capability: 7.0
+I0000 00:00:1764347811.880028 3273061 mlir_graph_optimization_pass.cc:401] MLIR V1 optimization pass is not enabled
+I0000 00:00:1764347811.920457 3273064 mlir_graph_optimization_pass.cc:401] MLIR V1 optimization pass is not enabled
+I0000 00:00:1764347811.945212 3273060 mlir_graph_optimization_pass.cc:401] MLIR V1 optimization pass is not enabled
+I0000 00:00:1764347811.947024 3273062 mlir_graph_optimization_pass.cc:401] MLIR V1 optimization pass is not enabled
+I0000 00:00:1764347811.957110 3273063 mlir_graph_optimization_pass.cc:401] MLIR V1 optimization pass is not enabled
+I0000 00:00:1764347811.970040 3273068 mlir_graph_optimization_pass.cc:401] MLIR V1 optimization pass is not enabled
+I0000 00:00:1764347811.970932 3273069 mlir_graph_optimization_pass.cc:401] MLIR V1 optimization pass is not enabled
+I0000 00:00:1764347811.974089 3273065 mlir_graph_optimization_pass.cc:401] MLIR V1 optimization pass is not enabled
+  >>> Info of model(s):
+  using   1 model(s): /home/liushiLab/lidenan/spiral/compress01.pb 
+  rcut in model:      6
+  ntypes in model:    4
+Resetting global fix info from restart file:
+  fix style: npt/omp, fix ID: 1
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+- USER-DEEPMD package:
+The log file lists these citations in BibTeX format.
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Generated 0 of 6 mixed pair_coeff terms from geometric mixing rule
+All restart file global fix info was re-assigned
+No /omp style for force computation currently active
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 8
+  ghost atom cutoff = 8
+  binsize = 4, bins = 15 15 15
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair deepmd, perpetual
+      attributes: full, newton on, omp
+      pair build: full/bin/atomonly/omp
+      stencil: full/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.002
+Per MPI rank memory allocation (min/avg/max) = 4.941 | 4.95 | 4.975 Mbytes
+   Step          Time           Temp          TotEng         Press          Volume           Lx             Ly             Lz           v_Pbfx         v_Pbfy         v_Pbfz    
+         0   0              300.53307     -133037.97     -8678.1417      210534.74      59.37          59.37          59.729609      0              0              1.5448435e-15
+        10   0.02           300.31194     -133038.03     -8503.5156      210533.65      59.37          59.37          59.729299      0              0              1.9490623e-15
+        20   0.04           300.25874     -133038.12     -8346.784       210532.94      59.37          59.37          59.729099      0              0              2.4174737e-15
+        30   0.06           299.51787     -133038.21     -8735.0757      210533.25      59.37          59.37          59.729187      0              0              2.945412e-15 
+        40   0.08           298.89291     -133038.25     -8217.661       210534.31      59.37          59.37          59.729488      0              0              3.5200425e-15
+        50   0.1            299.56611     -133038.33     -8894.03        210536.06      59.37          59.37          59.729983      0              0              4.1167583e-15
+        60   0.12           299.47794     -133038.38     -9156.1832      210537.58      59.37          59.37          59.730415      0              0              4.694552e-15 
+        70   0.14           301.6538      -133038.48     -8807.8762      210538.28      59.37          59.37          59.730614      0              0              5.1901863e-15
+        80   0.16           304.02394     -133038.58     -9011.1266      210538.96      59.37          59.37          59.730807      0              0              5.5109928e-15
+        90   0.18           299.23368     -133038.55     -8885.2666      210539.58      59.37          59.37          59.730983      0              0              5.5261476e-15
+       100   0.2            302.05551     -133038.65     -8824.5805      210539.96      59.37          59.37          59.731091      0              0              5.0563191e-15
+       110   0.22           299.18961     -133038.68     -8786.0777      210540.41      59.37          59.37          59.731218      0              0              3.8616615e-15
+       120   0.24           301.98485     -133038.79     -9019.9696      210540.64      59.37          59.37          59.731283      0              0              1.6282439e-15
+       130   0.26           296.98171     -133038.81     -8512.3958      210540.22      59.37          59.37          59.731162      0              0             -2.0468149e-15
+       140   0.28           301.23142     -133038.93     -8492.6483      210539.75      59.37          59.37          59.731031      0              0             -7.6709919e-15
+       150   0.3            299.00107     -133038.96     -8723.222       210539.4       59.37          59.37          59.730932      0              0             -1.587194e-14 
+       160   0.32           301.21596     -133039.06     -8344.5028      210538.62      59.37          59.37          59.730711      0              0             -2.7411716e-14
+       170   0.34           301.92465     -133039.12     -8389.4314      210538.04      59.37          59.37          59.730545      0              0             -4.3197817e-14
+       180   0.36           301.11824     -133039.17     -8493.1523      210538.16      59.37          59.37          59.730579      0              0             -6.4288474e-14
+       190   0.38           301.14696     -133039.26     -8982.7555      210538.48      59.37          59.37          59.73067       0              0             -9.1888789e-14
+       200   0.4            299.02229     -133039.32     -8470.8492      210538.57      59.37          59.37          59.730697      0              0             -1.2733329e-13
+       210   0.42           302.26325     -133039.44     -8513.3387      210539.21      59.37          59.37          59.730876      0              0             -1.7204922e-13
+       220   0.44           299.99174     -133039.49     -8785.6772      210540.38      59.37          59.37          59.73121       0              0             -2.2749354e-13
+       230   0.46           300.45798     -133039.57     -8519.0002      210541.48      59.37          59.37          59.73152       0              0             -2.9505501e-13
+       240   0.48           300.26842     -133039.66     -8691.1444      210542.35      59.37          59.37          59.731768      0              0             -3.7591112e-13
+       250   0.5            300.16465     -133039.75     -9035.6255      210542.75      59.37          59.37          59.731882      0              0             -4.7082785e-13
+       260   0.52           298.22446     -133039.84     -8470.6241      210542.56      59.37          59.37          59.731828      0              0             -5.7988855e-13
+       270   0.54           299.46532     -133039.92     -8850.1755      210542.66      59.37          59.37          59.731855      0              0             -7.0213676e-13
+       280   0.56           303.55573     -133040.06     -8959.8687      210542.89      59.37          59.37          59.731921      0              0             -8.3511666e-13
+       290   0.58           295.79163     -133040.05     -8778.4101      210543.15      59.37          59.37          59.731994      0              0             -9.7429428e-13
+       300   0.6            300.843       -133040.18     -8703.1722      210543.25      59.37          59.37          59.732023      0              0             -1.1123431e-12
+       310   0.62           300.05656     -133040.22     -8938.3754      210542.73      59.37          59.37          59.731875      0              0             -1.2382795e-12
+       320   0.64           299.9672      -133040.29     -8747.7013      210541.35      59.37          59.37          59.731484      0              0             -1.3364374e-12
+       330   0.66           301.59144     -133040.41     -8576.6766      210539.38      59.37          59.37          59.730925      0              0             -1.3852772e-12
+       340   0.68           300.62407     -133040.47     -8448.4156      210537.09      59.37          59.37          59.730274      0              0             -1.3560336e-12
+       350   0.7            302.30417     -133040.58     -8178.7299      210535.12      59.37          59.37          59.729718      0              0             -1.2112216e-12
+       360   0.72           299.2804      -133040.64     -8655.8455      210533.96      59.37          59.37          59.729388      0              0             -9.0303477e-13
+       370   0.74           303.38431     -133040.77     -9014.0124      210532.43      59.37          59.37          59.728952      0              0             -3.7169856e-13
+       380   0.76           300.8783      -133040.84     -8533.5494      210529.83      59.37          59.37          59.728216      0              0              4.5613262e-13
+       390   0.78           300.73992     -133040.99     -8549.4446      210526.84      59.37          59.37          59.727367      0              0              1.6688036e-12
+       400   0.8            299.13757     -133041.07     -8419.1258      210523.65      59.37          59.37          59.726462      0              0              3.3707369e-12
+       410   0.82           297.9485      -133041.13     -8089.6504      210520.55      59.37          59.37          59.725583      0              0              5.6829289e-12
+       420   0.84           299.65155     -133041.25     -8416.5509      210518.03      59.37          59.37          59.724868      0              0              8.7425666e-12
+       430   0.86           297.96794     -133041.32     -9122.4548      210515.7       59.37          59.37          59.724207      0              0              1.2701395e-11
+       440   0.88           300.1117      -133041.4      -9074.5471      210512.92      59.37          59.37          59.72342       0              0              1.7722377e-11
+       450   0.9            300.96524     -133041.51     -8916.2778      210509.91      59.37          59.37          59.722563      0              0              2.3974113e-11
+       460   0.92           299.83425     -133041.62     -9022.5517      210507.11      59.37          59.37          59.721771      0              0              3.1622372e-11
+       470   0.94           300.12089     -133041.71     -8892.0187      210504.31      59.37          59.37          59.720976      0              0              4.0818022e-11
+       480   0.96           300.47634     -133041.81     -8583.0154      210501.15      59.37          59.37          59.72008       0              0              5.1680537e-11
+       490   0.98           298.23508     -133041.89     -8619.4267      210498.05      59.37          59.37          59.719201      0              0              6.4276223e-11
+       500   1              299.99917     -133041.98     -8967.1482      210494.49      59.37          59.37          59.71819       0              0              7.8590213e-11
+       510   1.02           299.4975      -133042.08     -8132.5365      210489.98      59.37          59.37          59.716911      0              0              9.4491338e-11
+       520   1.04           298.15115     -133042.17     -8023.5613      210485.85      59.37          59.37          59.715739      0              0              1.1168898e-10
+       530   1.06           300.98344     -133042.27     -8514.8183      210483.11      59.37          59.37          59.714961      0              0              1.2968117e-10
+       540   1.08           298.486       -133042.32     -8250.4602      210481.41      59.37          59.37          59.71448       0              0              1.4769339e-10
+       550   1.1            301.77995     -133042.45     -8743.9646      210480.88      59.37          59.37          59.714329      0              0              1.6460795e-10
+       560   1.12           299.61739     -133042.52     -8438.4866      210480.79      59.37          59.37          59.714304      0              0              1.7888416e-10
+       570   1.14           297.35234     -133042.62     -7777.9196      210480.53      59.37          59.37          59.714229      0              0              1.8847032e-10
+       580   1.16           300.89529     -133042.73     -7751.4872      210480.76      59.37          59.37          59.714293      0              0              1.9070943e-10
+       590   1.18           301.73218     -133042.8      -8191.3851      210481.97      59.37          59.37          59.714637      0              0              1.8224142e-10
+       600   1.2            299.49321     -133042.91     -8408.9711      210483.95      59.37          59.37          59.715199      0              0              1.589064e-10 
+       610   1.22           299.63061     -133043.01     -8515.6594      210486.62      59.37          59.37          59.715958      0              0              1.1565473e-10
+       620   1.24           301.56437     -133043.12     -8970.3984      210489.67      59.37          59.37          59.716823      0              0              4.6471957e-11
+       630   1.26           301.13553     -133043.23     -8681.5441      210492.29      59.37          59.37          59.717566      0              0             -5.5671428e-11
+       640   1.28           300.38927     -133043.29     -8323.8129      210494.32      59.37          59.37          59.718141      0              0             -1.9883261e-10
+       650   1.3            298.65334     -133043.39     -8084.729       210496.11      59.37          59.37          59.718648      0              0             -3.9205625e-10
+       660   1.32           298.5905      -133043.49     -8446.0317      210497.91      59.37          59.37          59.719159      0              0             -6.4526319e-10
+       670   1.34           297.63826     -133043.58     -8205.806       210499.25      59.37          59.37          59.719539      0              0             -9.6904683e-10
+       680   1.36           299.22201     -133043.72     -8419.5371      210500.01      59.37          59.37          59.719757      0              0             -1.3743532e-09
+       690   1.38           297.21585     -133043.82     -8845.632       210500.13      59.37          59.37          59.719789      0              0             -1.8720183e-09
+       700   1.4            298.63046     -133043.9      -8526.1764      210499.48      59.37          59.37          59.719605      0              0             -2.4721329e-09
+       710   1.42           299.13386     -133043.96     -8413.3731      210498.47      59.37          59.37          59.719318      0              0             -3.1832068e-09
+       720   1.44           298.18617     -133044.04     -8954.6708      210497.33      59.37          59.37          59.718995      0              0             -4.0111001e-09
+       730   1.46           300.42842     -133044.15     -8823.4202      210495.67      59.37          59.37          59.718525      0              0             -4.957694e-09 
+       740   1.48           299.68706     -133044.24     -8671.2804      210493.44      59.37          59.37          59.717893      0              0             -6.0192751e-09
+       750   1.5            298.40499     -133044.3      -8327.0683      210490.53      59.37          59.37          59.717066      0              0             -7.1846143e-09
+       760   1.52           300.63823     -133044.41     -8214.6905      210487.2       59.37          59.37          59.716123      0              0             -8.4327289e-09
+       770   1.54           301.1708      -133044.5      -8383.2396      210484.01      59.37          59.37          59.715216      0              0             -9.7303309e-09
+       780   1.56           300.73904     -133044.62     -8134.2722      210481.19      59.37          59.37          59.714418      0              0             -1.102898e-08 
+       790   1.58           298.58086     -133044.69     -8253.8738      210479         59.37          59.37          59.713796      0              0             -1.2261981e-08
+       800   1.6            299.0897      -133044.77     -8429.0954      210477.33      59.37          59.37          59.713322      0              0             -1.3341097e-08
+       810   1.62           300.53157     -133044.89     -7989.7481      210475.63      59.37          59.37          59.71284       0              0             -1.4153171e-08
+       820   1.64           300.10228     -133044.98     -7815.881       210474.25      59.37          59.37          59.712448      0              0             -1.4556803e-08
+       830   1.66           298.28366     -133045.05     -7958.7853      210473.59      59.37          59.37          59.71226       0              0             -1.4379253e-08
+       840   1.68           298.72134     -133045.14     -8182.2751      210473.41      59.37          59.37          59.712209      0              0             -1.3413818e-08
+       850   1.7            300.75916     -133045.24     -8791.577       210473.3       59.37          59.37          59.712178      0              0             -1.1417942e-08
+       860   1.72           294.63335     -133045.25     -9233.616       210472.62      59.37          59.37          59.711986      0              0             -8.112431e-09 
+       870   1.74           297.64595     -133045.39     -9000.8235      210471.7       59.37          59.37          59.711725      0              0             -3.1821431e-09
+       880   1.76           300.58063     -133045.49     -8921.146       210470.82      59.37          59.37          59.711473      0              0              3.7213649e-09
+       890   1.78           300.90424     -133045.59     -8885.1128      210470.03      59.37          59.37          59.711249      0              0              1.297474e-08 
+       900   1.8            299.76726     -133045.67     -8582.1531      210469.16      59.37          59.37          59.711003      0              0              2.4974717e-08
+       910   1.82           300.41983     -133045.75     -8387.2237      210468.25      59.37          59.37          59.710745      0              0              4.0126403e-08
+       920   1.84           298.83356     -133045.8      -8222.3583      210467.16      59.37          59.37          59.710437      0              0              5.8827345e-08
+       930   1.86           298.83013     -133045.86     -7988.7862      210465.75      59.37          59.37          59.710035      0              0              8.1446796e-08
+       940   1.88           300.13536     -133045.96     -8337.2095      210464.74      59.37          59.37          59.709749      0              0              1.082996e-07 
+       950   1.9            298.48741     -133046.05     -8231.7687      210464.42      59.37          59.37          59.709659      0              0              1.3961425e-07
+       960   1.92           298.26498     -133046.12     -7705.0252      210465.29      59.37          59.37          59.709906      0              0              1.7549467e-07
+       970   1.94           300.61418     -133046.23     -8201.7346      210467.75      59.37          59.37          59.710603      0              0              2.1587568e-07
+       980   1.96           298.22218     -133046.29     -7619.5146      210471.22      59.37          59.37          59.711589      0              0              2.6047202e-07
+       990   1.98           299.18773     -133046.38     -7944.3577      210475.67      59.37          59.37          59.71285       0              0              3.0872138e-07
+      1000   2              297.66156     -133046.45     -7998.7771      210480.89      59.37          59.37          59.714331      0              0              3.5972209e-07
+      1010   2.02           297.02616     -133046.5      -8449.1326      210486.69      59.37          59.37          59.715976      0              0              4.1216674e-07
+      1020   2.04           299.09181     -133046.58     -8918.5836      210492.39      59.37          59.37          59.717593      0              0              4.6427314e-07
+      1030   2.06           299.83978     -133046.64     -8668.0456      210497.75      59.37          59.37          59.719116      0              0              5.1371523e-07
+      1040   2.08           298.36884     -133046.71     -8781.539       210503.25      59.37          59.37          59.720676      0              0              5.575565e-07 
+      1050   2.1            298.35069     -133046.8      -9072.8981      210508.84      59.37          59.37          59.72226       0              0              5.9218981e-07
+      1060   2.12           298.83687     -133046.88     -8951.9811      210514.32      59.37          59.37          59.723815      0              0              6.1328776e-07
+      1070   2.14           297.38898     -133046.92     -9108.0592      210519.64      59.37          59.37          59.725326      0              0              6.157688e-07 
+      1080   2.16           298.93867     -133046.98     -8630.415       210524.67      59.37          59.37          59.726752      0              0              5.9378492e-07
+      1090   2.18           300.26352     -133047.03     -8573.3859      210529.85      59.37          59.37          59.728223      0              0              5.4073737e-07
+      1100   2.2            298.76602     -133047.07     -8183.6536      210535.36      59.37          59.37          59.729785      0              0              4.4932747e-07
+      1110   2.22           301.95891     -133047.19     -8252.5461      210541.73      59.37          59.37          59.731593      0              0              3.1165011e-07
+      1120   2.24           298.64495     -133047.21     -8434.0349      210549.48      59.37          59.37          59.73379       0              0              1.1933755e-07
+      1130   2.26           300.40724     -133047.3      -8171.4977      210558.38      59.37          59.37          59.736316      0              0             -1.362388e-07 
+      1140   2.28           300.17542     -133047.35     -8467.9277      210568.68      59.37          59.37          59.739238      0              0             -4.6370136e-07
+      1150   2.3            298.87875     -133047.41     -8669.6295      210580.19      59.37          59.37          59.742504      0              0             -8.7132752e-07
+      1160   2.32           297.93175     -133047.47     -8389.8707      210592.5       59.37          59.37          59.745995      0              0             -1.366634e-06 
+      1170   2.34           299.52592     -133047.54     -9218.2261      210605.27      59.37          59.37          59.74962       0              0             -1.9558809e-06
+      1180   2.36           298.0378      -133047.6      -9168.9532      210617.72      59.37          59.37          59.75315       0              0             -2.6434938e-06
+      1190   2.38           299.86413     -133047.69     -9141.1776      210630.22      59.37          59.37          59.756697      0              0             -3.4314076e-06
+      1200   2.4            297.61207     -133047.72     -9182.016       210642.58      59.37          59.37          59.760203      0              0             -4.318335e-06 
+      1210   2.42           296.73672     -133047.77     -9832.0787      210654.77      59.37          59.37          59.763663      0              0             -5.2989725e-06
+      1220   2.44           297.89262     -133047.83     -9919.3063      210666.37      59.37          59.37          59.766953      0              0             -6.3631565e-06
+      1230   2.46           296.7596      -133047.85     -9786.3899      210676.7       59.37          59.37          59.769884      0              0             -7.494991e-06 
+      1240   2.48           297.61033     -133047.92     -9106.8626      210685.63      59.37          59.37          59.772417      0              0             -8.6719723e-06
+      1250   2.5            295.96045     -133047.94     -9189.2041      210694         59.37          59.37          59.774793      0              0             -9.8641448e-06
+      1260   2.52           297.39842     -133047.97     -8982.3935      210702.1       59.37          59.37          59.77709       0              0             -1.1033325e-05
+      1270   2.54           301.39526     -133048.05     -9314.3812      210709.76      59.37          59.37          59.779263      0              0             -1.2132441e-05
+      1280   2.56           298.20676     -133048.05     -9062.5171      210716.47      59.37          59.37          59.781165      0              0             -1.3105036e-05
+      1290   2.58           298.10183     -133048.07     -9415.9356      210722.41      59.37          59.37          59.782852      0              0             -1.3884997e-05
+      1300   2.6            299.55405     -133048.11     -9404.001       210727.38      59.37          59.37          59.784263      0              0             -1.4396569e-05
+      1310   2.62           301.8066      -133048.17     -9484.4656      210731.52      59.37          59.37          59.785436      0              0             -1.4554708e-05
+      1320   2.64           298.0548      -133048.17     -9195.4084      210734.68      59.37          59.37          59.786333      0              0             -1.4265862e-05
+      1330   2.66           299.90115     -133048.23     -9732.8092      210737.31      59.37          59.37          59.787078      0              0             -1.3429216e-05
+      1340   2.68           299.33829     -133048.22     -9586.6342      210738.93      59.37          59.37          59.787539      0              0             -1.193848e-05 
+      1350   2.7            299.56622     -133048.26     -9493.3332      210739.63      59.37          59.37          59.787737      0              0             -9.6842671e-06
+      1360   2.72           298.59253     -133048.3      -9683.6163      210739.86      59.37          59.37          59.787801      0              0             -6.5571063e-06
+      1370   2.74           299.01496     -133048.34     -9351.7102      210739.83      59.37          59.37          59.787795      0              0             -2.4511123e-06
+      1380   2.76           294.98101     -133048.32     -9006.535       210740.09      59.37          59.37          59.787867      0              0              2.7316689e-06
+      1390   2.78           296.72731     -133048.35     -9645.4031      210740.96      59.37          59.37          59.788114      0              0              9.0762562e-06
+      1400   2.8            298.61358     -133048.39     -9972.8692      210741.36      59.37          59.37          59.788228      0              0              1.6649108e-05
+      1410   2.82           297.72758     -133048.4      -9843.8039      210741.1       59.37          59.37          59.788153      0              0              2.5491941e-05
+      1420   2.84           296.99441     -133048.42     -10186.791      210740.6       59.37          59.37          59.788012      0              0              3.5615105e-05
+      1430   2.86           297.91128     -133048.44     -9432.439       210739.66      59.37          59.37          59.787745      0              0              4.699063e-05 
+      1440   2.88           299.51624     -133048.44     -9618.1135      210739.04      59.37          59.37          59.787571      0              0              5.9545153e-05
+      1450   2.9            297.97334     -133048.44     -9785.5748      210738.44      59.37          59.37          59.787399      0              0              7.3152906e-05
+      1460   2.92           299.44322     -133048.48     -9709.5684      210737.25      59.37          59.37          59.787061      0              0              8.7629043e-05
+      1470   2.94           298.53057     -133048.47     -9538.393       210735.29      59.37          59.37          59.786507      0              0              0.00010272358
+      1480   2.96           299.58887     -133048.46     -10049.41       210733.26      59.37          59.37          59.785929      0              0              0.00011811629
+      1490   2.98           299.08371     -133048.42     -9185.4205      210731.1       59.37          59.37          59.785317      0              0              0.00013341287
+      1500   3              296.66349     -133048.42     -8768.22        210729.48      59.37          59.37          59.784859      0              0              0.00014814276
+      1510   3.02           296.14596     -133048.41     -9483.2514      210728.55      59.37          59.37          59.784593      0              0              0.00016175904
+      1520   3.04           299.66821     -133048.4      -9862.8879      210727.33      59.37          59.37          59.784246      0              0              0.00017364068
+      1530   3.06           301.67677     -133048.42     -9357.3703      210725.2       59.37          59.37          59.783642      0              0              0.00018309759
+      1540   3.08           299.99546     -133048.39     -9842.3504      210722.8       59.37          59.37          59.782963      0              0              0.00018937881
+      1550   3.1            299.93989     -133048.37     -9664.9949      210720.25      59.37          59.37          59.782238      0              0              0.00019168394
+      1560   3.12           297.39395     -133048.32     -9564.5678      210717.5       59.37          59.37          59.781458      0              0              0.00018917833
+      1570   3.14           299.87139     -133048.34     -9949.4941      210714.52      59.37          59.37          59.780614      0              0              0.00018101187
+      1580   3.16           298.69081     -133048.3      -10015.063      210710.69      59.37          59.37          59.779526      0              0              0.00016634158
+      1590   3.18           298.74624     -133048.28     -9553.4606      210705.41      59.37          59.37          59.778028      0              0              0.00014435783
+      1600   3.2            297.30811     -133048.21     -9536.9586      210699.24      59.37          59.37          59.776278      0              0              0.00011431395
+      1610   3.22           294.25765     -133048.13     -9292.5639      210692.5       59.37          59.37          59.774366      0              0              7.5558936e-05
+      1620   3.24           295.50746     -133048.1      -9742.1321      210685.41      59.37          59.37          59.772353      0              0              2.7572616e-05
+      1630   3.26           297.78109     -133048.06     -9766.3559      210677.68      59.37          59.37          59.770161      0              0             -2.9997424e-05
+      1640   3.28           298.00798     -133048        -9504.9812      210669.11      59.37          59.37          59.767729      0              0             -9.7297973e-05
+      1650   3.3            298.86505     -133047.96     -9159.6689      210659.67      59.37          59.37          59.765053      0              0             -0.00017423249
+      1660   3.32           296.79884     -133047.86     -8796.2768      210649.99      59.37          59.37          59.762305      0              0             -0.00026042475
+      1670   3.34           301.93714     -133047.81     -9370.7333      210640.26      59.37          59.37          59.759545      0              0             -0.00035518508
+      1680   3.36           299.5312      -133047.7      -9035.3219      210629.94      59.37          59.37          59.756617      0              0             -0.00045748083
+      1690   3.38           299.33764     -133047.59     -9522.0967      210619.33      59.37          59.37          59.753608      0              0             -0.00056591239
+      1700   3.4            301.34968     -133047.5      -9571.688       210608.18      59.37          59.37          59.750445      0              0             -0.00067869635
+      1710   3.42           299.50308     -133047.39     -9419.2136      210596.34      59.37          59.37          59.747086      0              0             -0.00079365754
+      1720   3.44           298.32244     -133047.29     -8766.494       210584.17      59.37          59.37          59.743633      0              0             -0.00090823113
+      1730   3.46           299.11149     -133047.17     -8883.7691      210572.34      59.37          59.37          59.740277      0              0             -0.0010194764 
+      1740   3.48           299.33594     -133047.05     -8606.8692      210560.24      59.37          59.37          59.736843      0              0             -0.0011241034 
+      1750   3.5            298.44361     -133046.94     -8759.6224      210547.52      59.37          59.37          59.733235      0              0             -0.0012185128 
+      1760   3.52           297.29284     -133046.82     -8754.183       210533.79      59.37          59.37          59.729339      0              0             -0.0012988511 
+      1770   3.54           297.45362     -133046.69     -8084.9111      210519.5       59.37          59.37          59.725284      0              0             -0.0013610793 
+      1780   3.56           297.26686     -133046.54     -8563.3911      210505.65      59.37          59.37          59.721356      0              0             -0.0014010568 
+      1790   3.58           298.55758     -133046.35     -9114.1677      210491.99      59.37          59.37          59.71748       0              0             -0.001414639  
+      1800   3.6            299.79786     -133046.17     -9022.7468      210478.02      59.37          59.37          59.713517      0              0             -0.0013977874 
+      1810   3.62           296.22573     -133045.98     -9282.3047      210463.47      59.37          59.37          59.709388      0              0             -0.0013466909 
+      1820   3.64           297.63374     -133045.85     -8985.3502      210447.47      59.37          59.37          59.704849      0              0             -0.001257896  
+      1830   3.66           299.38998     -133045.7      -8329.1665      210430.55      59.37          59.37          59.70005       0              0             -0.0011284431 
+      1840   3.68           299.16657     -133045.51     -8399.6573      210413.99      59.37          59.37          59.695351      0              0             -0.00095600536
+      1850   3.7            300.6239      -133045.33     -8188.9493      210397.91      59.37          59.37          59.690791      0              0             -0.00073902708
+      1860   3.72           298.66271     -133045.11     -8488.3891      210382.33      59.37          59.37          59.686369      0              0             -0.00047685694
+      1870   3.74           299.32123     -133044.92     -8077.0923      210367.07      59.37          59.37          59.682041      0              0             -0.00016987184
+      1880   3.76           299.18256     -133044.68     -7442.5021      210352.21      59.37          59.37          59.677824      0              0              0.00018041329
+      1890   3.78           300.1284      -133044.47     -7312.6906      210338.59      59.37          59.37          59.673959      0              0              0.00057125434
+      1900   3.8            299.14919     -133044.24     -7212.4384      210326.99      59.37          59.37          59.670671      0              0              0.00099861025
+      1910   3.82           300.57659     -133044.01     -7227.2943      210317.97      59.37          59.37          59.668111      0              0              0.001457103  
+      1920   3.84           300.45704     -133043.77     -7489.5807      210311.14      59.37          59.37          59.666172      0              0              0.0019400096 
+      1930   3.86           299.08224     -133043.54     -7252.6426      210305.67      59.37          59.37          59.66462       0              0              0.0024392887 
+      1940   3.88           300.46306     -133043.31     -6848.5539      210301.95      59.37          59.37          59.663566      0              0              0.0029456467 
+      1950   3.9            297.74154     -133043.04     -6934.1848      210300.36      59.37          59.37          59.663114      0              0              0.003448642  
+      1960   3.92           299.66106     -133042.87     -6534.894       210301         59.37          59.37          59.663295      0              0              0.0039368321 
+      1970   3.94           298.6671      -133042.65     -7344.6598      210304.15      59.37          59.37          59.66419       0              0              0.00439796   
+      1980   3.96           301.46799     -133042.5      -7827.7598      210309.08      59.37          59.37          59.665588      0              0              0.0048191808 
+      1990   3.98           301.62714     -133042.26     -7463.1348      210315.19      59.37          59.37          59.667322      0              0              0.0051873246 
+      2000   4              300.12875     -133041.98     -7677.2914      210322.93      59.37          59.37          59.669518      0              0              0.0054891921 
+      2010   4.02           297.18497     -133041.69     -7214.3087      210332.22      59.37          59.37          59.672152      0              0              0.0057118769 
+      2020   4.04           300.07886     -133041.47     -6891.9097      210343.52      59.37          59.37          59.675358      0              0              0.0058431098 
+      2030   4.06           301.13103     -133041.25     -7415.2186      210357.42      59.37          59.37          59.679304      0              0              0.0058716142 
+      2040   4.08           304.16291     -133041.04     -7856.1734      210373.04      59.37          59.37          59.683733      0              0              0.0057874672 
+      2050   4.1            300.41388     -133040.7      -7072.9093      210390.13      59.37          59.37          59.688583      0              0              0.0055824543 
+      2060   4.12           298.28098     -133040.34     -6797.7588      210409.59      59.37          59.37          59.694102      0              0              0.0052504089 
+      2070   4.14           301.28985     -133040.05     -6965.6452      210431.76      59.37          59.37          59.700392      0              0              0.0047875255 
+      2080   4.16           301.62045     -133039.83     -6926.983       210456.95      59.37          59.37          59.70754       0              0              0.0041926361 
+      2090   4.18           301.95256     -133039.71     -7699.3505      210485.48      59.37          59.37          59.715634      0              0              0.0034674402 
+      2100   4.2            300.94597     -133039.54     -7741.6458      210516.28      59.37          59.37          59.724372      0              0              0.0026166772 
+      2110   4.22           302.24984     -133039.37     -8712.0362      210548.96      59.37          59.37          59.733642      0              0              0.0016482347 
+      2120   4.24           303.12823     -133039.19     -8572.8084      210582.95      59.37          59.37          59.743287      0              0              0.00057318324
+      2130   4.26           301.03358     -133039.03     -8801.9764      210618.29      59.37          59.37          59.753313      0              0             -0.0005942672 
+      2140   4.28           299.26911     -133038.84     -9000.1451      210654.77      59.37          59.37          59.763663      0              0             -0.0018368931 
+      2150   4.3            300.78288     -133038.62     -9656.0788      210692.18      59.37          59.37          59.774275      0              0             -0.003134668  
+      2160   4.32           301.58485     -133038.31     -10724.654      210728.92      59.37          59.37          59.784698      0              0             -0.0044650563 
+      2170   4.34           299.84996     -133038.02     -10908.426      210763.27      59.37          59.37          59.794445      0              0             -0.0058033891 
+      2180   4.36           298.73653     -133037.77     -10715.318      210794.88      59.37          59.37          59.803412      0              0             -0.0071233155 
+      2190   4.38           300.93175     -133037.51     -11407.392      210823.56      59.37          59.37          59.811548      0              0             -0.0083973212 
+      2200   4.4            299.95988     -133037.22     -11027.861      210848.66      59.37          59.37          59.818671      0              0             -0.0095973067 
+      2210   4.42           301.0605      -133036.88     -11378.506      210870.27      59.37          59.37          59.824801      0              0             -0.01069521   
+      2220   4.44           298.14125     -133036.42     -11027.56       210887.73      59.37          59.37          59.829754      0              0             -0.011663659  
+      2230   4.46           298.86171     -133035.96     -10991.507      210900.4       59.37          59.37          59.833347      0              0             -0.012476648  
+      2240   4.48           298.28148     -133035.49     -10729.808      210907.58      59.37          59.37          59.835384      0              0             -0.013110199  
+      2250   4.5            298.43275     -133035.01     -11464.865      210908.8       59.37          59.37          59.835732      0              0             -0.013543017  
+      2260   4.52           301.0159      -133034.7      -11330.82       210902.9       59.37          59.37          59.834058      0              0             -0.013757103  
+      2270   4.54           299.27929     -133034.3      -11751.325      210889.79      59.37          59.37          59.830339      0              0             -0.013738311  
+      2280   4.56           300.7491      -133033.96     -11918.03       210868.94      59.37          59.37          59.824424      0              0             -0.013476836  
+      2290   4.58           300.63045     -133033.75     -11322.882      210840         59.37          59.37          59.816212      0              0             -0.012967616  
+      2300   4.6            299.89822     -133033.54     -11202.841      210803.29      59.37          59.37          59.805798      0              0             -0.012210625  
+      2310   4.62           300.27682     -133033.43     -10805.088      210758.63      59.37          59.37          59.793128      0              0             -0.011211069  
+      2320   4.64           299.17247     -133033.39     -10330.284      210706.36      59.37          59.37          59.778299      0              0             -0.0099794389 
+      2330   4.66           302.26663     -133033.44     -10064.821      210647.16      59.37          59.37          59.761502      0              0             -0.0085314597 
+      2340   4.68           301.17739     -133033.53     -9516.4206      210581.47      59.37          59.37          59.742865      0              0             -0.0068878915 
+      2350   4.7            299.9395      -133033.67     -9236.9899      210510.07      59.37          59.37          59.722609      0              0             -0.0050742121 
+      2360   4.72           302.62265     -133033.86     -8317.2651      210433.92      59.37          59.37          59.701006      0              0             -0.0031201729 
+      2370   4.74           300.95735     -133033.91     -7175.4762      210354.86      59.37          59.37          59.678575      0              0             -0.0010592397 
+      2380   4.76           300.75174     -133033.87     -7129.7142      210274.95      59.37          59.37          59.655906      0              0              0.0010720713 
+      2390   4.78           303.1041      -133033.74     -6188.2346      210195.93      59.37          59.37          59.633486      0              0              0.0032349453 
+      2400   4.8            300.98789     -133033.49     -5747.9324      210119.36      59.37          59.37          59.611763      0              0              0.0053890939 
+      2410   4.82           304.47405     -133033.23     -5634.1729      210045.78      59.37          59.37          59.590888      0              0              0.0074936306 
+      2420   4.84           304.69839     -133032.67     -4470.2677      209976.05      59.37          59.37          59.571107      0              0              0.0095079784 
+      2430   4.86           303.20747     -133031.87     -3547.9459      209912.5       59.37          59.37          59.553076      0              0              0.011392783  
+      2440   4.88           305.84195     -133031.1      -3608.5202      209857.17      59.37          59.37          59.537381      0              0              0.013110811  
+      2450   4.9            302.64454     -133030.41     -2528.2285      209811.3       59.37          59.37          59.524366      0              0              0.01462781   
+      2460   4.92           304.7933      -133030.13     -3151.5216      209776.47      59.37          59.37          59.514485      0              0              0.015913305  
+      2470   4.94           304.9084      -133029.83     -3010.1163      209752.43      59.37          59.37          59.507663      0              0              0.016941313  
+      2480   4.96           305.90955     -133029.29     -2355.6664      209738.79      59.37          59.37          59.503795      0              0              0.017690956  
+      2490   4.98           310.43728     -133028.75     -1752.5677      209736.32      59.37          59.37          59.503094      0              0              0.018146956  
+      2500   5              304.11382     -133028.42     -1659.54        209745.87      59.37          59.37          59.505803      0              0              0.0183       
+      2510   5.02           304.92841     -133028.67     -2069.9898      209767.44      59.37          59.37          59.511921      0              0              0.018146956  
+      2520   5.04           305.0292      -133029.26     -3023.0725      209800.32      59.37          59.37          59.521252      0              0              0.017690956  
+      2530   5.06           304.23351     -133029.85     -3951.988       209843.11      59.37          59.37          59.533389      0              0              0.016941313  
+      2540   5.08           302.45667     -133030.17     -4430.109       209894.26      59.37          59.37          59.547901      0              0              0.015913305  
+      2550   5.1            302.46484     -133030.42     -4398.5321      209952.88      59.37          59.37          59.564534      0              0              0.01462781   
+      2560   5.12           303.08128     -133030.84     -4191.3638      210018.56      59.37          59.37          59.583165      0              0              0.013110811  
+      2570   5.14           301.6046      -133031.4      -5192.7162      210090.33      59.37          59.37          59.603527      0              0              0.011392783  
+      2580   5.16           300.9913      -133031.88     -6197.0633      210166.14      59.37          59.37          59.625034      0              0              0.0095079784 
+      2590   5.18           303.33873     -133032.15     -7008.5512      210243.95      59.37          59.37          59.64711       0              0              0.0074936306 
+      2600   5.2            301.71549     -133032.24     -6998.2942      210322.77      59.37          59.37          59.669471      0              0              0.0053890939 
+      2610   5.22           303.56376     -133032.41     -7133.5384      210401.91      59.37          59.37          59.691925      0              0              0.0032349453 
+      2620   5.24           304.4467      -133032.62     -7372.148       210480.63      59.37          59.37          59.714259      0              0              0.0010720713 
+      2630   5.26           304.54202     -133032.74     -8068.6692      210558.36      59.37          59.37          59.73631       0              0             -0.0010592397 
+      2640   5.28           303.60829     -133032.68     -9242.3977      210633.22      59.37          59.37          59.757547      0              0             -0.0031201729 
+      2650   5.3            302.35732     -133032.59     -9323.9648      210702.79      59.37          59.37          59.777286      0              0             -0.0050742121 
+      2660   5.32           299.42899     -133032.56     -9384.3575      210766.81      59.37          59.37          59.795448      0              0             -0.0068878915 
+      2670   5.34           304.07224     -133032.54     -10157.328      210825.35      59.37          59.37          59.812056      0              0             -0.0085314597 
+      2680   5.36           301.55159     -133032.38     -10270.201      210877.63      59.37          59.37          59.826889      0              0             -0.0099794389 
+      2690   5.38           300.35382     -133031.98     -11287.987      210923.49      59.37          59.37          59.8399        0              0             -0.011211069  
+      2700   5.4            300.62771     -133031.46     -12285.147      210961.67      59.37          59.37          59.850731      0              0             -0.012210625  
+      2710   5.42           298.35825     -133031.07     -12554.959      210990.38      59.37          59.37          59.858875      0              0             -0.012967616  
+      2720   5.44           303.09099     -133031.06     -13161.002      211009.06      59.37          59.37          59.864175      0              0             -0.013476836  
+      2730   5.46           297.54234     -133031.09     -13249.457      211018.11      59.37          59.37          59.866743      0              0             -0.013738311  
+      2740   5.48           298.62812     -133031.15     -12601.941      211018.17      59.37          59.37          59.86676       0              0             -0.013757103  
+      2750   5.5            300.30092     -133031.1      -12923.173      211009.6       59.37          59.37          59.864329      0              0             -0.013543017  
+      2760   5.52           297.44918     -133031.1      -13008.126      210992.21      59.37          59.37          59.859396      0              0             -0.013110199  
+      2770   5.54           297.00739     -133031.3      -12335.405      210966.1       59.37          59.37          59.851987      0              0             -0.012476648  
+      2780   5.56           300.16693     -133031.69     -11874.705      210931.84      59.37          59.37          59.842268      0              0             -0.011663659  
+      2790   5.58           299.99933     -133032.12     -11758.2        210890.56      59.37          59.37          59.830556      0              0             -0.01069521   
+      2800   5.6            299.34298     -133032.49     -11359.221      210843.69      59.37          59.37          59.817258      0              0             -0.0095973067 
+      2810   5.62           299.66524     -133032.82     -10985.095      210792.16      59.37          59.37          59.802639      0              0             -0.0083973212 
+      2820   5.64           298.7924      -133033.12     -10356.081      210736.57      59.37          59.37          59.786868      0              0             -0.0071233155 
+      2830   5.66           301.89404     -133033.42     -9511.01        210678.26      59.37          59.37          59.770327      0              0             -0.0058033891 
+      2840   5.68           303.42064     -133033.65     -9318.3453      210618.5       59.37          59.37          59.753371      0              0             -0.0044650563 
+      2850   5.7            301.9641      -133033.84     -9016.3321      210557.72      59.37          59.37          59.736127      0              0             -0.003134668  
+      2860   5.72           302.95666     -133034.03     -8602.835       210496.84      59.37          59.37          59.718857      0              0             -0.0018368931 
+      2870   5.74           301.97612     -133034.08     -7918.2738      210437.39      59.37          59.37          59.701989      0              0             -0.0005942672 
+      2880   5.76           302.32537     -133034.14     -8058.3563      210380.32      59.37          59.37          59.685799      0              0              0.00057318324
+      2890   5.78           301.16857     -133034.15     -7814.2286      210325.6       59.37          59.37          59.670275      0              0              0.0016482347 
+      2900   5.8            303.46544     -133034.19     -7216.8796      210274.03      59.37          59.37          59.655645      0              0              0.0026166772 
+      2910   5.82           301.54471     -133034.15     -7343.5032      210226.47      59.37          59.37          59.642151      0              0              0.0034674402 
+      2920   5.84           303.1929      -133034.16     -6665.3135      210183.03      59.37          59.37          59.629826      0              0              0.0041926361 
+      2930   5.86           302.035       -133034.09     -6219.7975      210144.73      59.37          59.37          59.618963      0              0              0.0047875255 
+      2940   5.88           303.78458     -133034.12     -6864.533       210112.1       59.37          59.37          59.609705      0              0              0.0052504089 
+      2950   5.9            301.44394     -133034.13     -6152.7889      210084.72      59.37          59.37          59.601935      0              0              0.0055824543 
+      2960   5.92           300.04984     -133034.16     -5640.7582      210062.98      59.37          59.37          59.595769      0              0              0.0057874672 
+      2970   5.94           300.68532     -133034.22     -5823.8604      210047.33      59.37          59.37          59.591329      0              0              0.0058716142 
+      2980   5.96           303.16554     -133034.33     -5120.8921      210037.54      59.37          59.37          59.588551      0              0              0.0058431098 
+      2990   5.98           301.35716     -133034.49     -5064.7634      210033.66      59.37          59.37          59.587451      0              0              0.0057118769 
+      3000   6              300.04314     -133034.69     -5370.5189      210035.49      59.37          59.37          59.587969      0              0              0.0054891921 
+      3010   6.02           301.1795      -133034.89     -5690.1233      210042.25      59.37          59.37          59.589887      0              0              0.0051873246 
+      3020   6.04           300.85905     -133035.06     -6017.4153      210053.32      59.37          59.37          59.593029      0              0              0.0048191808 
+      3030   6.06           300.77354     -133035.25     -6383.0999      210068.7       59.37          59.37          59.597392      0              0              0.00439796   
+      3040   6.08           303.70684     -133035.52     -6531.543       210087.77      59.37          59.37          59.602802      0              0              0.0039368321 
+      3050   6.1            302.51886     -133035.76     -6870.6885      210109.54      59.37          59.37          59.608978      0              0              0.003448642  
+      3060   6.12           301.30409     -133035.93     -6898.4079      210133.46      59.37          59.37          59.615764      0              0              0.0029456467 
+      3070   6.14           300.22821     -133036.09     -6877.3845      210159.4       59.37          59.37          59.623122      0              0              0.0024392887 
+      3080   6.16           301.67863     -133036.29     -7256.6806      210186.91      59.37          59.37          59.630927      0              0              0.0019400096 
+      3090   6.18           301.39382     -133036.49     -7195.9216      210215.72      59.37          59.37          59.639101      0              0              0.001457103  
+      3100   6.2            300.75647     -133036.67     -7132.2355      210245.76      59.37          59.37          59.647624      0              0              0.00099861025
+      3110   6.22           301.45599     -133036.85     -7352.662       210276.34      59.37          59.37          59.6563        0              0              0.00057125434
+      3120   6.24           298.79919     -133037        -7006.7507      210306.93      59.37          59.37          59.664977      0              0              0.00018041329
+      3130   6.26           300.88374     -133037.2      -7539.2263      210337.88      59.37          59.37          59.673759      0              0             -0.00016987184
+      3140   6.28           302.18779     -133037.38     -7407.6798      210369.07      59.37          59.37          59.682606      0              0             -0.00047685694
+      3150   6.3            299.40858     -133037.49     -7567.4383      210400.09      59.37          59.37          59.691407      0              0             -0.00073902708
+      3160   6.32           302.23557     -133037.65     -8381.1996      210430.68      59.37          59.37          59.700088      0              0             -0.00095600536
+      3170   6.34           299.99209     -133037.74     -8254.9475      210460.31      59.37          59.37          59.708494      0              0             -0.0011284431 
+      3180   6.36           300.90428     -133037.88     -8792.4902      210488.36      59.37          59.37          59.716451      0              0             -0.001257896  
+      3190   6.38           298.59333     -133038.02     -8882.6952      210514.17      59.37          59.37          59.723772      0              0             -0.0013466909 
+      3200   6.4            301.07302     -133038.21     -8498.8083      210538.03      59.37          59.37          59.730541      0              0             -0.0013977874 
+      3210   6.42           302.37025     -133038.37     -8583.8743      210560.45      59.37          59.37          59.736903      0              0             -0.001414639  
+      3220   6.44           301.71273     -133038.5      -9381.7493      210581.13      59.37          59.37          59.742769      0              0             -0.0014010568 
+      3230   6.46           299.43907     -133038.63     -9214.0745      210599.27      59.37          59.37          59.747917      0              0             -0.0013610793 
+      3240   6.48           297.83945     -133038.77     -9534.4454      210615.3       59.37          59.37          59.752465      0              0             -0.0012988511 
+      3250   6.5            300.97257     -133038.94     -9530.0849      210628.95      59.37          59.37          59.756338      0              0             -0.0012185128 
+      3260   6.52           304.20575     -133039.16     -9224.2421      210640.42      59.37          59.37          59.75959       0              0             -0.0011241034 
+      3270   6.54           299.19725     -133039.31     -8353.3149      210650.81      59.37          59.37          59.762537      0              0             -0.0010194764 
+      3280   6.56           302.13503     -133039.48     -8923.7865      210660.89      59.37          59.37          59.765398      0              0             -0.00090823113
+      3290   6.58           301.37495     -133039.61     -9102.5065      210669.61      59.37          59.37          59.767872      0              0             -0.00079365754
+      3300   6.6            302.19469     -133039.81     -9236.7367      210676.54      59.37          59.37          59.769839      0              0             -0.00067869635
+      3310   6.62           300.31619     -133039.95     -9146.0149      210682.06      59.37          59.37          59.771403      0              0             -0.00056591239
+      3320   6.64           299.63344     -133040.14     -8959.1393      210686.69      59.37          59.37          59.772719      0              0             -0.00045748083
+      3330   6.66           297.45824     -133040.31     -8430.6776      210691.48      59.37          59.37          59.774076      0              0             -0.00035518508
+      3340   6.68           301.58759     -133040.5      -9332.49        210696.83      59.37          59.37          59.775595      0              0             -0.00026042475
+      3350   6.7            300.19343     -133040.65     -9558.9572      210701.23      59.37          59.37          59.776841      0              0             -0.00017423249
+      3360   6.72           300.32401     -133040.83     -9818.9051      210703.86      59.37          59.37          59.777588      0              0             -9.7297973e-05
+      3370   6.74           300.31824     -133040.99     -9797.074       210704.47      59.37          59.37          59.777762      0              0             -2.9997424e-05
+      3380   6.76           299.96133     -133041.15     -9410.9501      210703.51      59.37          59.37          59.777491      0              0              2.7572616e-05
+      3390   6.78           298.58866     -133041.25     -9190.294       210701.67      59.37          59.37          59.776969      0              0              7.5558936e-05
+      3400   6.8            302.37798     -133041.42     -9451.1982      210699.3       59.37          59.37          59.776295      0              0              0.00011431395
+      3410   6.82           298.29008     -133041.55     -9844.1856      210695.7       59.37          59.37          59.775273      0              0              0.00014435783
+      3420   6.84           297.57956     -133041.73     -9294.6115      210690.27      59.37          59.37          59.773732      0              0              0.00016634158
+      3430   6.86           297.36365     -133041.89     -8964.9487      210683.7       59.37          59.37          59.771869      0              0              0.00018101187
+      3440   6.88           299.43737     -133042.03     -8622.4648      210676.89      59.37          59.37          59.769937      0              0              0.00018917833
+      3450   6.9            299.84922     -133042.17     -8279.4316      210671.07      59.37          59.37          59.768287      0              0              0.00019168394
+      3460   6.92           299.76361     -133042.3      -9032.2572      210666.24      59.37          59.37          59.766915      0              0              0.00018937881
+      3470   6.94           299.08982     -133042.42     -8982.673       210660.89      59.37          59.37          59.765399      0              0              0.00018309759
+      3480   6.96           299.96961     -133042.55     -8464.3906      210654.78      59.37          59.37          59.763665      0              0              0.00017364068
+      3490   6.98           302.69466     -133042.7      -8732.8779      210648.44      59.37          59.37          59.761865      0              0              0.00016175904
+      3500   7              301.54909     -133042.8      -8467.8497      210641.96      59.37          59.37          59.760028      0              0              0.00014814276
+      3510   7.02           302.71103     -133042.95     -8608.3629      210636.34      59.37          59.37          59.758434      0              0              0.00013341287
+      3520   7.04           300.90645     -133043.07     -8987.9962      210631.57      59.37          59.37          59.75708       0              0              0.00011811629
+      3530   7.06           299.92814     -133043.21     -9161.7364      210626.41      59.37          59.37          59.755617      0              0              0.00010272358
+      3540   7.08           299.87254     -133043.35     -9115.3617      210620.25      59.37          59.37          59.753867      0              0              8.7629043e-05
+      3550   7.1            300.58162     -133043.47     -9007.3498      210613.49      59.37          59.37          59.75195       0              0              7.3152906e-05
+      3560   7.12           299.67948     -133043.57     -9010.745       210606.55      59.37          59.37          59.749982      0              0              5.9545153e-05
+      3570   7.14           301.25556     -133043.72     -8780.0427      210599.42      59.37          59.37          59.747958      0              0              4.699063e-05 
+      3580   7.16           299.61344     -133043.83     -8913.7622      210592.17      59.37          59.37          59.745902      0              0              3.5615105e-05
+      3590   7.18           296.11201     -133043.9      -8955.8412      210584.16      59.37          59.37          59.743631      0              0              2.5491941e-05
+      3600   7.2            298.2116      -133044.03     -9339.5254      210574.83      59.37          59.37          59.740984      0              0              1.6649108e-05
+      3610   7.22           298.49429     -133044.12     -8751.8712      210564.04      59.37          59.37          59.737922      0              0              9.0762562e-06
+      3620   7.24           298.44334     -133044.22     -8342.1826      210553.36      59.37          59.37          59.734891      0              0              2.7316689e-06
+      3630   7.26           298.94533     -133044.33     -8753.8581      210543.86      59.37          59.37          59.732196      0              0             -2.4511123e-06
+      3640   7.28           299.10597     -133044.4      -8596.3861      210534.84      59.37          59.37          59.729637      0              0             -6.5571063e-06
+      3650   7.3            300.32726     -133044.47     -8519.0685      210526.21      59.37          59.37          59.72719       0              0             -9.6842671e-06
+      3660   7.32           301.15992     -133044.54     -8515.3792      210517.59      59.37          59.37          59.724744      0              0             -1.193848e-05 
+      3670   7.34           300.416       -133044.63     -7904.1302      210508.14      59.37          59.37          59.722062      0              0             -1.3429216e-05
+      3680   7.36           300.694       -133044.69     -7409.8122      210498.89      59.37          59.37          59.719437      0              0             -1.4265862e-05
+      3690   7.38           303.55762     -133044.76     -8092.8141      210491.17      59.37          59.37          59.717247      0              0             -1.4554708e-05
+      3700   7.4            296.86312     -133044.76     -7893.6066      210484.44      59.37          59.37          59.715338      0              0             -1.4396569e-05
+      3710   7.42           300.67439     -133044.87     -8297.5952      210478.2       59.37          59.37          59.713567      0              0             -1.3884997e-05
+      3720   7.44           300.99711     -133044.94     -8497.9747      210472.09      59.37          59.37          59.711835      0              0             -1.3105036e-05
+      3730   7.46           298.12574     -133045        -8302.5013      210465.29      59.37          59.37          59.709905      0              0             -1.2132441e-05
+      3740   7.48           298.92789     -133045.11     -8157.2852      210457.92      59.37          59.37          59.707814      0              0             -1.1033325e-05
+      3750   7.5            297.01411     -133045.13     -8092.7643      210450.75      59.37          59.37          59.705781      0              0             -9.8641448e-06
+      3760   7.52           298.6858      -133045.2      -8267.8405      210444         59.37          59.37          59.703865      0              0             -8.6719723e-06
+      3770   7.54           300.67882     -133045.27     -8900.5998      210437.2       59.37          59.37          59.701935      0              0             -7.494991e-06 
+      3780   7.56           295.49511     -133045.28     -8921.4581      210429.43      59.37          59.37          59.699733      0              0             -6.3631565e-06
+      3790   7.58           297.06006     -133045.34     -8386.8457      210420.33      59.37          59.37          59.697151      0              0             -5.2989725e-06
+      3800   7.6            300.30736     -133045.41     -8464.249       210410.63      59.37          59.37          59.694399      0              0             -4.318335e-06 
+      3810   7.62           299.40447     -133045.45     -8216.5974      210401.03      59.37          59.37          59.691675      0              0             -3.4314076e-06
+      3820   7.64           298.58567     -133045.47     -7840.4443      210392.24      59.37          59.37          59.68918       0              0             -2.6434938e-06
+      3830   7.66           301.27193     -133045.5      -8130.4104      210384.51      59.37          59.37          59.686987      0              0             -1.9558809e-06
+      3840   7.68           298.8828      -133045.48     -8269.9888      210377.35      59.37          59.37          59.684958      0              0             -1.366634e-06 
+      3850   7.7            298.02057     -133045.5      -7851.1251      210370.58      59.37          59.37          59.683036      0              0             -8.7132752e-07
+      3860   7.72           297.71982     -133045.51     -7490.7116      210364.64      59.37          59.37          59.681352      0              0             -4.6370136e-07
+      3870   7.74           300.49575     -133045.53     -7236.9719      210360.41      59.37          59.37          59.68015       0              0             -1.362388e-07 
+      3880   7.76           299.91365     -133045.53     -7216.2073      210358.77      59.37          59.37          59.679685      0              0              1.1933755e-07
+      3890   7.78           299.41415     -133045.57     -7806.0123      210359.53      59.37          59.37          59.679902      0              0              3.1165011e-07
+      3900   7.8            298.97579     -133045.59     -7893.2522      210361.52      59.37          59.37          59.680466      0              0              4.4932747e-07
+      3910   7.82           297.92009     -133045.61     -7822.8407      210364.46      59.37          59.37          59.6813        0              0              5.4073737e-07
+      3920   7.84           301.19751     -133045.64     -8194.4145      210368.71      59.37          59.37          59.682505      0              0              5.9378492e-07
+      3930   7.86           298.33937     -133045.59     -7743.776       210374.11      59.37          59.37          59.684037      0              0              6.157688e-07 
+      3940   7.88           299.25205     -133045.62     -7821.3279      210381.41      59.37          59.37          59.686108      0              0              6.1328776e-07
+      3950   7.9            297.64812     -133045.63     -8101.5628      210390.65      59.37          59.37          59.688729      0              0              5.9218981e-07
+      3960   7.92           297.02562     -133045.65     -8431.475       210400.3       59.37          59.37          59.691467      0              0              5.575565e-07 
+      3970   7.94           300.00462     -133045.68     -8287.0536      210409.36      59.37          59.37          59.694039      0              0              5.1371523e-07
+      3980   7.96           299.05687     -133045.66     -8410.9395      210418.29      59.37          59.37          59.696571      0              0              4.6427314e-07
+      3990   7.98           299.4649      -133045.65     -7881.3864      210427.5       59.37          59.37          59.699185      0              0              4.1216674e-07
+      4000   8              298.1706      -133045.65     -7989.0531      210437.58      59.37          59.37          59.702045      0              0              3.5972209e-07
+      4010   8.02           298.10899     -133045.65     -8328.9642      210448.48      59.37          59.37          59.705138      0              0              3.0872138e-07
+      4020   8.04           299.90132     -133045.63     -8746.8232      210459.55      59.37          59.37          59.708277      0              0              2.6047202e-07
+      4030   8.06           299.99367     -133045.63     -8512.4982      210470.05      59.37          59.37          59.711257      0              0              2.1587568e-07
+      4040   8.08           299.22553     -133045.62     -8110.7647      210479.81      59.37          59.37          59.714025      0              0              1.7549467e-07
+      4050   8.1            299.48772     -133045.62     -7552.0259      210489.85      59.37          59.37          59.716874      0              0              1.3961425e-07
+      4060   8.12           301.39833     -133045.64     -7939.3496      210501.17      59.37          59.37          59.720086      0              0              1.082996e-07 
+      4070   8.14           298.49231     -133045.6      -8421.9001      210512.84      59.37          59.37          59.723395      0              0              8.1446796e-08
+      4080   8.16           299.47765     -133045.59     -8475.5633      210523.87      59.37          59.37          59.726524      0              0              5.8827345e-08
+      4090   8.18           298.24423     -133045.54     -8550.8657      210534.17      59.37          59.37          59.729447      0              0              4.0126403e-08
+      4100   8.2            298.21143     -133045.52     -8397.9781      210543.69      59.37          59.37          59.732148      0              0              2.4974717e-08
+      4110   8.22           299.87039     -133045.55     -8387.3323      210553.34      59.37          59.37          59.734886      0              0              1.297474e-08 
+      4120   8.24           297.91382     -133045.54     -8870.1204      210563.63      59.37          59.37          59.737806      0              0              3.7213649e-09
+      4130   8.26           299.68783     -133045.52     -9244.7675      210573.58      59.37          59.37          59.740629      0              0             -3.1821431e-09
+      4140   8.28           298.65364     -133045.46     -9313.2503      210581.89      59.37          59.37          59.742986      0              0             -8.112431e-09 
+      4150   8.3            299.50288     -133045.47     -9350.0133      210588.3       59.37          59.37          59.744805      0              0             -1.1417942e-08
+      4160   8.32           296.42753     -133045.42     -8215.2927      210593.56      59.37          59.37          59.746296      0              0             -1.3413818e-08
+      4170   8.34           300.01402     -133045.43     -8043.1566      210599.09      59.37          59.37          59.747864      0              0             -1.4379253e-08
+      4180   8.36           300.42847     -133045.41     -9042.0601      210605.39      59.37          59.37          59.749654      0              0             -1.4556803e-08
+      4190   8.38           300.93938     -133045.39     -9094.9345      210611.65      59.37          59.37          59.751429      0              0             -1.4153171e-08
+      4200   8.4            296.87145     -133045.32     -8674.6617      210617.32      59.37          59.37          59.753038      0              0             -1.3341097e-08
+      4210   8.42           301.84113     -133045.36     -8859.5026      210622.24      59.37          59.37          59.754434      0              0             -1.2261981e-08
+      4220   8.44           299.58481     -133045.3      -8620.65        210626.47      59.37          59.37          59.755634      0              0             -1.102898e-08 
+      4230   8.46           299.0455      -133045.28     -8411.4206      210630.88      59.37          59.37          59.756884      0              0             -9.7303309e-09
+      4240   8.48           303.10322     -133045.3      -8690.0384      210635.71      59.37          59.37          59.758254      0              0             -8.4327289e-09
+      4250   8.5            299.44254     -133045.22     -8890.1701      210640.45      59.37          59.37          59.7596        0              0             -7.1846143e-09
+      4260   8.52           298.61451     -133045.18     -9151.7497      210644.6       59.37          59.37          59.760776      0              0             -6.0192751e-09
+      4270   8.54           298.42034     -133045.13     -9643.2244      210647.5       59.37          59.37          59.761598      0              0             -4.957694e-09 
+      4280   8.56           299.02553     -133045.1      -9440.3021      210648.51      59.37          59.37          59.761886      0              0             -4.0111001e-09
+      4290   8.58           299.32206     -133045.08     -9307.1741      210648.43      59.37          59.37          59.761864      0              0             -3.1832068e-09
+      4300   8.6            298.17003     -133045.05     -9471.5569      210647.78      59.37          59.37          59.761679      0              0             -2.4721329e-09
+      4310   8.62           301.11101     -133045.1      -9434.3933      210645.92      59.37          59.37          59.76115       0              0             -1.8720183e-09
+      4320   8.64           297.96469     -133045.02     -9279.874       210642.9       59.37          59.37          59.760294      0              0             -1.3743532e-09
+      4330   8.66           299.15435     -133045        -9357.1928      210638.74      59.37          59.37          59.759115      0              0             -9.6904683e-10
+      4340   8.68           298.20138     -133044.96     -8472.7075      210633.35      59.37          59.37          59.757584      0              0             -6.4526319e-10
+      4350   8.7            300.65199     -133044.95     -8041.4428      210627.78      59.37          59.37          59.756005      0              0             -3.9205625e-10
+      4360   8.72           299.60274     -133044.91     -8836.9127      210623.05      59.37          59.37          59.754664      0              0             -1.9883261e-10
+      4370   8.74           299.62745     -133044.9      -8762.2928      210618.19      59.37          59.37          59.753284      0              0             -5.5671428e-11
+      4380   8.76           300.31404     -133044.87     -8705.1683      210612.98      59.37          59.37          59.751805      0              0              4.6471957e-11
+      4390   8.78           298.99868     -133044.81     -9104.8561      210607.5       59.37          59.37          59.750251      0              0              1.1565473e-10
+      4400   8.8            298.17156     -133044.79     -8574.5394      210601.23      59.37          59.37          59.748472      0              0              1.589064e-10 
+      4410   8.82           297.16125     -133044.78     -8229.6982      210594.88      59.37          59.37          59.74667       0              0              1.8224142e-10
+      4420   8.84           299.48216     -133044.76     -8788.7514      210589.35      59.37          59.37          59.745102      0              0              1.9070943e-10
+      4430   8.86           301.07319     -133044.73     -9293.9848      210584.02      59.37          59.37          59.743588      0              0              1.8847032e-10
+      4440   8.88           299.63769     -133044.73     -9150.7261      210577.82      59.37          59.37          59.74183       0              0              1.7888416e-10
+      4450   8.9            296.31654     -133044.64     -8973.966       210570.77      59.37          59.37          59.739829      0              0              1.6460795e-10
+      4460   8.92           300.12854     -133044.61     -9270.4836      210562.66      59.37          59.37          59.737531      0              0              1.4769339e-10
+      4470   8.94           302.46166     -133044.6      -8473.5785      210553.81      59.37          59.37          59.73502       0              0              1.2968117e-10
+      4480   8.96           299.8802      -133044.56     -8548.989       210545.76      59.37          59.37          59.732735      0              0              1.1168898e-10
+      4490   8.98           299.64969     -133044.54     -8577.3138      210538.75      59.37          59.37          59.730745      0              0              9.4491338e-11
+      4500   9              300.55349     -133044.52     -8346.1781      210532.15      59.37          59.37          59.728875      0              0              7.8590213e-11
+      4510   9.02           298.37438     -133044.46     -8182.299       210525.64      59.37          59.37          59.727026      0              0              6.4276223e-11
+      4520   9.04           299.80247     -133044.43     -8251.8296      210518.87      59.37          59.37          59.725107      0              0              5.1680537e-11
+      4530   9.06           300.68972     -133044.38     -8061.2218      210512.18      59.37          59.37          59.723209      0              0              4.0818022e-11
+      4540   9.08           300.75388     -133044.35     -7745.9152      210506.45      59.37          59.37          59.721583      0              0              3.1622372e-11
+      4550   9.1            298.44938     -133044.29     -8079.8889      210502.39      59.37          59.37          59.72043       0              0              2.3974113e-11
+      4560   9.12           298.95645     -133044.24     -8087.9967      210499.7       59.37          59.37          59.719666      0              0              1.7722377e-11
+      4570   9.14           298.44365     -133044.18     -8496.4188      210497.39      59.37          59.37          59.719013      0              0              1.2701395e-11
+      4580   9.16           298.86768     -133044.15     -8832.8535      210494.11      59.37          59.37          59.718082      0              0              8.7425666e-12
+      4590   9.18           301.11607     -133044.16     -8661.1624      210489.39      59.37          59.37          59.716744      0              0              5.6829289e-12
+      4600   9.2            298.31933     -133044.09     -8051.1998      210483.97      59.37          59.37          59.715206      0              0              3.3707369e-12
+      4610   9.22           300.81669     -133044.1      -8407.1573      210478.67      59.37          59.37          59.713701      0              0              1.6688036e-12
+      4620   9.24           298.94784     -133044.01     -8661.0323      210473.09      59.37          59.37          59.712119      0              0              4.5613262e-13
+      4630   9.26           300.02828     -133044        -8531.416       210466.7       59.37          59.37          59.710307      0              0             -3.7169856e-13
+      4640   9.28           300.37355     -133043.96     -8773.0627      210459.42      59.37          59.37          59.708241      0              0             -9.0303477e-13
+      4650   9.3            299.12972     -133043.89     -8331.2174      210450.96      59.37          59.37          59.705839      0              0             -1.2112216e-12
+      4660   9.32           297.50115     -133043.83     -7716.0483      210441.94      59.37          59.37          59.70328       0              0             -1.3560336e-12
+      4670   9.34           300.96489     -133043.82     -7848.2048      210433.61      59.37          59.37          59.700917      0              0             -1.3852772e-12
+      4680   9.36           298.3522      -133043.76     -8323.9164      210425.65      59.37          59.37          59.698659      0              0             -1.3364374e-12
+      4690   9.38           301.39338     -133043.75     -7872.3779      210417.24      59.37          59.37          59.696274      0              0             -1.2382795e-12
+      4700   9.4            300.61822     -133043.7      -7562.6042      210408.95      59.37          59.37          59.693921      0              0             -1.1123431e-12
+      4710   9.42           299.5716      -133043.66     -7634.9253      210401.03      59.37          59.37          59.691675      0              0             -9.7429428e-13
+      4720   9.44           302.12918     -133043.62     -7193.8333      210393.36      59.37          59.37          59.689499      0              0             -8.3511666e-13
+      4730   9.46           301.59999     -133043.56     -7348.8559      210386.9       59.37          59.37          59.687666      0              0             -7.0213676e-13
+      4740   9.48           299.2288      -133043.51     -8012.4498      210381.81      59.37          59.37          59.686222      0              0             -5.7988855e-13
+      4750   9.5            297.71632     -133043.47     -7436.8264      210377.03      59.37          59.37          59.684865      0              0             -4.7082785e-13
+      4760   9.52           299.21979     -133043.43     -7514.4572      210373.05      59.37          59.37          59.683737      0              0             -3.7591112e-13
+      4770   9.54           299.75158     -133043.4      -8170.7163      210369.86      59.37          59.37          59.682833      0              0             -2.9505501e-13
+      4780   9.56           298.99038     -133043.36     -7991.9505      210366.78      59.37          59.37          59.681958      0              0             -2.2749354e-13
+      4790   9.58           299.71466     -133043.34     -7411.4001      210364.36      59.37          59.37          59.681272      0              0             -1.7204922e-13
+      4800   9.6            297.90533     -133043.26     -7832.1704      210363.47      59.37          59.37          59.681017      0              0             -1.2733329e-13
+      4810   9.62           298.45551     -133043.21     -8031.6751      210363.6       59.37          59.37          59.681056      0              0             -9.1888789e-14
+      4820   9.64           299.80866     -133043.17     -7894.8225      210364.39      59.37          59.37          59.68128       0              0             -6.4288474e-14
+      4830   9.66           301.86454     -133043.15     -8038.1801      210366.01      59.37          59.37          59.68174       0              0             -4.3197817e-14
+      4840   9.68           299.30461     -133043.07     -8300.2778      210368.25      59.37          59.37          59.682375      0              0             -2.7411716e-14
+      4850   9.7            299.80704     -133043.03     -7559.3123      210371.12      59.37          59.37          59.683188      0              0             -1.587194e-14 
+      4860   9.72           299.69983     -133042.99     -7752.7916      210375.37      59.37          59.37          59.684394      0              0             -7.6709919e-15
+      4870   9.74           299.54466     -133042.94     -7888.3079      210380.54      59.37          59.37          59.685861      0              0             -2.0468149e-15
+      4880   9.76           301.41954     -133042.92     -8046.8027      210386.17      59.37          59.37          59.68746       0              0              1.6282439e-15
+      4890   9.78           299.89018     -133042.86     -7441.9892      210392.33      59.37          59.37          59.689205      0              0              3.8616615e-15
+      4900   9.8            300.42811     -133042.82     -7697.2164      210399.74      59.37          59.37          59.691309      0              0              5.0563191e-15
+      4910   9.82           299.89928     -133042.76     -7733.0841      210408.32      59.37          59.37          59.693744      0              0              5.5261476e-15
+      4920   9.84           301.00977     -133042.73     -8011.8198      210418.05      59.37          59.37          59.696503      0              0              5.5109928e-15
+      4930   9.86           300.08599     -133042.67     -8565.7765      210428.3       59.37          59.37          59.699411      0              0              5.1901863e-15
+      4940   9.88           299.06905     -133042.6      -8666.2987      210438.07      59.37          59.37          59.702182      0              0              4.694552e-15 
+      4950   9.9            299.54425     -133042.57     -8505.863       210447.28      59.37          59.37          59.704796      0              0              4.1167583e-15
+      4960   9.92           297.20803     -133042.52     -8238.137       210456.28      59.37          59.37          59.70735       0              0              3.5200425e-15
+      4970   9.94           298.85478     -133042.47     -8384.6745      210465.27      59.37          59.37          59.7099        0              0              2.945412e-15 
+      4980   9.96           301.24734     -133042.42     -8566.4061      210474.27      59.37          59.37          59.712452      0              0              2.4174737e-15
+      4990   9.98           298.69865     -133042.34     -9029.76        210483.11      59.37          59.37          59.714962      0              0              1.9490623e-15
+      5000   10             299.78109     -133042.27     -9065.0602      210490.96      59.37          59.37          59.717188      0              0              1.5448435e-15
+      5010   10.02          300.4985      -133042.21     -8928.5258      210497.43      59.37          59.37          59.719024      0              0              1.2040615e-15
+      5020   10.04          299.19268     -133042.17     -8273.0292      210503.66      59.37          59.37          59.72079       0              0              9.2258764e-16
+      5030   10.06          301.01158     -133042.13     -8445.6104      210510.89      59.37          59.37          59.722841      0              0              6.9440822e-16
+      5040   10.08          300.58618     -133042.06     -8095.5466      210518.87      59.37          59.37          59.725106      0              0              5.1267206e-16
+      5050   10.1           299.41672     -133041.99     -8458.9068      210527.59      59.37          59.37          59.727579      0              0              3.703992e-16 
+      5060   10.12          300.4277      -133041.94     -8501.3878      210536.14      59.37          59.37          59.730007      0              0              2.6093465e-16
+      5070   10.14          299.3126      -133041.85     -7854.1209      210544.11      59.37          59.37          59.732266      0              0              1.7821469e-16
+      5080   10.16          299.98885     -133041.8      -8124.8658      210552.44      59.37          59.37          59.73463       0              0              1.1689968e-16
+      5090   10.18          300.08069     -133041.74     -8288.1532      210561.63      59.37          59.37          59.737238      0              0              7.2415059e-17
+      5100   10.2           303.25852     -133041.74     -8420.6165      210571.37      59.37          59.37          59.740002      0              0              4.093208e-17 
+      5110   10.22          300.73014     -133041.63     -8958.8648      210580.95      59.37          59.37          59.742718      0              0              1.9311966e-17
+      5120   10.24          301.64825     -133041.6      -9162.2944      210589.48      59.37          59.37          59.745139      0              0              5.0303091e-18
+      5130   10.26          298.34272     -133041.52     -9053.0618      210596.72      59.37          59.37          59.747193      0              0             -3.9064e-18   
+      5140   10.28          299.1371      -133041.46     -9333.7974      210602.89      59.37          59.37          59.748944      0              0             -9.044251e-18 
+      5150   10.3           298.24728     -133041.38     -9127.61        210607.89      59.37          59.37          59.750361      0              0             -1.1560431e-17
+      5160   10.32          300.91983     -133041.36     -9226.2803      210612.13      59.37          59.37          59.751564      0              0             -1.2333978e-17
+      5170   10.34          299.28269     -133041.27     -9494.2332      210615.87      59.37          59.37          59.752625      0              0             -1.2007475e-17
+      5180   10.36          297.09261     -133041.17     -8952.831       210618.6       59.37          59.37          59.7534        0              0             -1.1039412e-17
+      5190   10.38          301.728       -133041.16     -9224.7918      210620.38      59.37          59.37          59.753904      0              0             -9.7476131e-18
+      5200   10.4           298.82658     -133041.04     -9091.2916      210621.23      59.37          59.37          59.754146      0              0             -8.3445064e-18
+      5210   10.42          301.78783     -133041        -8877.4714      210621.4       59.37          59.37          59.754195      0              0             -6.965212e-18 
+      5220   10.44          300.9078      -133040.91     -9204.8703      210621.37      59.37          59.37          59.754186      0              0             -5.6894938e-18
+      5230   10.46          301.01414     -133040.85     -9092.6431      210621.51      59.37          59.37          59.754224      0              0             -4.5585895e-18
+      5240   10.48          301.95159     -133040.79     -8360.2121      210622.25      59.37          59.37          59.754435      0              0             -3.5878609e-18
+      5250   10.5           301.29052     -133040.7      -8706.5542      210623.49      59.37          59.37          59.754787      0              0             -2.7761025e-18
+      5260   10.52          300.56493     -133040.62     -8598.0759      210624.43      59.37          59.37          59.755054      0              0             -2.1122281e-18
+      5270   10.54          301.03672     -133040.56     -8267.8047      210625.16      59.37          59.37          59.755261      0              0             -1.5799412e-18
+      5280   10.56          300.94277     -133040.49     -8306.5001      210626.37      59.37          59.37          59.755604      0              0             -1.1608853e-18
+      5290   10.58          300.64558     -133040.39     -8510.7303      210628.12      59.37          59.37          59.756102      0              0             -8.3667203e-19
+      5300   10.6           300.77699     -133040.34     -8588.1453      210630.69      59.37          59.37          59.756831      0              0             -5.901016e-19 
+      5310   10.62          297.55107     -133040.25     -9501.9335      210633.73      59.37          59.37          59.757691      0              0             -4.0581645e-19
+      5320   10.64          298.95111     -133040.2      -9259.6031      210635.63      59.37          59.37          59.758233      0              0             -2.705718e-19 
+      5330   10.66          301.39645     -133040.15     -9064.6109      210636.4       59.37          59.37          59.75845       0              0             -1.7325808e-19
+      5340   10.68          299.23851     -133040.05     -9089.7347      210636.79      59.37          59.37          59.75856       0              0             -1.047732e-19 
+      5350   10.7           300.3279      -133039.97     -8822.6093      210636.72      59.37          59.37          59.75854       0              0             -5.7813106e-20
+      5360   10.72          300.91617     -133039.89     -9446.5841      210636.23      59.37          59.37          59.758403      0              0             -2.6627483e-20
+      5370   10.74          299.76541     -133039.81     -8895.134       210635.24      59.37          59.37          59.758122      0              0             -6.7707916e-21
+      5380   10.76          297.18138     -133039.67     -9651.2674      210633.77      59.37          59.37          59.757705      0              0              5.132898e-21 
+      5390   10.78          302.22923     -133039.64     -9299.497       210631         59.37          59.37          59.756919      0              0              1.1601113e-20
+      5400   10.8           297.88072     -133039.5      -9036.7911      210627.73      59.37          59.37          59.755991      0              0              1.4475789e-20
+      5410   10.82          300.51899     -133039.43     -9080.6498      210624.73      59.37          59.37          59.75514       0              0              1.5076917e-20
+      5420   10.84          303.24189     -133039.33     -8743.4415      210621.78      59.37          59.37          59.754303      0              0              1.4328548e-20
+      5430   10.86          302.26667     -133039.22     -8717.8773      210619.15      59.37          59.37          59.753555      0              0              1.28599e-20  
+      5440   10.88          300.45088     -133039.12     -8640.9764      210616.94      59.37          59.37          59.752928      0              0              1.1084882e-20
+      5450   10.9           301.08939     -133039.01     -9000.4705      210614.54      59.37          59.37          59.752248      0              0              9.2634892e-21
+      5460   10.92          300.25474     -133038.87     -8644.537       210611.73      59.37          59.37          59.751451      0              0              7.5483049e-21
+      5470   10.94          301.61333     -133038.78     -8895.7649      210609.53      59.37          59.37          59.750827      0              0              6.0190766e-21
+      5480   10.96          302.11219     -133038.67     -8678.0474      210607.83      59.37          59.37          59.750344      0              0              4.7079069e-21
+      5490   10.98          302.0057      -133038.54     -8737.2813      210606.6       59.37          59.37          59.749995      0              0              3.6172134e-21
+      5500   11             300.42998     -133038.4      -9169.8571      210605.91      59.37          59.37          59.749799      0              0              2.732217e-21 
+      5510   11.02          302.43195     -133038.29     -8825.4296      210605.39      59.37          59.37          59.749653      0              0              2.029372e-21 
+      5520   11.04          298.44224     -133038.12     -8896.4302      210605.01      59.37          59.37          59.749544      0              0              1.4818455e-21
+      5530   11.06          298.16394     -133038        -8963.6221      210604.15      59.37          59.37          59.7493        0              0              1.0629001e-21
+      5540   11.08          302.0554      -133037.9      -9055.881       210603.11      59.37          59.37          59.749005      0              0              7.478242e-22 
+      5550   11.1           302.02966     -133037.77     -9223.3019      210602.19      59.37          59.37          59.748745      0              0              5.1488733e-22
+      5560   11.12          300.05292     -133037.61     -8912.3246      210601         59.37          59.37          59.748406      0              0              3.4566564e-22
+      5570   11.14          299.45459     -133037.46     -8893.527       210599.79      59.37          59.37          59.748064      0              0              2.2498328e-22
+      5580   11.16          299.88404     -133037.3      -9385.5112      210598.9       59.37          59.37          59.747812      0              0              1.406379e-22 
+      5590   11.18          301.51778     -133037.14     -9522.7497      210597.29      59.37          59.37          59.747355      0              0              8.3023344e-23
+      5600   11.2           299.35927     -133036.95     -8863.7981      210594.97      59.37          59.37          59.746696      0              0              4.4721612e-23
+      5610   11.22          301.0318      -133036.77     -9117.47        210592.79      59.37          59.37          59.746077      0              0              2.0107701e-23
+      5620   11.24          303.1529      -133036.6      -8932.9592      210590.31      59.37          59.37          59.745373      0              0              4.991291e-24 
+      5630   11.26          301.39052     -133036.41     -8247.3033      210588.11      59.37          59.37          59.744749      0              0             -3.6938327e-24
+      5640   11.28          300.44963     -133036.22     -9326.1296      210586.94      59.37          59.37          59.744419      0              0             -8.1499587e-24
+      5650   11.3           301.83041     -133036.02     -9111.6176      210585.81      59.37          59.37          59.744097      0              0             -9.9274822e-24
+      5660   11.32          301.91517     -133035.81     -8791.419       210584.73      59.37          59.37          59.743791      0              0             -1.0093704e-23
+      5670   11.34          300.79046     -133035.61     -9121.8556      210583.76      59.37          59.37          59.743517      0              0             -9.3644305e-24
+      5680   11.36          303.69778     -133035.44     -8401.4291      210582.5       59.37          59.37          59.743158      0              0             -8.2046094e-24
+      5690   11.38          300.09663     -133035.19     -7919.9226      210582.1       59.37          59.37          59.743044      0              0             -6.9038692e-24
+      5700   11.4           301.14667     -133035.01     -9127.9085      210583.48      59.37          59.37          59.743436      0              0             -5.6321889e-24
+      5710   11.42          301.98534     -133034.77     -9124.0421      210585.21      59.37          59.37          59.743926      0              0             -4.4801566e-24
+      5720   11.44          301.11949     -133034.54     -8524.1021      210587.3       59.37          59.37          59.74452       0              0             -3.4875045e-24
+      5730   11.46          299.2125      -133034.31     -9196.5156      210590.71      59.37          59.37          59.745487      0              0             -2.6628943e-24
+      5740   11.48          301.26571     -133034.1      -8988.621       210594.66      59.37          59.37          59.746607      0              0             -1.997291e-24 
+      5750   11.5           298.8854      -133033.84     -9057.8818      210599.12      59.37          59.37          59.747873      0              0             -1.4727314e-24
+      5760   11.52          299.3609      -133033.59     -9595.7284      210604.63      59.37          59.37          59.749437      0              0             -1.0678522e-24
+      5770   11.54          301.53116     -133033.34     -9818.2073      210610.32      59.37          59.37          59.751052      0              0             -7.6119084e-25
+      5780   11.56          301.38717     -133033.11     -9308.258       210615.67      59.37          59.37          59.752569      0              0             -5.3299633e-25
+      5790   11.58          302.60308     -133032.87     -9634.2074      210621.42      59.37          59.37          59.754201      0              0             -3.6607701e-25
+      5800   11.6           303.23221     -133032.61     -9521.7577      210627.44      59.37          59.37          59.755907      0              0             -2.4605165e-25
+      5810   11.62          303.64008     -133032.38     -8930.5239      210633.67      59.37          59.37          59.757674      0              0             -1.6125435e-25
+      5820   11.64          303.27088     -133032.15     -9043.7104      210640.76      59.37          59.37          59.759688      0              0             -1.0245817e-25
+      5830   11.66          302.69342     -133031.91     -9373.9839      210648.57      59.37          59.37          59.761902      0              0             -6.2523012e-26
+      5840   11.68          302.39929     -133031.68     -8664.5998      210656.59      59.37          59.37          59.764178      0              0             -3.6031214e-26
+      5850   11.7           300.64082     -133031.41     -8924.4908      210665.49      59.37          59.37          59.766703      0              0             -1.8946861e-26
+      5860   11.72          304.18347     -133031.2      -9389.8474      210675.05      59.37          59.37          59.769415      0              0             -8.3161703e-27
+      5870   11.74          301.85811     -133030.91     -9176.4753      210684.65      59.37          59.37          59.772138      0              0             -2.0151854e-27
+      5880   11.76          302.10763     -133030.68     -9106.9979      210694.58      59.37          59.37          59.774957      0              0              1.4558629e-27
+      5890   11.78          303.4571      -133030.46     -9294.9391      210704.92      59.37          59.37          59.777889      0              0              3.1357383e-27
+      5900   11.8           300.9432      -133030.22     -9275.5389      210715         59.37          59.37          59.780749      0              0              3.728762e-27 
+      5910   11.82          302.17633     -133030.02     -9331.5499      210724.62      59.37          59.37          59.783478      0              0              3.7009844e-27
+      5920   11.84          304.00739     -133029.82     -10159.438      210733.64      59.37          59.37          59.786037      0              0              3.3518858e-27
+      5930   11.86          300.7529      -133029.6      -9662.6425      210741.07      59.37          59.37          59.788145      0              0              2.8668628e-27
+      5940   11.88          301.58738     -133029.4      -9656.2326      210747.15      59.37          59.37          59.789872      0              0              2.3549554e-27
+      5950   11.9           303.49402     -133029.17     -10077.672      210752.43      59.37          59.37          59.791368      0              0              1.875463e-27 
+      5960   11.92          301.68621     -133028.94     -9630.9667      210756.68      59.37          59.37          59.792574      0              0              1.4563495e-27
+      5970   11.94          304.58931     -133028.79     -9624.1826      210760.38      59.37          59.37          59.793625      0              0              1.106696e-27 
+      5980   11.96          302.35355     -133028.55     -9909.8251      210763.76      59.37          59.37          59.794582      0              0              8.2491396e-28
+      5990   11.98          302.49958     -133028.36     -9749.6024      210765.94      59.37          59.37          59.795202      0              0              6.0400037e-28
+      6000   12             304.81799     -133028.19     -9719.8637      210766.96      59.37          59.37          59.795491      0              0              4.3477098e-28
+      6010   12.02          303.83019     -133027.99     -9820.0302      210767.58      59.37          59.37          59.795668      0              0              3.077438e-28 
+      6020   12.04          301.82208     -133027.83     -9827.5314      210768.19      59.37          59.37          59.79584       0              0              2.1414743e-28
+      6030   12.06          303.31337     -133027.7      -9631.552       210768.77      59.37          59.37          59.796004      0              0              1.4638099e-28
+      6040   12.08          301.10574     -133027.51     -9660.228       210769.4       59.37          59.37          59.796183      0              0              9.8146329e-29
+      6050   12.1           303.55142     -133027.42     -9795.2144      210769.91      59.37          59.37          59.796328      0              0              6.4397505e-29
+      6060   12.12          304.23261     -133027.32     -9562.4547      210770.2       59.37          59.37          59.79641       0              0              4.1199822e-29
+      6070   12.14          300.87319     -133027.14     -9301.5798      210770.52      59.37          59.37          59.7965        0              0              2.5554751e-29
+      6080   12.16          302.97448     -133027.04     -9379.4919      210771.18      59.37          59.37          59.796688      0              0              1.5223204e-29
+      6090   12.18          302.47117     -133026.91     -9968.5748      210772.2       59.37          59.37          59.796976      0              0              8.5641888e-30
+      6100   12.2           301.02206     -133026.8      -10012.778      210772.9       59.37          59.37          59.797177      0              0              4.3962841e-30
+      6110   12.22          302.24929     -133026.7      -9906.4699      210773.14      59.37          59.37          59.797244      0              0              1.8837055e-30
+      6120   12.24          305.0639      -133026.62     -9945.4925      210773.05      59.37          59.37          59.797218      0              0              4.4560061e-31
+      6130   12.26          302.66108     -133026.48     -9328.2672      210772.6       59.37          59.37          59.79709       0              0             -3.1426239e-31
+      6140   12.28          302.43356     -133026.36     -9783.0074      210771.77      59.37          59.37          59.796855      0              0             -6.6077391e-31
+      6150   12.3           304.66645     -133026.32     -9823.679       210770.38      59.37          59.37          59.796461      0              0             -7.6704155e-31
+      6160   12.32          303.05532     -133026.24     -9486.5303      210768.44      59.37          59.37          59.795911      0              0             -7.4321185e-31
+      6170   12.34          304.16893     -133026.19     -9320.3354      210766.3       59.37          59.37          59.795304      0              0             -6.5709132e-31
+      6180   12.36          303.88785     -133026.1      -9471.7777      210764.06      59.37          59.37          59.794667      0              0             -5.4863633e-31
+      6190   12.38          305.55139     -133026.07     -9392.989       210761.6       59.37          59.37          59.79397       0              0             -4.3994815e-31
+      6200   12.4           302.14045     -133026.02     -9461.8882      210758.81      59.37          59.37          59.793179      0              0             -3.4203335e-31
+      6210   12.42          302.46314     -133025.99     -9382.006       210755.21      59.37          59.37          59.792156      0              0             -2.5927863e-31
+      6220   12.44          302.13912     -133025.96     -9238.202       210750.9       59.37          59.37          59.790934      0              0             -1.9234044e-31
+      6230   12.46          304.60642     -133025.94     -9370.4572      210746         59.37          59.37          59.789544      0              0             -1.3995617e-31
+      6240   12.48          302.63865     -133025.86     -9274.9522      210740.4       59.37          59.37          59.787955      0              0             -1.0003725e-31
+      6250   12.5           305.09565     -133025.87     -9893.4495      210733.92      59.37          59.37          59.786118      0              0             -7.0295292e-32
+      6260   12.52          303.71056     -133025.87     -10255.965      210725.71      59.37          59.37          59.783789      0              0             -4.8573136e-32
+      6270   12.54          301.93998     -133025.88     -9805.906       210715.43      59.37          59.37          59.780871      0              0             -3.2995966e-32
+      6280   12.56          302.01069     -133025.9      -9964.5458      210703.87      59.37          59.37          59.777592      0              0             -2.2017794e-32
+      6290   12.58          304.18368     -133025.93     -9443.1306      210691.03      59.37          59.37          59.773948      0              0             -1.4411339e-32
+      6300   12.6           304.0189      -133025.94     -8945.192       210677.51      59.37          59.37          59.770114      0              0             -9.2308238e-33
+      6310   12.62          305.30259     -133025.97     -9332.2507      210663.85      59.37          59.37          59.766237      0              0             -5.7651141e-33
+      6320   12.64          302.85955     -133025.98     -9097.8784      210649.12      59.37          59.37          59.762058      0              0             -3.4908033e-33
+      6330   12.66          302.37546     -133026.03     -8376.5807      210633.39      59.37          59.37          59.757597      0              0             -2.0300229e-33
+      6340   12.68          304.4542      -133026.06     -8533.8135      210618.03      59.37          59.37          59.753238      0              0             -1.1148649e-33
+      6350   12.7           303.37663     -133026.08     -8723.7867      210603.08      59.37          59.37          59.748997      0              0             -5.5867972e-34
+      6360   12.72          303.81181     -133026.12     -8115.1521      210588.39      59.37          59.37          59.744829      0              0             -2.3368525e-34
+      6370   12.74          306.55031     -133026.19     -9068.8091      210574.74      59.37          59.37          59.740957      0              0             -5.3964136e-35
+      6380   12.76          302.38266     -133026.23     -8798.4302      210561.18      59.37          59.37          59.737111      0              0              3.7152924e-35
+      6390   12.78          303.81222     -133026.34     -8451.162       210547.49      59.37          59.37          59.733226      0              0              7.6259618e-35
+      6400   12.8           304.39833     -133026.42     -8604.687       210534.27      59.37          59.37          59.729475      0              0              8.6417515e-35
+      6410   12.82          303.03921     -133026.46     -8794.1268      210521.54      59.37          59.37          59.725864      0              0              8.1740381e-35
+      6420   12.84          305.07526     -133026.57     -8253.0372      210509.37      59.37          59.37          59.722411      0              0              7.0549007e-35
+      6430   12.86          301.27624     -133026.63     -8794.102       210498.02      59.37          59.37          59.71919       0              0              5.7503051e-35
+      6440   12.88          299.95723     -133026.74     -8554.3472      210486.89      59.37          59.37          59.716033      0              0              4.5014141e-35
+      6450   12.9           302.7111      -133026.88     -8309.579       210476.2       59.37          59.37          59.713         0              0              3.4163084e-35
+      6460   12.92          302.4012      -133026.96     -8605.3289      210465.84      59.37          59.37          59.710061      0              0              2.5281131e-35
+      6470   12.94          305.30957     -133027.11     -8156.2202      210455.42      59.37          59.37          59.707106      0              0              1.8308026e-35
+      6480   12.96          301.63304     -133027.16     -7866.241       210445.65      59.37          59.37          59.704333      0              0              1.3004813e-35
+      6490   12.98          304.40233     -133027.32     -8412.8385      210436.88      59.37          59.37          59.701845      0              0              9.074338e-36 
+      6500   13             301.11172     -133027.4      -8025.8893      210428.47      59.37          59.37          59.69946       0              0              6.2247311e-36
+      6510   13.02          306.53685     -133027.58     -7678.1791      210421.12      59.37          59.37          59.697375      0              0              4.1988625e-36
+      6520   13.04          303.51246     -133027.68     -8253.8669      210415.36      59.37          59.37          59.695742      0              0              2.7844376e-36
+      6530   13.06          302.83341     -133027.82     -7428.6612      210410.17      59.37          59.37          59.694268      0              0              1.8138092e-36
+      6540   13.08          301.41115     -133027.97     -7031.2415      210406.15      59.37          59.37          59.693128      0              0              1.1589462e-36
+      6550   13.1           303.55242     -133028.17     -8505.6993      210403.56      59.37          59.37          59.692393      0              0              7.2467044e-37
+      6560   13.12          302.34415     -133028.33     -7797.3303      210400.64      59.37          59.37          59.691563      0              0              4.4182384e-37
+      6570   13.14          306.39395     -133028.53     -7415.2026      210398.12      59.37          59.37          59.690848      0              0              2.6116066e-37
+      6580   13.16          303.40029     -133028.68     -8000.2635      210396.77      59.37          59.37          59.690466      0              0              1.4826016e-37
+      6590   13.18          300.91104     -133028.86     -7645.6375      210395.57      59.37          59.37          59.690125      0              0              7.9485317e-38
+      6600   13.2           305.25948     -133029.08     -7415.6587      210394.85      59.37          59.37          59.689921      0              0              3.8883802e-38
+      6610   13.22          301.83941     -133029.21     -7849.5172      210394.97      59.37          59.37          59.689956      0              0              1.5877359e-38
+      6620   13.24          301.91201     -133029.44     -7856.7279      210394.92      59.37          59.37          59.689941      0              0              3.5792608e-39
+      6630   13.26          302.92409     -133029.68     -7212.638       210394.93      59.37          59.37          59.689944      0              0             -2.4055936e-39
+      6640   13.28          304.5152      -133029.92     -7770.7919      210396.02      59.37          59.37          59.690252      0              0             -4.8201997e-39
+      6650   13.3           300.62475     -133030.09     -7788.954       210397.33      59.37          59.37          59.690626      0              0             -5.3322847e-39
+      6660   13.32          303.03445     -133030.32     -7279.0537      210398.7       59.37          59.37          59.691013      0              0             -4.9236748e-39
+      6670   13.34          302.49095     -133030.51     -7658.8577      210400.89      59.37          59.37          59.691635      0              0             -4.1484395e-39
+      6680   13.36          302.38399     -133030.73     -8194.087       210403.3       59.37          59.37          59.692319      0              0             -3.3008507e-39
+      6690   13.38          302.56416     -133030.99     -7540.5292      210405.26      59.37          59.37          59.692875      0              0             -2.5224648e-39
+      6700   13.4           300.51176     -133031.17     -7803.4727      210407.78      59.37          59.37          59.693589      0              0             -1.8688496e-39
+      6710   13.42          306.94435     -133031.46     -8125.8378      210410.43      59.37          59.37          59.694342      0              0             -1.3500658e-39
+      6720   13.44          302.98861     -133031.65     -7836.4315      210412.34      59.37          59.37          59.694883      0              0             -9.5442344e-40
+      6730   13.46          301.69638     -133031.85     -7595.0546      210413.76      59.37          59.37          59.695286      0              0             -6.6182754e-40
+      6740   13.48          303.33969     -133032.09     -7532.1417      210415.2       59.37          59.37          59.695694      0              0             -4.5081341e-40
+      6750   13.5           302.05991     -133032.35     -7349.1474      210416.71      59.37          59.37          59.696122      0              0             -3.0188645e-40
+      6760   13.52          300.17264     -133032.55     -7561.7734      210418.6       59.37          59.37          59.696661      0              0             -1.9879059e-40
+      6770   13.54          305.58792     -133032.84     -7838.2645      210420.7       59.37          59.37          59.697254      0              0             -1.2868941e-40
+      6780   13.56          302.10584     -133033.05     -7922.8099      210422.73      59.37          59.37          59.697832      0              0             -8.1834807e-41
+      6790   13.58          300.7434      -133033.26     -7635.7207      210424.38      59.37          59.37          59.6983        0              0             -5.1044726e-41
+      6800   13.6           301.87724     -133033.49     -7776.818       210426.1       59.37          59.37          59.698787      0              0             -3.1157981e-41
+      6810   13.62          302.36842     -133033.71     -7492.6838      210428.08      59.37          59.37          59.69935       0              0             -1.8544667e-41
+      6820   13.64          302.67927     -133033.9      -7399.4992      210430.49      59.37          59.37          59.700032      0              0             -1.0700863e-41
+      6830   13.66          300.89413     -133034.12     -7743.0815      210432.94      59.37          59.37          59.700727      0              0             -5.9303e-42   
+      6840   13.68          301.21319     -133034.33     -7955.9108      210435.27      59.37          59.37          59.701387      0              0             -3.1037037e-42
+      6850   13.7           303.30717     -133034.54     -7688.4172      210437.31      59.37          59.37          59.701968      0              0             -1.4821877e-42
+      6860   13.72          301.04286     -133034.73     -8154.1409      210438.92      59.37          59.37          59.702424      0              0             -5.9081826e-43
+      6870   13.74          300.74229     -133034.91     -7621.4982      210440.4       59.37          59.37          59.702843      0              0             -1.3001999e-43
+      6880   13.76          303.12349     -133035.13     -7668.2295      210442.58      59.37          59.37          59.703463      0              0              8.5306121e-44
+      6890   13.78          303.16368     -133035.36     -7997.6781      210445.38      59.37          59.37          59.704257      0              0              1.6686456e-43
+      6900   13.8           300.50116     -133035.55     -7862.7422      210448.23      59.37          59.37          59.705066      0              0              1.8019949e-43
+      6910   13.82          301.84689     -133035.75     -7598.8184      210451.4       59.37          59.37          59.705965      0              0              1.6243168e-43
+      6920   13.84          301.94488     -133035.93     -8046.8411      210454.74      59.37          59.37          59.706912      0              0              1.3360025e-43
+      6930   13.86          301.02153     -133036.09     -7843.3912      210457.71      59.37          59.37          59.707755      0              0              1.0377424e-43
+      6940   13.88          299.33284     -133036.22     -7484.5996      210461.08      59.37          59.37          59.70871       0              0              7.7415856e-44
+      6950   13.9           300.43942     -133036.39     -8462.7392      210465.57      59.37          59.37          59.709984      0              0              5.599127e-44 
+      6960   13.92          302.0162      -133036.55     -8260.681       210470.16      59.37          59.37          59.711286      0              0              3.9485899e-44
+      6970   13.94          300.85741     -133036.68     -8340.9657      210474.7       59.37          59.37          59.712576      0              0              2.7250178e-44
+      6980   13.96          299.28774     -133036.81     -8579.5616      210478.95      59.37          59.37          59.71378       0              0              1.8446511e-44
+      6990   13.98          303.41291     -133036.99     -8012.167       210482.59      59.37          59.37          59.714814      0              0              1.2266125e-44
+      7000   14             300.69862     -133037.08     -7884.9405      210486.21      59.37          59.37          59.71584       0              0              8.0185401e-45
+      7010   14.02          301.58135     -133037.24     -8554.1208      210490.06      59.37          59.37          59.716934      0              0              5.154525e-45 
+      7020   14.04          299.69051     -133037.34     -8306.8579      210493.76      59.37          59.37          59.717984      0              0              3.2574428e-45
+      7030   14.06          302.23305     -133037.49     -8215.746       210497.15      59.37          59.37          59.718945      0              0              2.0221492e-45
+      7040   14.08          301.89069     -133037.63     -7971.0971      210500.08      59.37          59.37          59.719775      0              0              1.2313093e-45
+      7050   14.1           301.17349     -133037.75     -7689.0634      210503.03      59.37          59.37          59.720614      0              0              7.3371387e-46
+      7060   14.12          302.19103     -133037.9      -8117.0179      210506.59      59.37          59.37          59.721623      0              0              4.2630224e-46
+      7070   14.14          301.62017     -133037.99     -8531.7832      210510.08      59.37          59.37          59.722614      0              0              2.4013669e-46
+      7080   14.16          301.66749     -133038.07     -8366.7814      210512.68      59.37          59.37          59.723352      0              0              1.2991447e-46
+      7090   14.18          301.42447     -133038.18     -8673.1864      210514.97      59.37          59.37          59.724001      0              0              6.6374653e-47
+      7100   14.2           300.82652     -133038.26     -8571.4871      210516.82      59.37          59.37          59.724524      0              0              3.0943282e-47
+      7110   14.22          300.62466     -133038.36     -8252.8812      210518.22      59.37          59.37          59.724923      0              0              1.204088e-47 
+      7120   14.24          299.5356      -133038.45     -8268.555       210519.52      59.37          59.37          59.725291      0              0              2.5867567e-48
+      7130   14.26          301.47795     -133038.56     -8630.7859      210520.24      59.37          59.37          59.725495      0              0             -1.6567874e-48
+      7140   14.28          300.46513     -133038.66     -8794.4111      210519.89      59.37          59.37          59.725396      0              0             -3.1636749e-48
+      7150   14.3           303.20211     -133038.79     -8981.1785      210518.56      59.37          59.37          59.725019      0              0             -3.3352043e-48
+      7160   14.32          301.67214     -133038.86     -8383.3538      210516.86      59.37          59.37          59.724536      0              0             -2.9348152e-48
+      7170   14.34          301.47366     -133038.98     -8532.871       210515.55      59.37          59.37          59.724165      0              0             -2.3564512e-48
+      7180   14.36          300.61179     -133039.08     -8334.9573      210514.7       59.37          59.37          59.723924      0              0             -1.7868244e-48
+      7190   14.38          297.94573     -133039.12     -8516.5586      210514.67      59.37          59.37          59.723915      0              0             -1.301258e-48 
+      7200   14.4           300.71712     -133039.22     -8926.2405      210515.35      59.37          59.37          59.724108      0              0             -9.187449e-49 
+      7210   14.42          301.02986     -133039.29     -8625.1483      210515.57      59.37          59.37          59.72417       0              0             -6.3249603e-49
+      7220   14.44          300.82284     -133039.35     -8214.4215      210515.79      59.37          59.37          59.724233      0              0             -4.2611445e-49
+      7230   14.46          299.99976     -133039.45     -8289.5232      210517.26      59.37          59.37          59.724651      0              0             -2.815868e-49 
+      7240   14.48          297.73164     -133039.52     -8180.3178      210519.99      59.37          59.37          59.725424      0              0             -1.8278754e-49
+      7250   14.5           298.62644     -133039.57     -8494.6665      210523.76      59.37          59.37          59.726493      0              0             -1.1664756e-49
+      7260   14.52          304.04789     -133039.7      -9159.7778      210528.23      59.37          59.37          59.727762      0              0             -7.3199844e-50
+      7270   14.54          298.88891     -133039.76     -8728.9295      210532.6       59.37          59.37          59.729003      0              0             -4.5158493e-50
+      7280   14.56          300.88518     -133039.88     -8277.2151      210537.41      59.37          59.37          59.730366      0              0             -2.7366357e-50
+      7290   14.58          299.28492     -133039.92     -8230.1778      210543.21      59.37          59.37          59.732012      0              0             -1.6267174e-50
+      7300   14.6           300.48593     -133040        -8459.168       210549.91      59.37          59.37          59.733913      0              0             -9.4626509e-51
+      7310   14.62          299.19761     -133040.03     -8843.3055      210557.08      59.37          59.37          59.735948      0              0             -5.3671638e-51
+      7320   14.64          301.19545     -133040.13     -9227.4641      210564.01      59.37          59.37          59.737914      0              0             -2.9513921e-51
+      7330   14.66          301.05193     -133040.21     -9003.1096      210570.28      59.37          59.37          59.739693      0              0             -1.5587162e-51
+      7340   14.68          299.02654     -133040.25     -8522.9685      210576.72      59.37          59.37          59.741518      0              0             -7.7741505e-52
+      7350   14.7           298.58516     -133040.31     -8574.6238      210583.56      59.37          59.37          59.74346       0              0             -3.538003e-52 
+      7360   14.72          299.77707     -133040.4      -8789.3074      210590.17      59.37          59.37          59.745335      0              0             -1.343975e-52 
+      7370   14.74          298.40532     -133040.44     -9071.8205      210596.5       59.37          59.37          59.747129      0              0             -2.8185756e-53
+      7380   14.76          300.27242     -133040.52     -9262.5781      210602.06      59.37          59.37          59.748709      0              0              1.762309e-53 
+      7390   14.78          299.08249     -133040.59     -8445.709       210606.65      59.37          59.37          59.750011      0              0              3.2850975e-53
+      7400   14.8           300.00762     -133040.64     -9112.9548      210611.42      59.37          59.37          59.751364      0              0              3.3808041e-53
+      7410   14.82          300.88336     -133040.68     -9304.4273      210615.67      59.37          59.37          59.752569      0              0              2.9041529e-53
+      7420   14.84          298.42821     -133040.68     -9447.8818      210618.68      59.37          59.37          59.753424      0              0              2.2763462e-53
+      7430   14.86          301.94026     -133040.75     -9821.0858      210620.44      59.37          59.37          59.753923      0              0              1.6850115e-53
+      7440   14.88          300.54045     -133040.82     -9875.1849      210620.62      59.37          59.37          59.753972      0              0              1.1979137e-53
+      7450   14.9           298.5368      -133040.87     -8897.5351      210619.31      59.37          59.37          59.753602      0              0              8.2565428e-54
+      7460   14.92          300.49444     -133040.94     -8821.939       210617.62      59.37          59.37          59.753121      0              0              5.5488405e-54
+      7470   14.94          299.35722     -133041.01     -9144.064       210615.5       59.37          59.37          59.752521      0              0              3.6493192e-54
+      7480   14.96          301.57217     -133041.11     -9471.9671      210612.61      59.37          59.37          59.751701      0              0              2.3541765e-54
+      7490   14.98          300.29177     -133041.14     -9100.7212      210608.62      59.37          59.37          59.750568      0              0              1.4918133e-54
+      7500   15             300.83374     -133041.2      -9098.342       210603.86      59.37          59.37          59.749218      0              0              9.2936152e-55
+      7510   15.02          298.82031     -133041.24     -8548.854       210598.91      59.37          59.37          59.747815      0              0              5.693251e-55 
+      7520   15.04          299.03864     -133041.28     -8849.8907      210594.37      59.37          59.37          59.746526      0              0              3.4287101e-55
+      7530   15.06          300.80861     -133041.36     -8910.4589      210590.34      59.37          59.37          59.745383      0              0              2.0283806e-55
+      7540   15.08          299.06633     -133041.39     -8926.2441      210586.87      59.37          59.37          59.744398      0              0              1.1770251e-55
+      7550   15.1           297.74153     -133041.42     -8934.1043      210583.63      59.37          59.37          59.74348       0              0              6.6838636e-56
+      7560   15.12          298.65611     -133041.5      -8917.4159      210580.66      59.37          59.37          59.742636      0              0              3.7008438e-56
+      7570   15.14          299.48139     -133041.56     -9480.1864      210577.91      59.37          59.37          59.741855      0              0              1.9866619e-56
+      7580   15.16          301.84038     -133041.64     -9075.9452      210574.86      59.37          59.37          59.740992      0              0              1.0242483e-56
+      7590   15.18          300.44293     -133041.67     -9772.5209      210572.02      59.37          59.37          59.740184      0              0              4.9869187e-57
+      7600   15.2           298.61911     -133041.68     -9451.3214      210569.06      59.37          59.37          59.739344      0              0              2.2155354e-57
+      7610   15.22          300.39059     -133041.73     -8912.2053      210566.06      59.37          59.37          59.738495      0              0              8.2158561e-58
+      7620   15.24          301.41532     -133041.81     -9122.6962      210563.76      59.37          59.37          59.737841      0              0              1.6820251e-58
+      7630   15.26          297.41726     -133041.82     -8711.2965      210561.97      59.37          59.37          59.737333      0              0             -1.0266585e-58
+      7640   15.28          300.88356     -133041.92     -8304.9193      210560.9       59.37          59.37          59.73703       0              0             -1.8682429e-58
+      7650   15.3           298.42452     -133041.92     -8761.503       210560.76      59.37          59.37          59.736991      0              0             -1.876922e-58 
+      7660   15.32          300.42238     -133041.98     -8818.2362      210560.94      59.37          59.37          59.737043      0              0             -1.5739352e-58
+      7670   15.34          298.64117     -133042.02     -8482.0513      210561.51      59.37          59.37          59.737204      0              0             -1.2043337e-58
+      7680   15.36          297.82222     -133042.05     -8115.7165      210562.8       59.37          59.37          59.737569      0              0             -8.7026705e-59
+      7690   15.38          297.97388     -133042.09     -8679.3463      210564.67      59.37          59.37          59.738099      0              0             -6.0397138e-59
+      7700   15.4           299.90552     -133042.16     -8965.9457      210566.47      59.37          59.37          59.73861       0              0             -4.0637801e-59
+      7710   15.42          300.91058     -133042.2      -9070.3425      210567.8       59.37          59.37          59.738989      0              0             -2.6660933e-59
+      7720   15.44          299.04903     -133042.21     -9498.3605      210568.67      59.37          59.37          59.739235      0              0             -1.7116939e-59
+      7730   15.46          301.40723     -133042.26     -8974.4254      210568.91      59.37          59.37          59.739303      0              0             -1.0779396e-59
+      7740   15.48          301.49683     -133042.31     -8726.8824      210568.88      59.37          59.37          59.739295      0              0             -6.6682367e-60
+      7750   15.5           300.26422     -133042.35     -8644.5015      210568.42      59.37          59.37          59.739164      0              0             -4.0552943e-60
+      7760   15.52          302.65908     -133042.41     -9001.92        210567.13      59.37          59.37          59.738798      0              0             -2.4251532e-60
+      7770   15.54          301.20323     -133042.44     -9234.8014      210564.6       59.37          59.37          59.738079      0              0             -1.4257742e-60
+      7780   15.56          300.95884     -133042.49     -8807.2513      210560.66      59.37          59.37          59.736962      0              0             -8.2339948e-61
+      7790   15.58          299.64612     -133042.55     -8777.8216      210555.99      59.37          59.37          59.735637      0              0             -4.6643163e-61
+      7800   15.6           298.79612     -133042.58     -8603.7328      210551.06      59.37          59.37          59.734239      0              0             -2.5856575e-61
+      7810   15.62          300.41743     -133042.63     -8679.3477      210546.33      59.37          59.37          59.732897      0              0             -1.3976079e-61
+      7820   15.64          298.01032     -133042.65     -8629.2162      210541.74      59.37          59.37          59.731596      0              0             -7.3240226e-62
+      7830   15.66          296.94713     -133042.7      -8380.0233      210536.82      59.37          59.37          59.7302        0              0             -3.6861425e-62
+      7840   15.68          297.87412     -133042.73     -8406.0633      210531.78      59.37          59.37          59.72877       0              0             -1.752025e-62 
+      7850   15.7           298.37417     -133042.76     -8683.0326      210526.19      59.37          59.37          59.727185      0              0             -7.5984997e-63
+      7860   15.72          298.88322     -133042.83     -8601.6739      210519.96      59.37          59.37          59.725415      0              0             -2.7506994e-63
+      7870   15.74          299.74841     -133042.88     -8820.4064      210513.62      59.37          59.37          59.723616      0              0             -5.4974835e-64
+      7880   15.76          299.63601     -133042.93     -9059.1671      210507.17      59.37          59.37          59.721787      0              0              3.2756583e-64
+      7890   15.78          301.96027     -133042.98     -8897.9196      210500.28      59.37          59.37          59.719832      0              0              5.8189831e-64
+      7900   15.8           299.61378     -133042.99     -8993.7117      210492.95      59.37          59.37          59.717754      0              0              5.7069113e-64
+      7910   15.82          298.61826     -133043.01     -8640.7507      210485.18      59.37          59.37          59.715548      0              0              4.6717854e-64
+      7920   15.84          302.10265     -133043.06     -8207.6186      210477.13      59.37          59.37          59.713264      0              0              3.4896672e-64
+      7930   15.86          303.82348     -133043.11     -7992.1021      210469.52      59.37          59.37          59.711105      0              0              2.4616759e-64
+      7940   15.88          298.49834     -133043.1      -7338.8578      210462.87      59.37          59.37          59.709219      0              0              1.6677688e-64
+      7950   15.9           300.51951     -133043.15     -7727.1753      210457.5       59.37          59.37          59.707694      0              0              1.0954456e-64
+      7960   15.92          300.53253     -133043.16     -8013.1492      210453.12      59.37          59.37          59.706453      0              0              7.0157987e-65
+      7970   15.94          300.79937     -133043.24     -7673.6074      210449.6       59.37          59.37          59.705455      0              0              4.3971272e-65
+      7980   15.96          296.56142     -133043.26     -7860.9851      210447.48      59.37          59.37          59.704852      0              0              2.703202e-65 
+      7990   15.98          299.90048     -133043.32     -7494.7072      210446.6       59.37          59.37          59.704602      0              0              1.6324362e-65
+      8000   16             300.88009     -133043.36     -7629.3502      210446.9       59.37          59.37          59.704688      0              0              9.6914496e-66
+      8010   16.02          298.31126     -133043.37     -8215.6883      210447.87      59.37          59.37          59.704964      0              0              5.6577881e-66
+      8020   16.04          299.99131     -133043.42     -8448.9044      210448.27      59.37          59.37          59.705077      0              0              3.247128e-66 
+      8030   16.06          300.87564     -133043.5      -8421.033       210447.82      59.37          59.37          59.70495       0              0              1.8306292e-66
+      8040   16.08          299.16764     -133043.54     -8942.4408      210446.46      59.37          59.37          59.704564      0              0              1.0123226e-66
+      8050   16.1           299.46937     -133043.59     -8007.3814      210443.68      59.37          59.37          59.703774      0              0              5.4782658e-67
+      8060   16.12          301.02737     -133043.61     -8089.5119      210440.11      59.37          59.37          59.702761      0              0              2.8906704e-67
+      8070   16.14          299.99761     -133043.62     -8585.627       210435.45      59.37          59.37          59.70144       0              0              1.4787817e-67
+      8080   16.16          299.49155     -133043.68     -8464.4013      210428.69      59.37          59.37          59.699523      0              0              7.265536e-68 
+      8090   16.18          299.0305      -133043.74     -7688.5191      210420.18      59.37          59.37          59.697106      0              0              3.3711415e-68
+      8100   16.2           296.7983      -133043.76     -7112.5621      210411.32      59.37          59.37          59.694594      0              0              1.4272685e-68
+      8110   16.22          299.12098     -133043.83     -7347.7111      210402.86      59.37          59.37          59.692195      0              0              5.0438493e-69
+      8120   16.24          299.58855     -133043.85     -7173.7504      210394.35      59.37          59.37          59.68978       0              0              9.8406561e-70
+      8130   16.26          299.49069     -133043.86     -7189.083       210385.75      59.37          59.37          59.687341      0              0             -5.7240031e-70
+      8140   16.28          302.04337     -133043.93     -7898.7112      210376.98      59.37          59.37          59.684852      0              0             -9.9263483e-70
+      8150   16.3           300.44788     -133043.95     -7189.7894      210367.76      59.37          59.37          59.682237      0              0             -9.5035242e-70
+      8160   16.32          301.29847     -133044.03     -7209.0687      210358.77      59.37          59.37          59.679686      0              0             -7.594647e-70 
+      8170   16.34          297.84229     -133044.04     -7511.5943      210350.45      59.37          59.37          59.677325      0              0             -5.5379607e-70
+      8180   16.36          303.93174     -133044.15     -7538.2918      210342.36      59.37          59.37          59.675029      0              0             -3.8136241e-70
+      8190   16.38          301.25996     -133044.16     -8102.3432      210334.19      59.37          59.37          59.672711      0              0             -2.522226e-70 
+      8200   16.4           300.08333     -133044.23     -8072.9477      210325.49      59.37          59.37          59.670242      0              0             -1.617261e-70 
+      8210   16.42          299.12916     -133044.26     -7486.3766      210316.34      59.37          59.37          59.667647      0              0             -1.0111313e-70
+      8220   16.44          298.81737     -133044.31     -6981.7292      210307.48      59.37          59.37          59.665133      0              0             -6.1864373e-71
+      8230   16.46          297.85758     -133044.32     -6945.2658      210299.63      59.37          59.37          59.662906      0              0             -3.7127117e-71
+      8240   16.48          300.82863     -133044.38     -7162.7445      210292.63      59.37          59.37          59.660922      0              0             -2.1887195e-71
+      8250   16.5           297.22396     -133044.38     -6734.9332      210286.15      59.37          59.37          59.659083      0              0             -1.2684804e-71
+      8260   16.52          298.68017     -133044.45     -7325.3697      210280.56      59.37          59.37          59.657497      0              0             -7.2290771e-72
+      8270   16.54          298.37239     -133044.5      -7041.5958      210275.57      59.37          59.37          59.656081      0              0             -4.0502024e-72
+      8280   16.56          300.01292     -133044.54     -6449.1312      210271.8       59.37          59.37          59.655012      0              0             -2.2290451e-72
+      8290   16.58          300.89554     -133044.59     -6936.5025      210269.65      59.37          59.37          59.654402      0              0             -1.2033129e-72
+      8300   16.6           301.641       -133044.62     -6819.763       210268.57      59.37          59.37          59.654094      0              0             -6.3568778e-73
+      8310   16.62          298.93668     -133044.64     -6855.9114      210268.51      59.37          59.37          59.654079      0              0             -3.274466e-73 
+      8320   16.64          298.77998     -133044.69     -7376.2525      210269.08      59.37          59.37          59.654241      0              0             -1.6352612e-73
+      8330   16.66          301.8969      -133044.75     -7728.1832      210269.23      59.37          59.37          59.654283      0              0             -7.8431743e-74
+      8340   16.68          298.48018     -133044.74     -7635.3196      210268.61      59.37          59.37          59.654107      0              0             -3.5525675e-74
+      8350   16.7           302.18738     -133044.84     -7518.4026      210267.38      59.37          59.37          59.653759      0              0             -1.4682911e-74
+      8360   16.72          299.08749     -133044.88     -7741.394       210265.78      59.37          59.37          59.653303      0              0             -5.0653534e-75
+      8370   16.74          299.17115     -133044.94     -7429.5668      210264.02      59.37          59.37          59.652805      0              0             -9.6474569e-76
+      8380   16.76          298.78337     -133044.98     -7376.8913      210262.71      59.37          59.37          59.652432      0              0              5.478098e-76 
+      8390   16.78          298.00354     -133045.02     -7269.282       210261.52      59.37          59.37          59.652094      0              0              9.2738612e-76
+      8400   16.8           300.36203     -133045.13     -7217.9777      210259.81      59.37          59.37          59.651609      0              0              8.6675612e-76
+      8410   16.82          296.28438     -133045.15     -7016.4         210257.8       59.37          59.37          59.651041      0              0              6.761779e-76 
+      8420   16.84          298.27742     -133045.2      -7112.5229      210255.91      59.37          59.37          59.650503      0              0              4.8133162e-76
+      8430   16.86          300.71819     -133045.24     -7095.4194      210254.39      59.37          59.37          59.650073      0              0              3.2357395e-76
+      8440   16.88          297.08916     -133045.25     -7053.3857      210253.68      59.37          59.37          59.64987       0              0              2.0891076e-76
+      8450   16.9           300.54127     -133045.34     -7436.0484      210253.86      59.37          59.37          59.649921      0              0              1.3076698e-76
+      8460   16.92          299.94832     -133045.37     -7473.165       210254.23      59.37          59.37          59.650027      0              0              7.9811721e-77
+      8470   16.94          297.11501     -133045.35     -7286.2402      210254.68      59.37          59.37          59.650156      0              0              4.766953e-77 
+      8480   16.96          300.62397     -133045.45     -7701.177       210255.39      59.37          59.37          59.650357      0              0              2.7927537e-77
+      8490   16.98          298.91987     -133045.48     -7493.5961      210256.37      59.37          59.37          59.650633      0              0              1.6072101e-77
+      8500   17             300.38608     -133045.51     -7289.75        210257.8       59.37          59.37          59.651039      0              0              9.0930059e-78
+      8510   17.02          300.93052     -133045.6      -7494.3792      210260.15      59.37          59.37          59.651706      0              0              5.0588022e-78
+      8520   17.04          297.42231     -133045.6      -6960.8861      210263.3       59.37          59.37          59.6526        0              0              2.7668316e-78
+      8530   17.06          300.8043      -133045.66     -7139.2432      210267.08      59.37          59.37          59.653673      0              0              1.4865037e-78
+      8540   17.08          299.81651     -133045.68     -7529.7511      210271.08      59.37          59.37          59.654807      0              0              7.8336984e-79
+      8550   17.1           299.19388     -133045.73     -7247.0773      210275.16      59.37          59.37          59.655965      0              0              4.0399249e-79
+      8560   17.12          298.99843     -133045.79     -6889.7642      210279.85      59.37          59.37          59.657296      0              0              2.031473e-79 
+      8570   17.14          299.88997     -133045.83     -7358.8729      210286.01      59.37          59.37          59.659043      0              0              9.9037313e-80
+      8580   17.16          299.31216     -133045.88     -7621.762       210293.67      59.37          59.37          59.661215      0              0              4.6370816e-80
+      8590   17.18          299.05999     -133045.91     -7350.7743      210302.44      59.37          59.37          59.663705      0              0              2.0503894e-80
+      8600   17.2           298.62795     -133045.97     -7508.278       210312.19      59.37          59.37          59.666471      0              0              8.2727013e-81
+      8610   17.22          296.33762     -133046.02     -7678.6864      210322.51      59.37          59.37          59.669397      0              0              2.7860318e-81
+      8620   17.24          299.11164     -133046.09     -7740.8644      210333.1       59.37          59.37          59.672402      0              0              5.1800065e-82
+      8630   17.26          296.44302     -133046.1      -7512.0172      210344.27      59.37          59.37          59.675572      0              0             -2.871365e-82 
+      8640   17.28          298.59646     -133046.16     -7928.3595      210356.11      59.37          59.37          59.67893       0              0             -4.7452636e-82
+      8650   17.3           299.88848     -133046.22     -8181.981       210368.13      59.37          59.37          59.682342      0              0             -4.3295007e-82
+      8660   17.32          298.55817     -133046.24     -7862.496       210380.33      59.37          59.37          59.685803      0              0             -3.2971827e-82
+      8670   17.34          299.45798     -133046.28     -8621.1191      210392.63      59.37          59.37          59.689292      0              0             -2.2912242e-82
+      8680   17.36          299.77144     -133046.29     -8346.9599      210404.17      59.37          59.37          59.692564      0              0             -1.5036193e-82
+      8690   17.38          300.26697     -133046.28     -7708.6999      210415.37      59.37          59.37          59.695742      0              0             -9.4768999e-83
+      8700   17.4           299.47199     -133046.33     -8285.4724      210427.07      59.37          59.37          59.699063      0              0             -5.790882e-83 
+      8710   17.42          298.57729     -133046.34     -8340.8483      210438.61      59.37          59.37          59.702336      0              0             -3.4502809e-83
+      8720   17.44          298.81202     -133046.36     -7745.9593      210449.84      59.37          59.37          59.705523      0              0             -2.0117305e-83
+      8730   17.46          298.11085     -133046.39     -8400.9782      210461.07      59.37          59.37          59.708709      0              0             -1.1505426e-83
+      8740   17.48          298.50977     -133046.42     -8235.4106      210471.56      59.37          59.37          59.711685      0              0             -6.46374e-84  
+      8750   17.5           299.23014     -133046.46     -8078.9224      210481.35      59.37          59.37          59.714462      0              0             -3.5699311e-84
+      8760   17.52          301.91609     -133046.54     -8516.0069      210490.81      59.37          59.37          59.717146      0              0             -1.9388366e-84
+      8770   17.54          297.77431     -133046.54     -8863.1768      210499.83      59.37          59.37          59.719703      0              0             -1.0351836e-84
+      8780   17.56          298.50366     -133046.58     -8727.0153      210508.48      59.37          59.37          59.722159      0              0             -5.4292746e-85
+      8790   17.58          298.56606     -133046.6      -8773.9843      210517.18      59.37          59.37          59.724626      0              0             -2.7930827e-85
+      8800   17.6           297.42202     -133046.58     -8982.9024      210525.65      59.37          59.37          59.72703       0              0             -1.4061492e-85
+      8810   17.62          298.97242     -133046.62     -8404.4063      210533.69      59.37          59.37          59.729312      0              0             -6.9025619e-86
+      8820   17.64          296.89796     -133046.6      -8283.9036      210541.94      59.37          59.37          59.731651      0              0             -3.2850293e-86
+      8830   17.66          298.71595     -133046.62     -8642.6213      210550.41      59.37          59.37          59.734055      0              0             -1.5015032e-86
+      8840   17.68          299.92443     -133046.63     -8913.7657      210558.89      59.37          59.37          59.73646       0              0             -6.481254e-87 
+      8850   17.7           299.43        -133046.63     -8856.0622      210567.3       59.37          59.37          59.738846      0              0             -2.552767e-87 
+      8860   17.72          300.15869     -133046.67     -8970.045       210575.94      59.37          59.37          59.741296      0              0             -8.392494e-88 
+      8870   17.74          298.86638     -133046.67     -9008.2512      210584.69      59.37          59.37          59.743781      0              0             -1.5232684e-88
+      8880   17.76          300.61036     -133046.69     -8947.1471      210593.51      59.37          59.37          59.746281      0              0              8.2428173e-89
+      8890   17.78          297.93121     -133046.69     -9036.6365      210602.78      59.37          59.37          59.748911      0              0              1.3298075e-88
+      8900   17.8           298.75292     -133046.71     -9136.0928      210612.64      59.37          59.37          59.751711      0              0              1.1844245e-88
+      8910   17.82          299.26133     -133046.72     -8913.7123      210622.5       59.37          59.37          59.754506      0              0              8.8054941e-89
+      8920   17.84          298.58131     -133046.73     -9653.2481      210632.31      59.37          59.37          59.757291      0              0              5.9733704e-89
+      8930   17.86          297.93103     -133046.72     -9199.7754      210641.87      59.37          59.37          59.760002      0              0              3.8267571e-89
+      8940   17.88          295.63142     -133046.68     -9354.9852      210651.34      59.37          59.37          59.76269       0              0              2.3545095e-89
+      8950   17.9           297.82764     -133046.7      -9685.1546      210660.77      59.37          59.37          59.765365      0              0              1.4044944e-89
+      8960   17.92          301.0498      -133046.7      -9626.3083      210669.75      59.37          59.37          59.767911      0              0              8.1690377e-90
+      8970   17.94          297.09315     -133046.66     -9480.8042      210678.44      59.37          59.37          59.770377      0              0              4.6497263e-90
+      8980   17.96          297.22374     -133046.65     -9611.4518      210686.87      59.37          59.37          59.772769      0              0              2.5959806e-90
+      8990   17.98          298.65658     -133046.63     -9528.76        210694.86      59.37          59.37          59.775036      0              0              1.4237173e-90
+      9000   18             298.91631     -133046.59     -9676.5026      210702.54      59.37          59.37          59.777214      0              0              7.6761044e-91
+      9010   18.02          299.81448     -133046.54     -9377.7334      210709.39      59.37          59.37          59.779157      0              0              4.0697093e-91
+      9020   18.04          300.03119     -133046.5      -9415.2514      210715.12      59.37          59.37          59.780784      0              0              2.1211955e-91
+      9030   18.06          301.31072     -133046.48     -9519.8404      210719.94      59.37          59.37          59.782151      0              0              1.0860411e-91
+      9040   18.08          298.3812      -133046.44     -9577.5555      210723.74      59.37          59.37          59.783228      0              0              5.4541794e-92
+      9050   18.1           297.9106      -133046.41     -9548.5547      210726.04      59.37          59.37          59.783881      0              0              2.6805145e-92
+      9060   18.12          299.11335     -133046.38     -9876.1792      210726.89      59.37          59.37          59.784122      0              0              1.2845122e-92
+      9070   18.14          299.70516     -133046.34     -9463.2547      210726.54      59.37          59.37          59.784024      0              0              5.9677181e-93
+      9080   18.16          298.14237     -133046.26     -9055.0094      210725.52      59.37          59.37          59.783734      0              0              2.6627873e-93
+      9090   18.18          298.17836     -133046.21     -9405.6785      210723.78      59.37          59.37          59.78324       0              0              1.1220453e-93
+      9100   18.2           297.92329     -133046.18     -9569.9305      210721.11      59.37          59.37          59.782483      0              0              4.3142338e-94
+      9110   18.22          298.1481      -133046.11     -9748.0591      210717.08      59.37          59.37          59.781338      0              0              1.3846012e-94
+      9120   18.24          298.71055     -133046.07     -9755.6108      210711.43      59.37          59.37          59.779737      0              0              2.4533032e-95
+      9130   18.26          300.44381     -133046.06     -9453.7193      210704.96      59.37          59.37          59.7779        0              0             -1.2959601e-95
+      9140   18.28          296.93289     -133045.94     -9277.7313      210698.27      59.37          59.37          59.776002      0              0             -2.0410134e-95
+      9150   18.3           300.28057     -133045.89     -9401.544       210691.38      59.37          59.37          59.774049      0              0             -1.774621e-95 
+      9160   18.32          299.38089     -133045.82     -9321.3838      210684.2       59.37          59.37          59.772012      0              0             -1.2879325e-95
+      9170   18.34          297.11667     -133045.74     -9239.6197      210676.73      59.37          59.37          59.769891      0              0             -8.5290366e-96
+      9180   18.36          298.99001     -133045.69     -9448.8855      210668.79      59.37          59.37          59.76764       0              0             -5.3339946e-96
+      9190   18.38          301.21056     -133045.6      -9267.5794      210660.39      59.37          59.37          59.765258      0              0             -3.2037843e-96
+      9200   18.4           298.53215     -133045.48     -9452.0418      210651.97      59.37          59.37          59.762867      0              0             -1.8656234e-96
+      9210   18.42          300.04712     -133045.41     -9308.1734      210643.85      59.37          59.37          59.760564      0              0             -1.0592928e-96
+      9220   18.44          298.67803     -133045.29     -8845.584       210636.37      59.37          59.37          59.75844       0              0             -5.8859105e-97
+      9230   18.46          297.73798     -133045.18     -9042.9506      210629.75      59.37          59.37          59.756564      0              0             -3.2079593e-97
+      9240   18.48          300.60037     -133045.1      -9244.0076      210624.02      59.37          59.37          59.754938      0              0             -1.7174825e-97
+      9250   18.5           299.19523     -133044.98     -9037.2366      210618.56      59.37          59.37          59.753389      0              0             -9.0396283e-98
+      9260   18.52          297.13062     -133044.86     -8264.2688      210613.6       59.37          59.37          59.751981      0              0             -4.678582e-98 
+      9270   18.54          300.31682     -133044.78     -9188.6685      210609.88      59.37          59.37          59.750927      0              0             -2.3805248e-98
+      9280   18.56          301.35995     -133044.67     -9135.1127      210606.7       59.37          59.37          59.750024      0              0             -1.189815e-98 
+      9290   18.58          299.86528     -133044.55     -8929.7333      210604.04      59.37          59.37          59.749271      0              0             -5.8331576e-99
+      9300   18.6           298.93375     -133044.45     -9210.1622      210602.13      59.37          59.37          59.748727      0              0             -2.7985534e-99
+      9310   18.62          299.60367     -133044.32     -8592.5923      210600.33      59.37          59.37          59.748218      0              0             -1.3091663e-99
+      9320   18.64          299.88314     -133044.18     -8297.993       210599.08      59.37          59.37          59.747861      0              0             -5.9375329e-100
+      9330   18.66          297.49094     -133044.03     -8731.6568      210598.84      59.37          59.37          59.747793      0              0             -2.5862789e-100
+      9340   18.68          298.72729     -133043.91     -8885.9645      210598.9       59.37          59.37          59.747811      0              0             -1.0638745e-100
+      9350   18.7           297.81463     -133043.76     -8779.5549      210598.62      59.37          59.37          59.747731      0              0             -3.9932348e-101
+      9360   18.72          301.90644     -133043.66     -9474.7638      210598.28      59.37          59.37          59.747636      0              0             -1.2510855e-101
+      9370   18.74          296.27938     -133043.45     -9016.0765      210597.38      59.37          59.37          59.747381      0              0             -2.1639872e-102
+      9380   18.76          301.78905     -133043.38     -8636.5449      210595.68      59.37          59.37          59.746899      0              0              1.1159281e-102
+      9390   18.78          300.38774     -133043.18     -8570.1428      210593.96      59.37          59.37          59.74641       0              0              1.7156615e-102
+      9400   18.8           299.88787     -133043.03     -8932.8837      210592.06      59.37          59.37          59.745871      0              0              1.4562385e-102
+      9410   18.82          299.50484     -133042.88     -8817.9254      210589.09      59.37          59.37          59.745029      0              0              1.0317184e-102
+      9420   18.84          299.19214     -133042.74     -8860.481       210584.89      59.37          59.37          59.743838      0              0              6.6697441e-103
+      9430   18.86          300.06065     -133042.6      -9171.7204      210579.65      59.37          59.37          59.742349      0              0              4.0719545e-103
+      9440   18.88          301.49684     -133042.47     -8399.598       210573.32      59.37          59.37          59.740554      0              0              2.3875625e-103
+      9450   18.9           298.56687     -133042.28     -8457.3123      210566.91      59.37          59.37          59.738737      0              0              1.3572399e-103
+      9460   18.92          300.2855      -133042.14     -8339.1848      210560.66      59.37          59.37          59.736962      0              0              7.5229781e-104
+      9470   18.94          300.51496     -133041.97     -8509.1142      210554.37      59.37          59.37          59.735178      0              0              4.0806428e-104
+      9480   18.96          301.99714     -133041.82     -8659.8198      210547.86      59.37          59.37          59.733331      0              0              2.1711255e-104
+      9490   18.98          299.7842      -133041.64     -8195.1469      210541.16      59.37          59.37          59.731431      0              0              1.1347222e-104
+      9500   19             300.95249     -133041.47     -8112.4354      210534.74      59.37          59.37          59.72961       0              0              5.8302737e-105
+      9510   19.02          301.06577     -133041.29     -8449.271       210528.91      59.37          59.37          59.727954      0              0              2.9457356e-105
+      9520   19.04          299.17665     -133041.12     -8202.7852      210523.3       59.37          59.37          59.726362      0              0              1.4631652e-105
+      9530   19.06          299.08521     -133040.92     -8853.3121      210517.75      59.37          59.37          59.724788      0              0              7.1390633e-106
+      9540   19.08          300.5132      -133040.78     -9231.9275      210511.55      59.37          59.37          59.72303       0              0              3.4166986e-106
+      9550   19.1           299.39499     -133040.63     -9090.4922      210504.62      59.37          59.37          59.721065      0              0              1.6002127e-106
+      9560   19.12          297.92561     -133040.44     -8769.837       210497.49      59.37          59.37          59.719041      0              0              7.307689e-107
+      9570   19.14          300.27907     -133040.28     -8853.7294      210490.27      59.37          59.37          59.716994      0              0              3.2354331e-107
+      9580   19.16          298.24576     -133040.06     -8220.1894      210482.91      59.37          59.37          59.714905      0              0              1.3757607e-107
+      9590   19.18          299.64052     -133039.9      -8784.6898      210476.05      59.37          59.37          59.712959      0              0              5.524578e-108
+      9600   19.2           301.12698     -133039.76     -8987.0578      210469.07      59.37          59.37          59.710977      0              0              2.0242991e-108
+      9610   19.22          302.53817     -133039.61     -8007.1715      210461.98      59.37          59.37          59.708968      0              0              6.191245e-109
+      9620   19.24          301.07007     -133039.4      -7371.7476      210456.5       59.37          59.37          59.707411      0              0              1.0454104e-109
+      9630   19.26          300.75638     -133039.23     -7872.5069      210453.06      59.37          59.37          59.706436      0              0             -5.2627107e-110
+      9640   19.28          299.41186     -133039.03     -7366.6773      210450.81      59.37          59.37          59.705798      0              0             -7.8985257e-110
+      9650   19.3           301.23777     -133038.87     -7531.5221      210450.12      59.37          59.37          59.705601      0              0             -6.5446751e-110
+      9660   19.32          299.8081      -133038.7      -8301.1471      210450.58      59.37          59.37          59.705732      0              0             -4.5264516e-110
+      9670   19.34          303.09533     -133038.56     -7501.2037      210451.24      59.37          59.37          59.705921      0              0             -2.8565842e-110
+      9680   19.36          301.99822     -133038.38     -7902.3433      210453.38      59.37          59.37          59.706526      0              0             -1.7024796e-110
+      9690   19.38          300.57239     -133038.2      -8521.4016      210456.91      59.37          59.37          59.707528      0              0             -9.7448445e-111
+      9700   19.4           302.56332     -133038.08     -8670.363       210460.18      59.37          59.37          59.708456      0              0             -5.4077664e-111
+      9710   19.42          300.99208     -133037.91     -8535.5764      210462.5       59.37          59.37          59.709113      0              0             -2.9261208e-111
+      9720   19.44          299.17994     -133037.72     -9228.2648      210464.25      59.37          59.37          59.709612      0              0             -1.5494308e-111
+      9730   19.46          302.31644     -133037.61     -8912.9971      210464.62      59.37          59.37          59.709716      0              0             -8.0476611e-112
+      9740   19.48          302.81371     -133037.48     -7855.2436      210463.85      59.37          59.37          59.709498      0              0             -4.1059668e-112
+      9750   19.5           299.21404     -133037.31     -8237.0506      210463.11      59.37          59.37          59.709288      0              0             -2.0594724e-112
+      9760   19.52          301.18006     -133037.19     -8194.0763      210461.53      59.37          59.37          59.708839      0              0             -1.0157853e-112
+      9770   19.54          300.2857      -133037.03     -7783.47        210458.69      59.37          59.37          59.708034      0              0             -4.9254135e-113
+      9780   19.56          299.52608     -133036.89     -8377.9998      210455.25      59.37          59.37          59.707057      0              0             -2.34602e-113 
+      9790   19.58          298.25284     -133036.74     -7906.9684      210451.03      59.37          59.37          59.70586       0              0             -1.09607e-113 
+      9800   19.6           302.25745     -133036.62     -7819.7094      210446.77      59.37          59.37          59.704651      0              0             -5.0113008e-114
+      9810   19.62          300.26228     -133036.45     -7678.0488      210443.01      59.37          59.37          59.703584      0              0             -2.2340556e-114
+      9820   19.64          302.30203     -133036.33     -8078.05        210439.43      59.37          59.37          59.702568      0              0             -9.6557829e-115
+      9830   19.66          302.90623     -133036.22     -7782.9825      210435.21      59.37          59.37          59.701372      0              0             -4.0081052e-115
+      9840   19.68          301.37733     -133036.08     -7970.3843      210430.75      59.37          59.37          59.700107      0              0             -1.5712181e-115
+      9850   19.7           304.02636     -133035.98     -8161.1369      210425.78      59.37          59.37          59.698697      0              0             -5.6202183e-116
+      9860   19.72          304.59905     -133035.89     -7406.0516      210419.96      59.37          59.37          59.697045      0              0             -1.678022e-116
+      9870   19.74          301.24607     -133035.75     -7662.0858      210414.65      59.37          59.37          59.69554       0              0             -2.765971e-117
+      9880   19.76          299.65274     -133035.63     -8332.593       210409.9       59.37          59.37          59.694191      0              0              1.3592879e-117
+      9890   19.78          300.77302     -133035.51     -8056.8702      210405.06      59.37          59.37          59.692819      0              0              1.9915404e-117
+      9900   19.8           302.32718     -133035.41     -8058.6947      210400.3       59.37          59.37          59.691467      0              0              1.6109139e-117
+      9910   19.82          299.10451     -133035.29     -8034.0418      210395.82      59.37          59.37          59.690196      0              0              1.0876352e-117
+      9920   19.84          299.55981     -133035.19     -7113.9403      210392.05      59.37          59.37          59.689126      0              0              6.7005981e-118
+      9930   19.86          299.97777     -133035.08     -7376.8091      210389.96      59.37          59.37          59.688535      0              0              3.8984288e-118
+      9940   19.88          300.56512     -133034.97     -7915.4594      210389.14      59.37          59.37          59.688303      0              0              2.1783303e-118
+      9950   19.9           302.03095     -133034.9      -8055.6579      210388.91      59.37          59.37          59.688238      0              0              1.1800703e-118
+      9960   19.92          303.13147     -133034.83     -7680.1825      210388.9       59.37          59.37          59.688234      0              0              6.2333766e-119
+      9970   19.94          302.17908     -133034.75     -7764.8281      210389.5       59.37          59.37          59.688404      0              0              3.2221403e-119
+      9980   19.96          299.6461      -133034.63     -7841.8055      210391.27      59.37          59.37          59.688905      0              0              1.6337406e-119
+      9990   19.98          303.85771     -133034.6      -7854.4054      210394.87      59.37          59.37          59.689928      0              0              8.1371064e-120
+     10000   20             301.25898     -133034.46     -8260.8923      210399.85      59.37          59.37          59.691339      0              0              3.9842968e-120
+Loop time of 160.833 on 16 procs for 10000 steps with 16875 atoms
+
+Performance: 10.744 ns/day, 2.234 hours/ns, 62.176 timesteps/s, 1.049 Matom-step/s
+138.8% CPU use with 8 MPI tasks x 2 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 139.1      | 141.57     | 144.3      |  13.9 | 88.02
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 7.7484     | 10.47      | 12.937     |  50.9 |  6.51
+Output  | 2.6967     | 2.9393     | 3.2464     |  10.7 |  1.83
+Modify  | 5.4288     | 5.7453     | 5.9863     |   7.6 |  3.57
+Other   |            | 0.1086     |            |       |  0.07
+
+Nlocal:        2109.38 ave        2161 max        2076 min
+Histogram: 1 0 4 1 0 0 0 1 0 1
+Nghost:         5964.5 ave        5993 max        5915 min
+Histogram: 1 0 1 0 1 0 0 1 2 2
+Neighs:              0 ave           0 max           0 min
+Histogram: 8 0 0 0 0 0 0 0 0 0
+FullNghs:       349774 ave      358855 max      344722 min
+Histogram: 1 3 1 1 0 0 0 0 1 1
+
+Total # of neighbors = 2798190
+Ave neighs/atom = 165.81867
+Neighbor list builds = 0
+Dangerous builds = 0
+System init for write_data ...
+Generated 0 of 6 mixed pair_coeff terms from geometric mixing rule
+No /omp style for force computation currently active
+System init for write_restart ...
+Generated 0 of 6 mixed pair_coeff terms from geometric mixing rule
+No /omp style for force computation currently active
+Total wall time: 0:02:50
