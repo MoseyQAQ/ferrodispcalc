@@ -5,7 +5,9 @@ try:
     from vispy.scene.visuals import Arrow, Text, XYZAxis, Rectangle
     from vispy.visuals.transforms import STTransform
 except ImportError:
-    raise ImportError("VisPy is not installed. Please install it with `pip install vispy` or `pip install ferrodispcalc[vis]`.")
+    print("VisPy is not installed. Please install it with `pip install vispy` or `pip install ferrodispcalc[vis]`.")
+    exit(0)
+    # raise ImportError("VisPy is not installed. Please install it with `pip install vispy` or `pip install ferrodispcalc[vis]`.")
 
 def _get_colors_from_vectors(vectors: np.ndarray) -> np.ndarray:
     """
@@ -500,10 +502,3 @@ def space_profile(data: np.ndarray,
     )
     canvas.show()
     app.run()
-
-if __name__ == '__main__':
-    # Test code
-    nx, ny, nz = 5, 5, 5
-    nframe = 20
-    data = np.random.rand(nframe, nx, ny, nz, 3) - 0.5
-    space_profile(data, scale=0.5, arrow_width=3.0, show_axis=True, autoplay=False, fps=10, loop=True)
