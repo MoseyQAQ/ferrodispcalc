@@ -2,7 +2,7 @@ import scienceplots
 import matplotlib.pyplot as plt
 from .line_plot import line_profile
 from .plane_plot import plane_profile
-from .space_plot import space_profile
+# from .space_plot import space_profile # for temp fix to avoid pytest's error
 from .grid import grid_data
 plt.style.use(['science', 'no-latex'])
 

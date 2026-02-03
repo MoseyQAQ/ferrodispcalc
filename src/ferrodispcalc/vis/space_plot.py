@@ -5,9 +5,7 @@ try:
     from vispy.scene.visuals import Arrow, Text, XYZAxis, Rectangle
     from vispy.visuals.transforms import STTransform
 except ImportError:
-    print("VisPy is not installed. Please install it with `pip install vispy` or `pip install ferrodispcalc[vis]`.")
-    exit(0)
-    # raise ImportError("VisPy is not installed. Please install it with `pip install vispy` or `pip install ferrodispcalc[vis]`.")
+    raise ImportError("VisPy is not installed. Please install it with `pip install vispy` or `pip install ferrodispcalc[vis]`.")
 
 def _get_colors_from_vectors(vectors: np.ndarray) -> np.ndarray:
     """
