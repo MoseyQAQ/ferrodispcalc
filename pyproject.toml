@@ -40,3 +40,4 @@ version = { attr = "ferrodispcalc.__version__" }
 
 [project.optional-dependencies]
 test = ['pytest']
+vis = ["vispy", "PySide6"]
