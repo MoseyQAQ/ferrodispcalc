@@ -1,0 +1,301 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ferrodispcalc.io &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ferrodispcalc.io</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ferrodispcalc.io</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atoms</span> 
+<span class="kn">import</span> <span class="nn">dpdata</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">ferrodispcalc._cpp_bindings</span> <span class="k">as</span> <span class="nn">_cpp</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Could not import ferrodispcalc C++ bindings. Some IO functions may not work.&quot;</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="read_xyz">
+<a class="viewcode-back" href="../../ferrodispcalc.html#ferrodispcalc.io.read_xyz">[docs]</a>
+<span class="k">def</span> <span class="nf">read_xyz</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">select_frames</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Read an XYZ trajectory file and return a list of ASE Atoms objects.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    filename (str): Path to the XYZ file.</span>
+<span class="sd">    select_frames (list, optional): List of frame indices to read. If None, read all frames. Defaults to None.</span>
+<span class="sd">    cache (bool, optional): Whether to cache the read frames in memory. Defaults to True.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">pass</span></div>
+
+
+<span class="k">def</span> <span class="nf">_convert_frame_to_atoms</span><span class="p">(</span><span class="n">cpp_frame</span><span class="p">:</span> <span class="n">_cpp</span><span class="o">.</span><span class="n">Frame</span><span class="p">,</span> <span class="n">type_map</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    (私有) 助手函数：将 C++ Frame 对象转换为 ase.Atoms 对象。</span>
+<span class="sd">    </span>
+<span class="sd">    C++ Frame 已经通过 pybind11 将其数据暴露为 NumPy 数组 (零拷贝)。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">type_map</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">cpp_frame</span><span class="o">.</span><span class="n">types</span><span class="p">]</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span>
+        <span class="n">symbols</span><span class="o">=</span><span class="n">symbols</span><span class="p">,</span>
+        <span class="n">positions</span><span class="o">=</span><span class="n">cpp_frame</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span>
+        <span class="n">cell</span><span class="o">=</span><span class="n">cpp_frame</span><span class="o">.</span><span class="n">cell</span><span class="p">,</span>
+        <span class="n">pbc</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># LAMMPS dump 几乎总是有 PBC</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># 附加 timestep</span>
+    <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;timestep&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cpp_frame</span><span class="o">.</span><span class="n">timestep</span>
+    
+    <span class="c1"># 附加所有其他 per-atom 属性 (例如 &#39;fx&#39;, &#39;fy&#39;, &#39;fz&#39;, &#39;q&#39;)</span>
+    <span class="c1"># cpp_frame.arrays 是一个 dict[str, np.ndarray(N,)]</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">cpp_frame</span><span class="o">.</span><span class="n">arrays</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">array</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">atoms</span>
+
+
+<div class="viewcode-block" id="read_lammps_dump">
+<a class="viewcode-back" href="../../ferrodispcalc.html#ferrodispcalc.io.read_lammps_dump">[docs]</a>
+<span class="k">def</span> <span class="nf">read_lammps_dump</span><span class="p">(</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">type_map</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">select</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Atoms</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Atoms</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Place holder for docstring </span>
+<span class="sd">    Note: We must notice you that:</span>
+
+<span class="sd">    THE COORDINATE IS NOT SHIFTED BACK TO ORIGINAL POSITION.</span>
+<span class="sd">    THUS A CONSTANT SHIFT MAY EXIST IN THE COORDINATES COMPARED TO OTHER TOOLS LIKE DPDATA.</span>
+<span class="sd">    However, the shift is constant, thus not important</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># --- 1. (1a) (1c) 缓存管理 ---</span>
+    
+    <span class="c1"># 确定原始文件和缓存文件的路径</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">f_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LAMMPS dump file not found: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">filename_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">f_path</span><span class="p">)</span>
+    
+    <span class="c1"># 缓存文件名: &quot;.dump.traj.idx&quot; (Linux 隐藏)</span>
+    <span class="c1"># (根据你的要求 &#39;.&quot; + filename&#39;，我们使用 &#39;.{name}.idx&#39; 格式)</span>
+    <span class="n">cache_path</span> <span class="o">=</span> <span class="n">f_path</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">f_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.idx&quot;</span>
+    <span class="n">cache_filename_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cache_path</span><span class="p">)</span>
+
+    <span class="c1"># --- 2. (1b) 实例化 C++ Reader ---</span>
+    <span class="c1"># 构造函数执行 mmap。如果失败，会抛出异常。</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">_cpp</span><span class="o">.</span><span class="n">LAMMPSReader</span><span class="p">(</span><span class="n">filename_str</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;C++ 内核 mmap 文件失败: </span><span class="si">{</span><span class="n">filename_str</span><span class="si">}</span><span class="s2">. Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">use_cache</span> <span class="o">=</span> <span class="n">cache</span>
+    <span class="n">is_cache_valid</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cache_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># 检查缓存是否过期</span>
+                <span class="n">orig_mtime</span> <span class="o">=</span> <span class="n">f_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_mtime</span>
+                <span class="n">cache_mtime</span> <span class="o">=</span> <span class="n">cache_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_mtime</span>
+                <span class="k">if</span> <span class="n">cache_mtime</span> <span class="o">&gt;=</span> <span class="n">orig_mtime</span><span class="p">:</span>
+                    <span class="n">is_cache_valid</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># 缓存已过期 (原始文件已被修改)</span>
+                    <span class="k">pass</span> 
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="c1"># 无法获取 stat，视为无效</span>
+                <span class="k">pass</span>
+
+    <span class="c1"># --- 3. 调用 C++ 索引/加载 ---</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">is_cache_valid</span><span class="p">:</span>
+            <span class="c1"># (1d) 缓存有效：调用 C++ load_index</span>
+            <span class="n">reader</span><span class="o">.</span><span class="n">load_index</span><span class="p">(</span><span class="n">cache_filename_str</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># (1c) 缓存无效或被禁用：调用 C++ index</span>
+            <span class="n">reader</span><span class="o">.</span><span class="n">index</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
+                <span class="c1"># (新增) 保存新索引到文件</span>
+                <span class="n">reader</span><span class="o">.</span><span class="n">save_index</span><span class="p">(</span><span class="n">cache_filename_str</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># 处理 C++ 端的索引/加载/保存错误</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;C++ 内核索引/缓存操作失败: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --- 4. (1a) 解析 &#39;select&#39; 参数 ---</span>
+    <span class="n">total_frames</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">n_frames</span> <span class="c1"># 使用绑定的 .n_frames 属性</span>
+    
+    <span class="k">if</span> <span class="n">total_frames</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">select</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># 读取所有</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">total_frames</span><span class="p">))</span>
+        <span class="n">return_single</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="c1"># 归一化负索引</span>
+        <span class="n">norm_idx</span> <span class="o">=</span> <span class="n">select</span> <span class="k">if</span> <span class="n">select</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">select</span> <span class="o">+</span> <span class="n">total_frames</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">norm_idx</span> <span class="o">&lt;</span> <span class="n">total_frames</span><span class="p">:</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">norm_idx</span><span class="p">]</span>
+            <span class="n">return_single</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Frame index </span><span class="si">{</span><span class="n">select</span><span class="si">}</span><span class="s2"> out of range for file with </span><span class="si">{</span><span class="n">total_frames</span><span class="si">}</span><span class="s2"> frames.&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">select</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">total_frames</span><span class="p">)))</span>
+        <span class="n">return_single</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="c1"># 归一化负索引</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="n">total_frames</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">select</span><span class="p">]</span>
+        <span class="n">return_single</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;不支持的 &#39;select&#39; 类型: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">select</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">indices</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">return_single</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="c1"># --- 5. (1d) 调用 C++ 核心读取 ---</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># C++ 端返回一个 _cpp.Frame 列表</span>
+        <span class="n">raw_frames</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read_frames</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">RuntimeError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">,</span> <span class="n">std</span><span class="o">.</span><span class="n">out_of_range</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;C++ 内核读取帧失败: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --- 6. (1e) 将 C++ 结构体包装为 Python Atoms 对象 ---</span>
+    <span class="n">atoms_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">_convert_frame_to_atoms</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">type_map</span><span class="p">)</span> <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">raw_frames</span><span class="p">]</span>
+
+    <span class="c1"># --- 7. (1a) 根据 &#39;select&#39; 类型返回结果 ---</span>
+    <span class="k">return</span> <span class="n">atoms_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">return_single</span> <span class="k">else</span> <span class="n">atoms_list</span></div>
+
+
+<div class="viewcode-block" id="read_lammps_data">
+<a class="viewcode-back" href="../../ferrodispcalc.html#ferrodispcalc.io.read_lammps_data">[docs]</a>
+<span class="k">def</span> <span class="nf">read_lammps_data</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_map</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
+    <span class="n">sys</span> <span class="o">=</span> <span class="n">dpdata</span><span class="o">.</span><span class="n">System</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;lmp&#39;</span><span class="p">,</span> <span class="n">type_map</span><span class="o">=</span><span class="n">type_map</span><span class="p">)</span>
+    <span class="n">atoms</span> <span class="o">=</span>  <span class="n">sys</span><span class="o">.</span><span class="n">to_ase_structure</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">atoms</span></div>
+
+
+<div class="viewcode-block" id="read_lammps_log">
+<a class="viewcode-back" href="../../ferrodispcalc.html#ferrodispcalc.io.read_lammps_log">[docs]</a>
+<span class="k">def</span> <span class="nf">read_lammps_log</span><span class="p">(</span><span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">line_idx</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">end_line_idx</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Per MPI rank memory&#39;</span><span class="p">):</span>
+                <span class="n">line_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;Loop time of&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">end_line_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">break</span>
+    <span class="n">start_line_idx</span> <span class="o">=</span> <span class="n">line_idx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">end_line_idx</span> <span class="o">=</span> <span class="n">end_line_idx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">nframes</span> <span class="o">=</span> <span class="n">end_line_idx</span> <span class="o">-</span> <span class="n">start_line_idx</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="n">start_line_idx</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="n">start_line_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="n">nframes</span><span class="p">)</span>
+    
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">==</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;Keys and data columns do not match.&quot;</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">keys</span><span class="p">)}</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;nframes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nframes</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Read </span><span class="si">{</span><span class="n">nframes</span><span class="si">}</span><span class="s2"> frames from </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found Keys: </span><span class="si">{</span><span class="n">keys</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
