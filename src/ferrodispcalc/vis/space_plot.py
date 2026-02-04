@@ -47,15 +47,14 @@ attribute vec3 i_r0;
 attribute vec3 i_r1;
 attribute vec3 i_r2;
 attribute float i_length;
+attribute float i_scale_xy;
 attribute vec4 i_color;
-
-uniform float u_scale_xy;
 
 varying vec4 v_color;
 
 void main() {
     mat3 R = mat3(i_r0, i_r1, i_r2);  // columns
-    vec3 scale = vec3(u_scale_xy, u_scale_xy, i_length);
+    vec3 scale = vec3(i_scale_xy, i_scale_xy, i_length);
     vec3 world_pos = i_translate + (R * (a_position * scale));
     v_color = i_color;
     gl_Position = $transform(vec4(world_pos, 1.0));
@@ -96,6 +95,9 @@ class InstancedArrowVisual(Visual):
         self._i_length = VertexBuffer(np.zeros((1, 1), dtype=np.float32))
         self._i_length.divisor = 1
 
+        self._i_scale_xy = VertexBuffer(np.ones((1, 1), dtype=np.float32))
+        self._i_scale_xy.divisor = 1
+
         self._i_color = VertexBuffer(np.zeros((1, 4), dtype=np.float32))
         self._i_color.divisor = 1
 
@@ -105,8 +107,8 @@ class InstancedArrowVisual(Visual):
         self.shared_program['i_r1'] = self._i_r1
         self.shared_program['i_r2'] = self._i_r2
         self.shared_program['i_length'] = self._i_length
+        self.shared_program['i_scale_xy'] = self._i_scale_xy
         self.shared_program['i_color'] = self._i_color
-        self.shared_program['u_scale_xy'] = 1.0
 
         self._instance_count = 0
 
@@ -123,13 +125,14 @@ class InstancedArrowVisual(Visual):
         r2: np.ndarray,
         length: np.ndarray,
         color: np.ndarray,
-        scale_xy: float,
+        scale_xy: np.ndarray,
     ) -> None:
         translate = np.asarray(translate, dtype=np.float32)
         r0 = np.asarray(r0, dtype=np.float32)
         r1 = np.asarray(r1, dtype=np.float32)
         r2 = np.asarray(r2, dtype=np.float32)
         length = np.asarray(length, dtype=np.float32)
+        scale_xy = np.asarray(scale_xy, dtype=np.float32)
         color = np.asarray(color, dtype=np.float32)
 
         n = int(translate.shape[0])
@@ -140,11 +143,16 @@ class InstancedArrowVisual(Visual):
             r1 = np.array([[0.0, 1.0, 0.0]], dtype=np.float32)
             r2 = np.array([[0.0, 0.0, 1.0]], dtype=np.float32)
             length = np.zeros((1, 1), dtype=np.float32)
+            scale_xy = np.ones((1, 1), dtype=np.float32)
             color = np.zeros((1, 4), dtype=np.float32)
             self._instance_count = 0
         else:
             if length.ndim == 1:
                 length = length.reshape(-1, 1)
+            if scale_xy.ndim == 0:
+                scale_xy = np.full((n, 1), float(scale_xy), dtype=np.float32)
+            elif scale_xy.ndim == 1:
+                scale_xy = scale_xy.reshape(-1, 1)
             self._instance_count = n
 
         self._i_translate.set_data(translate)
@@ -152,8 +160,8 @@ class InstancedArrowVisual(Visual):
         self._i_r1.set_data(r1)
         self._i_r2.set_data(r2)
         self._i_length.set_data(length)
+        self._i_scale_xy.set_data(scale_xy)
         self._i_color.set_data(color)
-        self.shared_program['u_scale_xy'] = float(scale_xy)
         self.update()
 
 
@@ -526,10 +534,6 @@ class SpaceProfileCanvas(scene.SceneCanvas):
         t_colors1 = time.perf_counter()
 
         t_build0 = time.perf_counter()
-        shaft_radius = self._axis_len * 0.005 * max(0.25, float(self.arrow_width))
-        shaft_radius = max(shaft_radius, self._axis_len * 1e-4)
-        scale_xy = float(shaft_radius / _ARROW_BASE_RADIUS)
-
         lengths_all = np.linalg.norm(vectors, axis=1).astype(np.float32, copy=False)
         mask = lengths_all > 0
         if np.any(mask):
@@ -547,6 +551,13 @@ class SpaceProfileCanvas(scene.SceneCanvas):
             lengths = np.empty((0,), dtype=np.float32)
             direction = np.empty((0, 3), dtype=np.float32)
             arrow_count = 0
+
+        width_factor = max(0.05, float(self.arrow_width) / 2.0)
+        min_radius = self._axis_len * 1e-4
+        max_radius = self._axis_len * 0.02
+        min_scale_xy = float(min_radius / _ARROW_BASE_RADIUS)
+        max_scale_xy = float(max_radius / _ARROW_BASE_RADIUS)
+        scale_xy = np.clip(lengths * width_factor, min_scale_xy, max_scale_xy).astype(np.float32, copy=False)
 
         if self._render_mode == "instanced":
             try:
@@ -631,8 +642,9 @@ class SpaceProfileCanvas(scene.SceneCanvas):
 
                     lengths_chunk = lengths[start:stop]
                     scale_factors = np.empty((stop - start, 3), dtype=np.float32)
-                    scale_factors[:, 0] = scale_xy
-                    scale_factors[:, 1] = scale_xy
+                    scale_xy_chunk = scale_xy[start:stop]
+                    scale_factors[:, 0] = scale_xy_chunk
+                    scale_factors[:, 1] = scale_xy_chunk
                     scale_factors[:, 2] = lengths_chunk
 
                     scaled = base_vertices[None, :, :] * scale_factors[:, None, :]
