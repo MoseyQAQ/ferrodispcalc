@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ferrodispcalc.compute &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ferrodispcalc.compute</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ferrodispcalc.compute</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atoms</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">__select_traj</span><span class="p">(</span><span class="n">traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]</span> <span class="o">|</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">select</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]:</span>
+    <span class="n">nframe</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+
+    <span class="c1"># 1. default: select last 50% frames</span>
+    <span class="k">if</span> <span class="n">select</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">select</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">nframe</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">nframe</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># 2. select frames</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">Atoms</span><span class="p">):</span>
+        <span class="n">selected_traj</span> <span class="o">=</span> <span class="p">[</span><span class="n">traj</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">selected_traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="n">select</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of Selected Frames: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">selected_traj</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">selected_traj</span>
+
+<div class="viewcode-block" id="calculate_displacement">
+<a class="viewcode-back" href="../../ferrodispcalc.html#ferrodispcalc.compute.calculate_displacement">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_displacement</span><span class="p">(</span><span class="n">traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]</span> <span class="o">|</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">nl</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">select</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+
+    <span class="n">selected_traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]</span> <span class="o">=</span> <span class="n">__select_traj</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">select</span><span class="p">)</span>
+
+    <span class="c1"># 2. get coord, cell arrays</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">selected_traj</span><span class="p">])</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_cell</span><span class="p">()</span><span class="o">.</span><span class="n">array</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">selected_traj</span><span class="p">])</span>
+    <span class="n">nframes</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">natoms</span> <span class="o">=</span> <span class="n">nl</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">_nl</span> <span class="o">=</span> <span class="n">nl</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1"># convert to zero-based index</span>
+    <span class="n">displacement</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">nframes</span><span class="p">,</span> <span class="n">natoms</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span> <span class="c1"># shape: (nframes, nneighbors, 3)</span>
+    
+    <span class="c1"># 2. get indices</span>
+    <span class="n">center_id</span> <span class="o">=</span> <span class="n">_nl</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">neighbors_id</span> <span class="o">=</span> <span class="n">_nl</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+
+    <span class="c1"># 3. walk through frames</span>
+    <span class="n">ranger</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nframes</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Calculating Displacement&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">nframes</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="n">nframes</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ranger</span><span class="p">:</span>
+        <span class="c1"># 3.1 select center atoms and their coordinates</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">cell_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+        <span class="n">frame_coords</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">center_coords</span> <span class="o">=</span> <span class="n">frame_coords</span><span class="p">[</span><span class="n">center_id</span><span class="p">]</span> <span class="c1"># shape: (natoms, 3)</span>
+        <span class="n">neighbors_coords</span> <span class="o">=</span> <span class="n">frame_coords</span><span class="p">[</span><span class="n">neighbors_id</span><span class="p">]</span> <span class="c1"># shape: (natoms, num_neighbor, 3)</span>
+
+        <span class="c1"># 3.2 update coordinates to account for MIC</span>
+        <span class="n">center_coords_expanded</span> <span class="o">=</span> <span class="n">center_coords</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">neighbors_coords_diff</span> <span class="o">=</span> <span class="n">center_coords_expanded</span> <span class="o">-</span> <span class="n">neighbors_coords</span> <span class="c1"># shape: (natoms, num_neighbor, 3)</span>
+        <span class="n">neighbors_coords_diff_frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">neighbors_coords_diff</span><span class="p">,</span> <span class="n">cell_inv</span><span class="p">)</span>
+        <span class="n">neighbors_coords_diff_frac</span><span class="p">[</span><span class="n">neighbors_coords_diff_frac</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">neighbors_coords_diff_frac</span><span class="p">[</span><span class="n">neighbors_coords_diff_frac</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># 3.3 calculate displacement</span>
+        <span class="n">neighbors_coords_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">neighbors_coords_diff_frac</span><span class="p">,</span> <span class="n">cell</span><span class="p">)</span>
+        <span class="n">displacement</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">neighbors_coords_diff</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">nframes</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">displacement</span> <span class="o">=</span> <span class="n">displacement</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">displacement</span></div>
+
+
+<div class="viewcode-block" id="calculate_polarization">
+<a class="viewcode-back" href="../../ferrodispcalc.html#ferrodispcalc.compute.calculate_polarization">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_polarization</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> 
+                           <span class="n">nl_ba</span><span class="p">:</span>  <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+                           <span class="n">nl_bx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+                           <span class="n">born_effective_charge</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> 
+                           <span class="n">select</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+
+    <span class="c1"># 1. determine frames to select</span>
+    <span class="n">selected_traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]</span> <span class="o">=</span> <span class="n">__select_traj</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">select</span><span class="p">)</span>
+
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">selected_traj</span><span class="p">])</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_cell</span><span class="p">()</span><span class="o">.</span><span class="n">array</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">selected_traj</span><span class="p">])</span>
+    <span class="n">_nl_ba</span> <span class="o">=</span> <span class="n">nl_ba</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">_nl_bx</span> <span class="o">=</span> <span class="n">nl_bx</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">_nl_ba</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">_nl_bx</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s2">&quot;The center atom indices in nl_ba and nl_bx must be the same.&quot;</span>
+    <span class="k">assert</span> <span class="n">_nl_ba</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">9</span> <span class="ow">and</span> <span class="n">_nl_bx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">&quot;Neighbor list for polarization calculation must have 8 A-site neighbors and 6 X-site neighbors.&quot;</span>
+
+    <span class="n">nframes</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">natoms</span> <span class="o">=</span> <span class="n">_nl_ba</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># it&#39;s number of unit cells actually</span>
+    <span class="n">polarization</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">nframes</span><span class="p">,</span> <span class="n">natoms</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span> <span class="c1"># shape: (nframes, natoms, 3)</span>
+    <span class="n">bec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">born_effective_charge</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">symbol</span><span class="p">]</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">selected_traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span> <span class="c1"># convet born effective charge to list</span>
+    <span class="c1"># the sum of bec should be small</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bec</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">1.0E-5</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: The sum of Born charge is </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">bec</span><span class="p">)</span><span class="si">}</span><span class="s2">. May lead to unphysical results.&quot;</span><span class="p">)</span>
+
+    <span class="n">conversion_factor</span> <span class="o">=</span> <span class="mf">1.602176E-19</span> <span class="o">*</span> <span class="mf">1.0E-10</span> <span class="o">*</span> <span class="mf">1.0E30</span> <span class="c1"># convert to C/m^2</span>
+
+    <span class="c1"># get indices and bec</span>
+    <span class="n">b_id</span> <span class="o">=</span> <span class="n">_nl_ba</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># shape: (natoms,)</span>
+    <span class="n">a_id</span> <span class="o">=</span> <span class="n">_nl_ba</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="c1"># shape: (natoms, 8)</span>
+    <span class="n">x_id</span> <span class="o">=</span> <span class="n">_nl_bx</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="c1"># shape: (natoms, 6)</span>
+    <span class="n">bec_b</span> <span class="o">=</span> <span class="n">bec</span><span class="p">[</span><span class="n">b_id</span><span class="p">]</span> <span class="c1"># shape: (natoms,)</span>
+    <span class="n">bec_a</span> <span class="o">=</span> <span class="n">bec</span><span class="p">[</span><span class="n">a_id</span><span class="p">]</span> <span class="c1"># shape: (natoms, 8)</span>
+    <span class="n">bec_x</span> <span class="o">=</span> <span class="n">bec</span><span class="p">[</span><span class="n">x_id</span><span class="p">]</span> <span class="c1"># shape: (natoms, 6)</span>
+
+    <span class="c1"># walk through frames</span>
+    <span class="n">ranger</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nframes</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Calculating Polarization&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">nframes</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="n">nframes</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ranger</span><span class="p">:</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">cell_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+        <span class="n">volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">cell</span><span class="p">))</span>
+        <span class="n">volume_per_uc</span> <span class="o">=</span> <span class="n">volume</span> <span class="o">/</span> <span class="n">natoms</span>
+
+        <span class="c1"># get the coordinates</span>
+        <span class="n">frame_coords</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">b_coords</span> <span class="o">=</span> <span class="n">frame_coords</span><span class="p">[</span><span class="n">b_id</span><span class="p">]</span> <span class="c1"># shape: (natoms, 3)</span>
+        <span class="n">a_coords</span> <span class="o">=</span> <span class="n">frame_coords</span><span class="p">[</span><span class="n">a_id</span><span class="p">]</span> <span class="c1"># shape: (natoms, 8, 3)</span>
+        <span class="n">x_coords</span> <span class="o">=</span> <span class="n">frame_coords</span><span class="p">[</span><span class="n">x_id</span><span class="p">]</span> <span class="c1"># shape: (natoms, 6, 3)</span>
+        <span class="n">b_coords_frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b_coords</span><span class="p">,</span> <span class="n">cell_inv</span><span class="p">)</span> <span class="c1"># shape: (natoms, 3)</span>
+        <span class="n">a_coords_frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a_coords</span><span class="p">,</span> <span class="n">cell_inv</span><span class="p">)</span> <span class="c1"># shape: (natoms, 8, 3)</span>
+        <span class="n">x_coords_frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">cell_inv</span><span class="p">)</span> <span class="c1"># shape: (natoms, 6, 3)</span>
+
+        <span class="c1"># update coordinates to account for MIC</span>
+        <span class="n">b_frac_expanded</span> <span class="o">=</span> <span class="n">b_coords_frac</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span> <span class="c1"># shape: (natoms, 1, 3)</span>
+        <span class="n">a_coords_diff_frac</span> <span class="o">=</span> <span class="n">a_coords_frac</span> <span class="o">-</span> <span class="n">b_frac_expanded</span> <span class="c1"># shape: (natoms, 8, 3)</span>
+        <span class="n">x_coords_diff_frac</span> <span class="o">=</span> <span class="n">x_coords_frac</span> <span class="o">-</span> <span class="n">b_frac_expanded</span> <span class="c1"># shape: (natoms, 6, 3)</span>
+        <span class="n">a_coords_frac</span><span class="p">[</span><span class="n">a_coords_diff_frac</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">a_coords_frac</span><span class="p">[</span><span class="n">a_coords_diff_frac</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">x_coords_frac</span><span class="p">[</span><span class="n">x_coords_diff_frac</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">x_coords_frac</span><span class="p">[</span><span class="n">x_coords_diff_frac</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">a_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a_coords_frac</span><span class="p">,</span> <span class="n">cell</span><span class="p">)</span> <span class="c1"># shape: (natoms, 8, 3)</span>
+        <span class="n">x_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_coords_frac</span><span class="p">,</span> <span class="n">cell</span><span class="p">)</span> <span class="c1"># shape: (natoms, 6, 3)</span>
+
+        <span class="c1"># calculate polarization</span>
+        <span class="n">pol_b</span> <span class="o">=</span> <span class="n">b_coords</span> <span class="o">*</span> <span class="n">bec_b</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="c1"># shape: (natoms, 3)</span>
+        <span class="n">pol_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a_coords</span> <span class="o">*</span> <span class="n">bec_a</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span> <span class="c1"># shape: (natoms, 3)</span>
+        <span class="n">pol_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x_coords</span> <span class="o">*</span> <span class="n">bec_x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="c1"># shape: (natoms, 3)</span>
+        <span class="n">polarization</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">pol_b</span> <span class="o">+</span> <span class="n">pol_a</span> <span class="o">+</span> <span class="n">pol_x</span><span class="p">)</span> <span class="o">*</span> <span class="n">conversion_factor</span> <span class="o">/</span> <span class="n">volume_per_uc</span>
+    
+    <span class="k">if</span> <span class="n">nframes</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">polarization</span> <span class="o">=</span> <span class="n">polarization</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">polarization</span></div>
+
+
+<div class="viewcode-block" id="calculate_octahedral_tilt">
+<a class="viewcode-back" href="../../ferrodispcalc.html#ferrodispcalc.compute.calculate_octahedral_tilt">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_octahedral_tilt</span><span class="p">(</span><span class="n">traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]</span> <span class="o">|</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">nl_bo</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">select</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="n">selected_traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]</span> <span class="o">=</span> <span class="n">__select_traj</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">select</span><span class="p">)</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">selected_traj</span><span class="p">])</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_cell</span><span class="p">()</span><span class="o">.</span><span class="n">array</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">selected_traj</span><span class="p">])</span>
+    <span class="n">nframes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_traj</span><span class="p">)</span>
+    <span class="n">natoms</span> <span class="o">=</span> <span class="n">nl_bo</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">_nl</span> <span class="o">=</span> <span class="n">nl_bo</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1"># convert to zero-based index</span>
+    <span class="k">assert</span> <span class="n">_nl</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">&quot;Neighbor list for octahedral tilt calculation must have 6 neighbors.&quot;</span>
+    <span class="n">octahedral_tilt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">nframes</span><span class="p">,</span> <span class="n">natoms</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span> <span class="c1"># shape: (nframes, natoms, 3)</span>
+
+    <span class="c1"># 3. walk through frames</span>
+    <span class="n">ranger</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nframes</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Calculating Octahedral Tilt&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">nframes</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="n">nframes</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ranger</span><span class="p">:</span>
+        <span class="n">center_id</span> <span class="o">=</span> <span class="n">_nl</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">center_coords</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">center_id</span><span class="p">]</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">cell_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+
+        <span class="c1"># 3.2 walk through neighbors</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">neighbors</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_nl</span><span class="p">):</span>
+            <span class="n">neighbors_id</span> <span class="o">=</span> <span class="n">neighbors</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">neighbors_coords</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">neighbors_id</span><span class="p">]</span>
+            <span class="n">neighbors_coords_frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">neighbors_coords</span><span class="p">,</span> <span class="n">cell_inv</span><span class="p">)</span>
+            <span class="n">neighbors_coords_diff</span> <span class="o">=</span> <span class="n">center_coords</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">neighbors_coords</span>
+            <span class="n">neighbors_coords_diff_frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">neighbors_coords_diff</span><span class="p">,</span> <span class="n">cell_inv</span><span class="p">)</span>
+            <span class="n">neighbors_coords_frac</span><span class="p">[</span><span class="n">neighbors_coords_diff_frac</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">neighbors_coords_frac</span><span class="p">[</span><span class="n">neighbors_coords_diff_frac</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">neighbors_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">neighbors_coords_frac</span><span class="p">,</span> <span class="n">cell</span><span class="p">)</span> <span class="c1"># update neighbor coords after mic</span>
+
+            <span class="c1"># sort the neighbors into +/-x, +/-y, +/-z based on their relative positions to center</span>
+            <span class="n">diffs</span> <span class="o">=</span> <span class="n">neighbors_coords</span> <span class="o">-</span> <span class="n">center_coords</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="c1"># shape: (6, 3)</span>
+            
+            <span class="c1"># sort along the x direction</span>
+            <span class="n">x_pos_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">diffs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">x_neg_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">diffs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="c1"># sort along the y direction</span>
+            <span class="n">y_pos_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">diffs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="n">y_neg_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">diffs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="c1"># sort along the z direction</span>
+            <span class="n">z_pos_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">diffs</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span>
+            <span class="n">z_neg_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">diffs</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span>
+
+            <span class="n">x_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">neighbors_coords</span><span class="p">[</span><span class="n">x_pos_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">neighbors_coords</span><span class="p">[</span><span class="n">x_neg_idx</span><span class="p">])</span>
+            <span class="n">y_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">neighbors_coords</span><span class="p">[</span><span class="n">y_pos_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">neighbors_coords</span><span class="p">[</span><span class="n">y_neg_idx</span><span class="p">])</span>
+            <span class="n">z_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">neighbors_coords</span><span class="p">[</span><span class="n">z_pos_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">neighbors_coords</span><span class="p">[</span><span class="n">z_neg_idx</span><span class="p">])</span>
+
+            <span class="n">x_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_vector</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x_vector</span><span class="p">))</span>
+            <span class="n">y_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y_vector</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">y_vector</span><span class="p">))</span>
+            <span class="n">z_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">z_vector</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">z_vector</span><span class="p">))</span>
+
+            <span class="n">octahedral_tilt</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">([</span><span class="n">x_angle</span><span class="p">,</span> <span class="n">y_angle</span><span class="p">,</span> <span class="n">z_angle</span><span class="p">])</span>
+            
+    <span class="k">if</span> <span class="n">nframes</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">octahedral_tilt</span> <span class="o">=</span> <span class="n">octahedral_tilt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+    <span class="k">return</span> <span class="n">octahedral_tilt</span></div>
+
+
+<div class="viewcode-block" id="calculate_averaged_structure">
+<a class="viewcode-back" href="../../ferrodispcalc.html#ferrodispcalc.compute.calculate_averaged_structure">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_averaged_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">],</span> <span class="n">select</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
+    
+    <span class="n">selected_traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]</span> <span class="o">=</span> <span class="n">__select_traj</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">select</span><span class="p">)</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">selected_traj</span><span class="p">])</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_cell</span><span class="p">()</span><span class="o">.</span><span class="n">array</span> <span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">selected_traj</span><span class="p">])</span>
+
+    <span class="n">cells_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+    <span class="n">coords_frac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">cells_inv</span><span class="p">)</span>
+    <span class="n">coords_frac_diff</span> <span class="o">=</span> <span class="n">coords_frac</span> <span class="o">-</span> <span class="n">coords_frac</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">coords_frac</span><span class="p">[</span><span class="n">coords_frac_diff</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">coords_frac</span><span class="p">[</span><span class="n">coords_frac_diff</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">coords_unwrapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">coords_frac</span><span class="p">,</span> <span class="n">cells</span><span class="p">)</span>
+
+    <span class="c1"># 3. update coordinates to account for PBC</span>
+    <span class="c1">#coords_frac = np.array([np.dot(coords[i], np.linalg.inv(cells[i])) for i in range(len(coords))])</span>
+    <span class="c1">#coords_frac_diff = coords_frac - coords_frac[0]</span>
+    <span class="c1">#coords_frac[coords_frac_diff &gt; 0.5] -= 1</span>
+    <span class="c1">#coords_frac[coords_frac_diff &lt; -0.5] += 1</span>
+    <span class="c1">#coords = np.array([np.dot(coords_frac[i], cells[i]) for i in range(len(coords))])</span>
+
+    <span class="c1"># 4. compute averaged structure</span>
+    <span class="n">avg_cell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">avg_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">coords_unwrapped</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">symbol</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">Atoms</span><span class="p">(</span><span class="n">symbols</span><span class="o">=</span><span class="n">symbols</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="n">avg_coords</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="n">avg_cell</span><span class="p">,</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">atoms</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

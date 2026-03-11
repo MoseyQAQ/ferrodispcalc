@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ferrodispcalc.vis.plane_plot &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ferrodispcalc.vis.plane_plot</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ferrodispcalc.vis.plane_plot</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">animation</span>
+
+
+<span class="k">def</span> <span class="nf">__cal_angle</span><span class="p">(</span><span class="n">dx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dy</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    calculate the angle of the vector</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    dx: np.ndarray</span>
+<span class="sd">        The x component of the vector</span>
+<span class="sd">    dy: np.ndarray</span>
+<span class="sd">        The y component of the vector</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    angle: np.ndarray</span>
+<span class="sd">        The angle of the vector</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">*</span> <span class="n">dy</span><span class="p">)</span>
+    
+    <span class="c1"># 避免除零错误 (当 dx 和 dy 均为 0 时)</span>
+    <span class="c1"># 创建一个副本以避免修改原始pp（尽管在这里可能不是必需的，但更安全）</span>
+    <span class="n">pp_safe</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">pp_safe</span><span class="p">[</span><span class="n">pp_safe</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-9</span>  <span class="c1"># 用一个极小的数替换0</span>
+    
+    <span class="c1"># 裁剪 dx / pp_safe 的值到 [-1.0, 1.0] 范围内，防止 arccos 的数值错误</span>
+    <span class="n">dx_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">dx</span> <span class="o">/</span> <span class="n">pp_safe</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">dx_norm</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">180.0</span>
+    
+    <span class="c1"># 将 dy &lt; 0 的角度翻转到 180-360 度范围</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dy</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">angle</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">-</span> <span class="n">angle</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+    
+    <span class="c1"># 将原始大小为 0 的向量的角度设为 0</span>
+    <span class="n">angle</span><span class="p">[</span><span class="n">pp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+    <span class="k">return</span> <span class="n">angle</span>
+
+<span class="k">def</span> <span class="nf">__plot_plane</span><span class="p">(</span><span class="n">dx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                 <span class="n">dy</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                 <span class="n">plane_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                 <span class="n">fig_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
+                 <span class="n">quiver_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+                 <span class="n">hot</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+                 <span class="n">xlabel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">ylabel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">save_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Internal helper function to plot a single 2D plane.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    dx: np.ndarray</span>
+<span class="sd">        The 2D array (already transposed) for the x-component of the quiver.</span>
+<span class="sd">    dy: np.ndarray</span>
+<span class="sd">        The 2D array (already transposed) for the y-component of the quiver.</span>
+<span class="sd">    plane_name: str</span>
+<span class="sd">        Name of the plane (e.g., &quot;XY&quot;, &quot;XZ&quot;).</span>
+<span class="sd">    index: int</span>
+<span class="sd">        The layer index being plotted.</span>
+<span class="sd">    fig_size: tuple | None</span>
+<span class="sd">        The figure size tuple, or None for default.</span>
+<span class="sd">    quiver_kwargs: dict</span>
+<span class="sd">        Arguments for ax.quiver.</span>
+<span class="sd">    hot: bool</span>
+<span class="sd">        Whether to plot the angle colormap.</span>
+<span class="sd">    xlabel: str</span>
+<span class="sd">        Label for the x-axis.</span>
+<span class="sd">    ylabel: str</span>
+<span class="sd">        Label for the y-axis.</span>
+<span class="sd">    save_dir: Path</span>
+<span class="sd">        The directory to save the plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting </span><span class="si">{</span><span class="n">plane_name</span><span class="si">}</span><span class="s2"> plane, </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">th layer&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">fig_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">__cal_angle</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="o">**</span><span class="n">quiver_kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">hot</span><span class="p">:</span>
+        <span class="c1"># 使用 imshow 绘制角度的热图</span>
+        <span class="c1"># origin=&#39;lower&#39; 使 (0,0) 在左下角，与 quiver 默认对齐</span>
+        <span class="c1"># aspect=1.0 保持像素为正方形</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hsv&#39;</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> 
+                       <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plane_name</span><span class="si">}</span><span class="s2"> plane, </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">th layer&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+
+    <span class="n">save_path</span> <span class="o">=</span> <span class="n">save_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plane_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">.png&quot;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>  <span class="c1"># 关闭图像以释放内存</span>
+
+<div class="viewcode-block" id="plane_profile">
+<a class="viewcode-back" href="../../../ferrodispcalc.vis.html#ferrodispcalc.vis.plane_plot.plane_profile">[docs]</a>
+<span class="k">def</span> <span class="nf">plane_profile</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                <span class="n">save_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;plane_plots&#39;</span><span class="p">,</span>
+                <span class="n">relative</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="n">select</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">hot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="n">fig_size</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot 2D cross-sections of 3D vector data.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    data: np.ndarray</span>
+<span class="sd">        The 4D vector data in (nx, ny, nz, 3) format.</span>
+<span class="sd">    save_dir: str | Path</span>
+<span class="sd">        The directory to save the plots.</span>
+<span class="sd">    relative: bool</span>
+<span class="sd">        Whether to plot the vector in the relative scale (default True).</span>
+<span class="sd">    select: dict, optional</span>
+<span class="sd">        The selected layers to plot. Keys should be &#39;x&#39;, &#39;y&#39;, &#39;z&#39; </span>
+<span class="sd">        (for YZ, XZ, XY planes respectively).</span>
+<span class="sd">        e.g., {&#39;z&#39;: [0, 1], &#39;y&#39;: [0]}</span>
+<span class="sd">        If None, all layers are plotted.</span>
+<span class="sd">    hot: bool</span>
+<span class="sd">        Whether to plot the angle in the hot colormap (default True).</span>
+<span class="sd">    fig_size: str | tuple</span>
+<span class="sd">        The figure size: &#39;auto&#39;, &#39;default&#39;, or a (width, height) tuple.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># 1. 执行输入检查</span>
+    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your data shape: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Expected shape: (nx, ny, nz, 3).&quot;</span><span class="p">)</span>
+
+    <span class="n">save_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">save_dir</span><span class="p">)</span>
+    <span class="n">save_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">quiver_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">relative</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">quiver_kwargs</span><span class="p">[</span><span class="s1">&#39;scale&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">quiver_kwargs</span><span class="p">[</span><span class="s1">&#39;scale_units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;xy&#39;</span>
+
+    <span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># (nx, ny, nz)</span>
+
+    <span class="c1"># 2. 解析 fig_size</span>
+    <span class="n">fig_sizes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">fig_size</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+        <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;XY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># (nx, ny)</span>
+        <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;XZ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># (nx, nz)</span>
+        <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;YZ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># (ny, nz)</span>
+    <span class="k">elif</span> <span class="n">fig_size</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+        <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;XY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;XZ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;YZ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fig_size</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;XY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fig_size</span>
+        <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;XZ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fig_size</span>
+        <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;YZ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fig_size</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid figure size: </span><span class="si">{</span><span class="n">fig_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 3. 解析 select 字典</span>
+    <span class="k">if</span> <span class="n">select</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">select</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+                  <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span>
+                  <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">2</span><span class="p">]))}</span>
+    
+    <span class="c1"># &#39;z&#39; 键用于选择 XY 平面 (沿 z 轴切片)</span>
+    <span class="c1"># &#39;y&#39; 键用于选择 XZ 平面 (沿 y 轴切片)</span>
+    <span class="c1"># &#39;x&#39; 键用于选择 YZ 平面 (沿 x 轴切片)</span>
+    <span class="n">indices_z</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">indices_y</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">indices_x</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="p">[])</span>
+
+    <span class="c1"># --- 4. 循环绘图 ---</span>
+
+    <span class="c1"># 绘制 XY 平面 (沿 Z 轴切片)</span>
+    <span class="k">for</span> <span class="n">z_index</span> <span class="ow">in</span> <span class="n">indices_z</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">z_index</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Skipping invalid z-index </span><span class="si">{</span><span class="n">z_index</span><span class="si">}</span><span class="s2"> for XY plot.&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+        
+        <span class="c1"># 原始数据是 (nx, ny)，绘图需要 (ny, nx)</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">z_index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> 
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">z_index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        
+        <span class="n">__plot_plane</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">z_index</span><span class="p">,</span> <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;XY&#39;</span><span class="p">],</span> 
+                     <span class="n">quiver_kwargs</span><span class="p">,</span> <span class="n">hot</span><span class="p">,</span> 
+                     <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;[100] (X-axis)&quot;</span><span class="p">,</span> 
+                     <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;[010] (Y-axis)&quot;</span><span class="p">,</span> 
+                     <span class="n">save_dir</span><span class="o">=</span><span class="n">save_dir</span><span class="p">)</span>
+
+    <span class="c1"># 绘制 XZ 平面 (沿 Y 轴切片)</span>
+    <span class="k">for</span> <span class="n">y_index</span> <span class="ow">in</span> <span class="n">indices_y</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y_index</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Skipping invalid y-index </span><span class="si">{</span><span class="n">y_index</span><span class="si">}</span><span class="s2"> for XZ plot.&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># 原始数据是 (nx, nz)，绘图需要 (nz, nx)</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">y_index</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">dz</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">y_index</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">__plot_plane</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dz</span><span class="p">,</span> <span class="s1">&#39;XZ&#39;</span><span class="p">,</span> <span class="n">y_index</span><span class="p">,</span> <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;XZ&#39;</span><span class="p">],</span>
+                     <span class="n">quiver_kwargs</span><span class="p">,</span> <span class="n">hot</span><span class="p">,</span>
+                     <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;[100] (X-axis)&quot;</span><span class="p">,</span>
+                     <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;[001] (Z-axis)&quot;</span><span class="p">,</span>
+                     <span class="n">save_dir</span><span class="o">=</span><span class="n">save_dir</span><span class="p">)</span>
+
+    <span class="c1"># 绘制 YZ 平面 (沿 X 轴切片)</span>
+    <span class="k">for</span> <span class="n">x_index</span> <span class="ow">in</span> <span class="n">indices_x</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x_index</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Skipping invalid x-index </span><span class="si">{</span><span class="n">x_index</span><span class="si">}</span><span class="s2"> for YZ plot.&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+            
+        <span class="c1"># 原始数据是 (ny, nz)，绘图需要 (nz, ny)</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">x_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">dz</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">x_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        
+        <span class="n">__plot_plane</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">,</span> <span class="s1">&#39;YZ&#39;</span><span class="p">,</span> <span class="n">x_index</span><span class="p">,</span> <span class="n">fig_sizes</span><span class="p">[</span><span class="s1">&#39;YZ&#39;</span><span class="p">],</span>
+                     <span class="n">quiver_kwargs</span><span class="p">,</span> <span class="n">hot</span><span class="p">,</span>
+                     <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;[010] (Y-axis)&quot;</span><span class="p">,</span>
+                     <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;[001] (Z-axis)&quot;</span><span class="p">,</span>
+                     <span class="n">save_dir</span><span class="o">=</span><span class="n">save_dir</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="plane_profile_multi">
+<a class="viewcode-back" href="../../../ferrodispcalc.vis.html#ferrodispcalc.vis.plane_plot.plane_profile_multi">[docs]</a>
+<span class="k">def</span> <span class="nf">plane_profile_multi</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                          <span class="n">select</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]],</span>
+                          <span class="n">save_name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;plane_plots.gif&#39;</span><span class="p">,</span>
+                          <span class="n">relative</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                          <span class="n">hot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                          <span class="n">fig_size</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+                          <span class="n">fps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot 2D cross-sections of 5D vector data (nframe, nx, ny, nz, 3)</span>
+<span class="sd">    and save as a GIF using matplotlib.animation.</span>
+<span class="sd">    (使用 matplotlib.animation 绘制 5D 矢量数据的 2D 横截面并另存为 GIF)</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    data: np.ndarray</span>
+<span class="sd">        The 5D vector data in (nframe, nx, ny, nz, 3) format.</span>
+<span class="sd">    select: list</span>
+<span class="sd">        Defines the plot. Format: [plane_name, layer_index, frame_spec]</span>
+<span class="sd">        e.g., [&#39;xz&#39;, 0, slice(0, None, 2)] -&gt; XZ plane, y_index=0, every 2nd frame.</span>
+<span class="sd">    save_name: str | Path</span>
+<span class="sd">        The output filename (e.g., &#39;animation.gif&#39;).</span>
+<span class="sd">    relative: bool</span>
+<span class="sd">        Whether to plot the vector in the relative scale.</span>
+<span class="sd">    hot: bool</span>
+<span class="sd">        Whether to plot the angle in the hot colormap.</span>
+<span class="sd">    fig_size: str | tuple</span>
+<span class="sd">        The figure size: &#39;auto&#39;, &#39;default&#39;, or a (width, height) tuple.</span>
+<span class="sd">    fps: int</span>
+<span class="sd">        Frames per second for the output GIF.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># 1. 解析 select 输入</span>
+    <span class="n">plane_name</span> <span class="o">=</span> <span class="n">select</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="c1"># e.g., &#39;xz&#39;</span>
+    <span class="n">layer_index</span> <span class="o">=</span> <span class="n">select</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>      <span class="c1"># e.g., 0</span>
+    <span class="n">frame_spec</span> <span class="o">=</span> <span class="n">select</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>       <span class="c1"># e.g., slice(0, None, 1)</span>
+
+    <span class="c1"># 2. 获取帧索引</span>
+    <span class="n">nframe</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frame_spec</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+        <span class="n">frame_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nframe</span><span class="p">))[</span><span class="n">frame_spec</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">frame_spec</span>
+        
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">frame_indices</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No frames selected to animate.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># 3. 准备 quiver (矢量) 参数</span>
+    <span class="n">quiver_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">relative</span><span class="p">:</span>
+        <span class="n">quiver_kwargs</span><span class="p">[</span><span class="s1">&#39;scale&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">quiver_kwargs</span><span class="p">[</span><span class="s1">&#39;scale_units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;xy&#39;</span>
+            
+    <span class="c1"># 4. 准备 fig_size (图像大小)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="c1"># (nx, ny, nz)</span>
+    <span class="n">fig_size_tuple</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">if</span> <span class="n">fig_size</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">plane_name</span> <span class="o">==</span> <span class="s1">&#39;xy&#39;</span><span class="p">:</span>
+            <span class="n">fig_size_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># (nx, ny)</span>
+        <span class="k">elif</span> <span class="n">plane_name</span> <span class="o">==</span> <span class="s1">&#39;xz&#39;</span><span class="p">:</span>
+            <span class="n">fig_size_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># (nx, nz)</span>
+        <span class="k">elif</span> <span class="n">plane_name</span> <span class="o">==</span> <span class="s1">&#39;yz&#39;</span><span class="p">:</span>
+            <span class="n">fig_size_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">size</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># (ny, nz)</span>
+    <span class="k">elif</span> <span class="n">fig_size</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+        <span class="n">fig_size_tuple</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fig_size</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">fig_size_tuple</span> <span class="o">=</span> <span class="n">fig_size</span>
+
+    <span class="c1"># 5. 定义轴标签</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;xy&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;[100] (X-axis)&quot;</span><span class="p">,</span> <span class="s2">&quot;[010] (Y-axis)&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;xz&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;[100] (X-axis)&quot;</span><span class="p">,</span> <span class="s2">&quot;[001] (Z-axis)&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;yz&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;[010] (Y-axis)&quot;</span><span class="p">,</span> <span class="s2">&quot;[001] (Z-axis)&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">plane_name</span><span class="p">]</span>
+
+    <span class="c1"># --- 6. 设置 Animation ---</span>
+
+    <span class="c1"># 6.1. 创建 Figure 和 Artists (仅一次)</span>
+    <span class="k">if</span> <span class="n">fig_size_tuple</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">fig_size_tuple</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+    <span class="c1"># 6.2. 绘制第一帧 (frame_indices[0]) 作为初始状态</span>
+    <span class="n">first_frame_index</span> <span class="o">=</span> <span class="n">frame_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">plane_name</span> <span class="o">==</span> <span class="s1">&#39;xy&#39;</span><span class="p">:</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">first_frame_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> 
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">first_frame_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">elif</span> <span class="n">plane_name</span> <span class="o">==</span> <span class="s1">&#39;xz&#39;</span><span class="p">:</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">first_frame_index</span><span class="p">,</span> <span class="p">:,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">first_frame_index</span><span class="p">,</span> <span class="p">:,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">elif</span> <span class="n">plane_name</span> <span class="o">==</span> <span class="s1">&#39;yz&#39;</span><span class="p">:</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">first_frame_index</span><span class="p">,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">first_frame_index</span><span class="p">,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+    
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">__cal_angle</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+    
+    <span class="c1"># 存储对 artists 的引用</span>
+    <span class="n">qv</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="o">**</span><span class="n">quiver_kwargs</span><span class="p">)</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">hot</span><span class="p">:</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hsv&#39;</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> 
+                      <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+    
+    <span class="n">title_obj</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plane_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> plane, layer </span><span class="si">{</span><span class="n">layer_index</span><span class="si">}</span><span class="s2">, frame </span><span class="si">{</span><span class="n">first_frame_index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+
+    <span class="c1"># 6.3. 定义 update 函数</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">frame_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Animation update function.</span>
+<span class="sd">        (动画更新功能)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># (切片逻辑)</span>
+        <span class="k">if</span> <span class="n">plane_name</span> <span class="o">==</span> <span class="s1">&#39;xy&#39;</span><span class="p">:</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">frame_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> 
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">frame_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">elif</span> <span class="n">plane_name</span> <span class="o">==</span> <span class="s1">&#39;xz&#39;</span><span class="p">:</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">frame_index</span><span class="p">,</span> <span class="p">:,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">frame_index</span><span class="p">,</span> <span class="p">:,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">elif</span> <span class="n">plane_name</span> <span class="o">==</span> <span class="s1">&#39;yz&#39;</span><span class="p">:</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">frame_index</span><span class="p">,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">frame_index</span><span class="p">,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="c1"># 更新 Artists 数据</span>
+        <span class="n">qv</span><span class="o">.</span><span class="n">set_UVC</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+        
+        <span class="n">artists_to_return</span> <span class="o">=</span> <span class="p">[</span><span class="n">qv</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">hot</span> <span class="ow">and</span> <span class="n">sc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">angle</span> <span class="o">=</span> <span class="n">__cal_angle</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+            <span class="n">sc</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+            <span class="n">artists_to_return</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+        
+        <span class="n">title_obj</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plane_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> plane, layer </span><span class="si">{</span><span class="n">layer_index</span><span class="si">}</span><span class="s2">, frame </span><span class="si">{</span><span class="n">frame_index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">artists_to_return</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title_obj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">artists_to_return</span><span class="p">)</span>
+
+    <span class="c1"># 6.4. 创建并保存动画</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating animation (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">frame_indices</span><span class="p">)</span><span class="si">}</span><span class="s2"> frames)...&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># interval = 1000ms / fps</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="mf">1000.0</span> <span class="o">/</span> <span class="n">fps</span>
+    
+    <span class="c1"># blit=True 极大提高性能，它只重绘已更改的 artists</span>
+    <span class="n">anim</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">update</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> 
+                                   <span class="n">interval</span><span class="o">=</span><span class="n">interval</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># 7. 保存动画为 GIF</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">anim</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_name</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;pillow&#39;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="n">fps</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully saved animation to </span><span class="si">{</span><span class="n">save_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to save animation: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Make sure &#39;pillow&#39; (PIL) library is installed: pip install pillow&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># 清理</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
