@@ -51,13 +51,51 @@ def read_lammps_dump(
     select: Union[int, slice, List[int], None] = None,
     cache: bool = True
 ) -> Union[Atoms, List[Atoms], None]:
-    """
-    Place holder for docstring 
-    Note: We must notice you that:
+    """Read a LAMMPS dump trajectory file using the high-performance C++ backend.
 
-    THE COORDINATE IS NOT SHIFTED BACK TO ORIGINAL POSITION.
-    THUS A CONSTANT SHIFT MAY EXIST IN THE COORDINATES COMPARED TO OTHER TOOLS LIKE DPDATA.
-    However, the shift is constant, thus not important
+    The reader memory-maps the file and optionally caches the frame index to a
+    sidecar file (``.{filename}.idx``) for fast subsequent reads.
+
+    .. note::
+       Atom coordinates are read as stored in the dump file and are **not**
+       shifted back to the primary unit cell.  A constant offset may therefore
+       exist compared to tools such as dpdata, but this does not affect any
+       relative-displacement calculations.
+
+    Parameters
+    ----------
+    filename : str
+        Path to the LAMMPS dump file.
+    type_map : list[str]
+        Ordered list of element symbols corresponding to LAMMPS atom types,
+        e.g. ``['Pb', 'Ti', 'O']``.
+    select : int | slice | list[int] | None, optional
+        Frames to read.
+
+        * ``None`` – read all frames (default).
+        * ``int`` – read a single frame by index (negative indices supported);
+          returns a single :class:`~ase.Atoms` object instead of a list.
+        * ``slice`` – read a contiguous or strided range of frames.
+        * ``list[int]`` – read an arbitrary set of frame indices.
+    cache : bool, optional
+        If ``True`` (default), write/read a sidecar index file so that
+        re-reading the same dump file is faster.
+
+    Returns
+    -------
+    Atoms | list[Atoms] | None
+        A single :class:`~ase.Atoms` when *select* is an integer, otherwise a
+        list of :class:`~ase.Atoms`.  Returns ``None`` (integer select) or
+        ``[]`` (other select) if the file is empty.
+
+    Raises
+    ------
+    FileNotFoundError
+        If *filename* does not exist.
+    IOError
+        If the C++ backend fails to open or memory-map the file.
+    IndexError
+        If an integer *select* is out of range.
     """
     
     # --- 1. (1a) (1c) 缓存管理 ---
@@ -161,11 +199,48 @@ def read_lammps_dump(
     return atoms_list[0] if return_single else atoms_list
 
 def read_lammps_data(filename: str, type_map: list[str]) -> Atoms:
+    """Read a LAMMPS data file and return the structure as an ASE Atoms object.
+
+    Parameters
+    ----------
+    filename : str
+        Path to the LAMMPS data file.
+    type_map : list[str]
+        Ordered list of element symbols corresponding to LAMMPS atom types,
+        e.g. ``['Pb', 'Ti', 'O']``.
+
+    Returns
+    -------
+    Atoms
+        The structure described in the data file.
+    """
     sys = dpdata.System(filename, fmt='lmp', type_map=type_map)
     atoms =  sys.to_ase_structure()[0]
     return atoms
 
 def read_lammps_log(file_name: str) -> Dict:
+    """Parse thermodynamic data from the last run in a LAMMPS log file.
+
+    The function locates the final ``Per MPI rank memory`` header and reads
+    all thermo lines up to the matching ``Loop time of`` footer.
+
+    Parameters
+    ----------
+    file_name : str
+        Path to the LAMMPS log file.
+
+    Returns
+    -------
+    dict
+        Dictionary mapping each thermo keyword (e.g. ``'Step'``, ``'Temp'``,
+        ``'Press'``) to a NumPy array of values.  An extra key ``'nframes'``
+        holds the number of thermo records read.
+
+    Raises
+    ------
+    AssertionError
+        If the number of header columns does not match the data columns.
+    """
     with open(file_name, 'r') as f:
         line_idx = []
         end_line_idx = []

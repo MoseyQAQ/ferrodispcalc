@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../src/ferrodispcalc'))
+sys.path.insert(0, os.path.abspath('../../src'))
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -28,6 +28,15 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.todo',
               'sphinx.ext.coverage',
               'sphinx.ext.mathjax',]
+
+# Mock C++ extension and optional heavy dependencies so autodoc can import
+# the package even when they are not installed in the doc-build environment.
+autodoc_mock_imports = [
+    'ferrodispcalc._cpp_bindings',
+    'vispy',
+    'PySide6',
+    'OpenGL',
+]
 
 
 templates_path = ['_templates']
