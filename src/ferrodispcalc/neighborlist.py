@@ -55,18 +55,17 @@ def build_neighbor_list(atoms: Atoms,
 
     Examples
     --------
-        from ase.io import read
-        from ferrodispcalc.neighborlist import build_neighbor_list
-
-        atoms = read("POSCAR")
-        nl = build_neighbor_list(
-            atoms,
-            center_elements=['Pb', 'Sr'],
-            neighbor_elements=['O'],
-            cutoff=4.0,
-            neighbor_num=12,
-            defect=False
-        )
+    >>> from ase.io import read
+    >>> from ferrodispcalc.neighborlist import build_neighbor_list
+    >>> atoms = read("POSCAR")
+    >>> nl = build_neighbor_list(
+    ...     atoms,
+    ...     center_elements=['Pb', 'Sr'],
+    ...     neighbor_elements=['O'],
+    ...     cutoff=4.0,
+    ...     neighbor_num=12,
+    ...     defect=False,
+    ... )
     """
     
     # check the dim of cell, the small cell may cause error in neighbor list

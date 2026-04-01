@@ -1,7 +1,7 @@
-1. 绘图部分：1d 2d 3d + time-dependent
-2. 有用的function：极化量子相关
-3. IO部分
-4. LAMMPS plugin
-5.  文档和example
-6.  新的重大feature：限制性优化、g的计算、界面能的计算、DW构造、MC模拟、等！MD建模
-7.  内置DP模型
+# 待做清单
+
+- update常见教程：计算离子位移，极化，平均结构，lammps thermo
+- 更新建模部分，并update教程（DW、超晶格、分子）
+- 更新课题组常见模型和input
+- 更新跑蒙卡定Tc和d33
+- 更新skills

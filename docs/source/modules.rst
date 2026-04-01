@@ -1,4 +1,4 @@
-ferrodispcalc
+API Reference
 =============
 
 .. toctree::

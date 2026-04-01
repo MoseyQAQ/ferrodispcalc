@@ -19,6 +19,30 @@ def __select_traj(traj: list[Atoms] | Atoms, select: list[int] | slice | None = 
     return selected_traj
 
 def calculate_displacement(traj: list[Atoms] | Atoms, nl: np.ndarray, select: list[int] | slice | None = None) -> np.ndarray:
+    """Calculate ionic displacements from an MD trajectory.
+
+    For each center atom in the neighbor list, the displacement is computed as
+    the mean vector from its neighbors to itself. Periodic boundary conditions
+    are handled via the minimum image convention (MIC).
+
+    Parameters
+    ----------
+    traj : list[Atoms] | Atoms
+        Full MD trajectory (list of ASE Atoms) or a single Atoms object.
+    nl : np.ndarray
+        Neighbor list array of shape ``(n_centers, n_neighbors + 1)`` with
+        1-based indices as returned by
+        :func:`~ferrodispcalc.neighborlist.build_neighbor_list`.
+    select : list[int] | slice | None, optional
+        Frame selection. ``None`` selects the last 50 % of frames.
+        Defaults to ``None``.
+
+    Returns
+    -------
+    np.ndarray
+        Displacement vectors in Ångström. Shape ``(n_frames, n_centers, 3)``
+        for multiple frames, or ``(n_centers, 3)`` for a single frame.
+    """
 
     selected_traj: list[Atoms] = __select_traj(traj, select)
 
@@ -60,11 +84,47 @@ def calculate_displacement(traj: list[Atoms] | Atoms, nl: np.ndarray, select: li
 
     return displacement
 
-def calculate_polarization(traj, 
-                           nl_ba:  np.ndarray, 
-                           nl_bx: np.ndarray, 
-                           born_effective_charge: dict, 
+def calculate_polarization(traj,
+                           nl_ba:  np.ndarray,
+                           nl_bx: np.ndarray,
+                           born_effective_charge: dict,
                            select: list[int] | slice | None = None) -> np.ndarray:
+    """Calculate local polarization for each unit cell in a perovskite.
+
+    The local polarization at each B-site unit cell is computed from the
+    positions of the B-site cation, the surrounding A-site cations (8
+    neighbors), and the anions (6 neighbors), weighted by Born effective
+    charges.  Results are returned in C/m².
+
+    Parameters
+    ----------
+    traj : list[Atoms] | Atoms
+        Full MD trajectory or a single ASE Atoms object.
+    nl_ba : np.ndarray
+        Neighbor list for B–A pairs (B-site center, 8 A-site neighbors),
+        shape ``(n_cells, 9)``, 1-based indices.
+    nl_bx : np.ndarray
+        Neighbor list for B–X pairs (B-site center, 6 anion neighbors),
+        shape ``(n_cells, 7)``, 1-based indices.
+    born_effective_charge : dict
+        Mapping of element symbol to scalar Born effective charge, e.g.
+        ``{'Pb': 3.44, 'Ti': 5.18, 'O': -2.87}``.
+    select : list[int] | slice | None, optional
+        Frame selection. ``None`` selects the last 50 % of frames.
+        Defaults to ``None``.
+
+    Returns
+    -------
+    np.ndarray
+        Local polarization in C/m². Shape ``(n_frames, n_cells, 3)`` for
+        multiple frames, or ``(n_cells, 3)`` for a single frame.
+
+    Raises
+    ------
+    AssertionError
+        If the B-site center indices in ``nl_ba`` and ``nl_bx`` do not match,
+        or if the neighbor counts are not 8 (A-site) and 6 (X-site).
+    """
 
     # 1. determine frames to select
     selected_traj: list[Atoms] = __select_traj(traj, select)
@@ -134,6 +194,35 @@ def calculate_polarization(traj,
     return polarization
 
 def calculate_octahedral_tilt(traj: list[Atoms] | Atoms, nl_bo: np.ndarray, select: list[int] | slice | None = None) -> np.ndarray:
+    """Calculate octahedral tilt angles in a perovskite structure.
+
+    For each octahedral center, the six neighboring anions are sorted into
+    ±x, ±y, ±z pairs. The tilt angle about each Cartesian axis is the angle
+    between the anion–anion bond vector and the corresponding unit vector.
+
+    Parameters
+    ----------
+    traj : list[Atoms] | Atoms
+        Full MD trajectory or a single ASE Atoms object.
+    nl_bo : np.ndarray
+        Neighbor list for B–O pairs, shape ``(n_centers, 7)`` (center + 6
+        anion neighbors), 1-based indices.
+    select : list[int] | slice | None, optional
+        Frame selection. ``None`` selects the last 50 % of frames.
+        Defaults to ``None``.
+
+    Returns
+    -------
+    np.ndarray
+        Tilt angles in degrees. Shape ``(n_frames, n_centers, 3)`` for
+        multiple frames (columns: x-tilt, y-tilt, z-tilt), or
+        ``(n_centers, 3)`` for a single frame.
+
+    Raises
+    ------
+    AssertionError
+        If ``nl_bo`` does not have exactly 6 neighbors per center.
+    """
     selected_traj: list[Atoms] = __select_traj(traj, select)
     coords = np.array([atoms.get_positions() for atoms in selected_traj])
     cells = np.array([atoms.get_cell().array for atoms in selected_traj])
@@ -191,7 +280,26 @@ def calculate_octahedral_tilt(traj: list[Atoms] | Atoms, nl_bo: np.ndarray, sele
     return octahedral_tilt
 
 def calculate_averaged_structure(traj: list[Atoms], select: list[int] | slice | None = None) -> Atoms:
-    
+    """Compute the time-averaged atomic structure from an MD trajectory.
+
+    Atomic coordinates are unwrapped with respect to the first selected frame
+    before averaging to avoid artefacts from periodic boundary crossings.
+
+    Parameters
+    ----------
+    traj : list[Atoms]
+        Full MD trajectory as a list of ASE Atoms objects.
+    select : list[int] | slice | None, optional
+        Frame selection. ``None`` selects the last 50 % of frames.
+        Defaults to ``None``.
+
+    Returns
+    -------
+    Atoms
+        ASE Atoms object with averaged positions and cell. Element symbols and
+        PBC flags are taken from the first frame of the trajectory.
+    """
+
     selected_traj: list[Atoms] = __select_traj(traj, select)
     coords = np.array([atoms.get_positions() for atoms in selected_traj])
     cells = np.array([atoms.get_cell().array for atoms in selected_traj])
