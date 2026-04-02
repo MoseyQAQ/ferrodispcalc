@@ -63,6 +63,9 @@ Contents
    :maxdepth: 2
    :caption: Contents:
 
+   installation
+   tutorials/index
+   gallery
    modules
 
 Indices and tables
