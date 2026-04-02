@@ -187,3 +187,5 @@ dist/
 
 # index file
 *.idx
+
+_build/
