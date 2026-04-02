@@ -87,7 +87,8 @@ In a LAMMPS input file, load the plugin and confirm it is registered:
 ``plugin list`` should show ``disp/atom`` and ``polar/atom`` among the
 available compute styles:
 
-.. code-block:: bash 
+.. code-block:: bash
+
    Loading plugin: compute disp/atom by Denan Li (lidenan@westlake.edu.cn)
    Loading plugin: compute polar/atom by Denan Li (lidenan@westlake.edu.cn)
    Loading plugin: compute customdisp by Denan Li (lidenan@westlake.edu.cn)
