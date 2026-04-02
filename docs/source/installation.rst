@@ -25,8 +25,8 @@ For the optional 3-D visualisation tools (vispy / PySide6):
 LAMMPS API
 ----------
 
-The LAMMPS API provides ``disp/atom`` and ``polar/atom`` computes as a
-runtime plugin (``dispplugin.so``).
+The LAMMPS API provides ``compute disp/atom`` and ``compute polar/atom`` computes as a
+runtime plugin.
 
 **Prerequisites**
 
@@ -85,4 +85,15 @@ In a LAMMPS input file, load the plugin and confirm it is registered:
    plugin list
 
 ``plugin list`` should show ``disp/atom`` and ``polar/atom`` among the
-available compute styles.
+available compute styles:
+
+.. code-block:: bash 
+   Loading plugin: compute disp/atom by Denan Li (lidenan@westlake.edu.cn)
+   Loading plugin: compute polar/atom by Denan Li (lidenan@westlake.edu.cn)
+   Loading plugin: compute customdisp by Denan Li (lidenan@westlake.edu.cn)
+   Loading plugin: compute distance/electride by Denan Li (lidenan@westlake.edu.cn)
+   Currently loaded plugins: 4
+      1: compute style plugin disp/atom
+      2: compute style plugin polar/atom
+      3: compute style plugin customdisp
+      4: compute style plugin distance/electride
