@@ -8,3 +8,4 @@ Tutorials
    calculate_displacement
    calculate_polarization
    visualization
+   space_visualization
