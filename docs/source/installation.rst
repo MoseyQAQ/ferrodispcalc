@@ -16,7 +16,7 @@ Linux/Windows also require OpenMP; macOS builds without it.
 This installs the core dependencies (``numpy``, ``matplotlib``, ``ase``,
 ``pymatgen``, ``dpdata``, ``scienceplots``) and compiles the C++ backend.
 
-For the optional 3-D visualisation tools (vispy / PySide6):
+For the optional 3-D visualisation tools (pyvista):
 
 .. code-block:: bash
 
