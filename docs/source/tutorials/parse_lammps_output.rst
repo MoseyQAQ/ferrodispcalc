@@ -1,5 +1,8 @@
-Parse LAMMPS's output file
-======================
+Parse LAMMPS Output Files
+=========================
+
+Read Trajectories
+-----------------
 
 Use :func:`ferrodispcalc.io.read_lammps_dump` to read LAMMPS dump files.
 
@@ -32,3 +35,28 @@ Read a subset of frames using the ``select`` parameter:
 .. note::
 
     An index file (e.g. ``dump.lammpstrj.idx``) is generated on first read to speed up subsequent reads.
+
+Read Log Files
+--------------
+
+Use :func:`ferrodispcalc.io.read_lammps_log` to parse thermodynamic data from a LAMMPS log file.
+It returns a dictionary mapping each thermo keyword to a NumPy array of values.
+
+.. code-block:: python
+
+    from ferrodispcalc.io import read_lammps_log
+
+    log = read_lammps_log("log.lammps")
+
+    print(log.keys())        # e.g. dict_keys(['Step', 'Temp', 'Press', 'TotEng', ...])
+    print(log['nframes'])    # number of thermo output lines
+
+    # Plot temperature vs. step
+    import matplotlib.pyplot as plt
+
+    plt.plot(log['Step'], log['Temp'])
+    plt.xlabel('Step')
+    plt.ylabel('Temperature (K)')
+    plt.savefig('temp_vs_step.png')
+
+See the :mod:`ferrodispcalc.io` API reference for full details.
