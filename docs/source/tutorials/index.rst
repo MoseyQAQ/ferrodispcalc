@@ -9,3 +9,4 @@ Tutorials
    calculate_polarization
    visualization
    space_visualization
+   parse_cp2k
