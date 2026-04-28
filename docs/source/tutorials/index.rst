@@ -6,6 +6,7 @@ Tutorials
 
    ase
    fdc
+   dielectric
    example_perov_superlattice
    example_molecular
    example_aln
