@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parse LAMMPS Output Files &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3D Space Visualization" href="space_visualization.html" />
+    <link rel="prev" title="Example: Wurtzite Ferroelectric (ScAlN)" href="example_aln.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ase.html">Introduction to ASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fdc.html">Introduction to ferrodispcalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dielectric.html">Example: Dielectric Constant of PbTiO<sub>3</sub></a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_perov_superlattice.html">Example: PTO-STO Superlattice Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_molecular.html">Example: Molecular Ferroelectric (TMCM-CdCl<sub>3</sub>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_aln.html">Example: Wurtzite Ferroelectric (ScAlN)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Parse LAMMPS Output Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-trajectories">Read Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-log-files">Read Log Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="space_visualization.html">3D Space Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_cp2k.html">Parse CP2K Trajectory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Parse LAMMPS Output Files</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/parse_lammps_output.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="parse-lammps-output-files">
+<h1>Parse LAMMPS Output Files<a class="headerlink" href="#parse-lammps-output-files" title="Link to this heading"></a></h1>
+<section id="read-trajectories">
+<h2>Read Trajectories<a class="headerlink" href="#read-trajectories" title="Link to this heading"></a></h2>
+<p>Use <a class="reference internal" href="../ferrodispcalc.html#ferrodispcalc.io.read_lammps_dump" title="ferrodispcalc.io.read_lammps_dump"><code class="xref py py-func docutils literal notranslate"><span class="pre">ferrodispcalc.io.read_lammps_dump()</span></code></a> to read LAMMPS dump files.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.io</span> <span class="kn">import</span> <span class="n">read_lammps_dump</span>
+
+<span class="c1"># type_map maps LAMMPS numeric types to element symbols</span>
+<span class="n">type_map</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sr&#39;</span><span class="p">,</span> <span class="s1">&#39;Ti&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">]</span>
+
+<span class="c1"># Read all frames (returns a list of ASE Atoms objects)</span>
+<span class="n">trajectory</span> <span class="o">=</span> <span class="n">read_lammps_dump</span><span class="p">(</span><span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span> <span class="n">type_map</span><span class="o">=</span><span class="n">type_map</span><span class="p">)</span>
+
+<span class="c1"># Access a single frame</span>
+<span class="n">frame</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;timestep&#39;</span><span class="p">])</span>     <span class="c1"># timestep number</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">get_positions</span><span class="p">())</span>      <span class="c1"># atomic positions, shape (N, 3)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">get_cell</span><span class="p">())</span>           <span class="c1"># simulation box</span>
+</pre></div>
+</div>
+<p>Read a subset of frames using the <code class="docutils literal notranslate"><span class="pre">select</span></code> parameter:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read every other frame from index 0 to 100</span>
+<span class="n">subset</span> <span class="o">=</span> <span class="n">read_lammps_dump</span><span class="p">(</span><span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span> <span class="n">type_map</span><span class="o">=</span><span class="n">type_map</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Read a single frame by index</span>
+<span class="n">frame</span> <span class="o">=</span> <span class="n">read_lammps_dump</span><span class="p">(</span><span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span> <span class="n">type_map</span><span class="o">=</span><span class="n">type_map</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An index file (e.g. <code class="docutils literal notranslate"><span class="pre">dump.lammpstrj.idx</span></code>) is generated on first read to speed up subsequent reads.</p>
+</div>
+</section>
+<section id="read-log-files">
+<h2>Read Log Files<a class="headerlink" href="#read-log-files" title="Link to this heading"></a></h2>
+<p>Use <a class="reference internal" href="../ferrodispcalc.html#ferrodispcalc.io.read_lammps_log" title="ferrodispcalc.io.read_lammps_log"><code class="xref py py-func docutils literal notranslate"><span class="pre">ferrodispcalc.io.read_lammps_log()</span></code></a> to parse thermodynamic data from a LAMMPS log file.
+It returns a dictionary mapping each thermo keyword to a NumPy array of values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.io</span> <span class="kn">import</span> <span class="n">read_lammps_log</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">read_lammps_log</span><span class="p">(</span><span class="s2">&quot;log.lammps&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>        <span class="c1"># e.g. dict_keys([&#39;Step&#39;, &#39;Temp&#39;, &#39;Press&#39;, &#39;TotEng&#39;, ...])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;nframes&#39;</span><span class="p">])</span>    <span class="c1"># number of thermo output lines</span>
+
+<span class="c1"># Plot temperature vs. step</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">log</span><span class="p">[</span><span class="s1">&#39;Step&#39;</span><span class="p">],</span> <span class="n">log</span><span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Temperature (K)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;temp_vs_step.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="../ferrodispcalc.html#module-ferrodispcalc.io" title="ferrodispcalc.io"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ferrodispcalc.io</span></code></a> API reference for full details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="example_aln.html" class="btn btn-neutral float-left" title="Example: Wurtzite Ferroelectric (ScAlN)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="space_visualization.html" class="btn btn-neutral float-right" title="3D Space Visualization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

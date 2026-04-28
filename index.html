@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ferrodispcalc &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ferrodispcalc</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ferrodispcalc">
+<h1>ferrodispcalc<a class="headerlink" href="#ferrodispcalc" title="Link to this heading"></a></h1>
+<p><strong>ferrodispcalc</strong> is a Python package for preprocessing and postprocessing
+molecular dynamics simulations of ferroelectric materials, with a focus on
+perovskite structures (e.g. PbTiO₃, BaTiO₃, PbTiO₃/SrTiO₃ superlattices).</p>
+<p>It provides a high-level API for extracting physically meaningful descriptors
+from LAMMPS trajectories: ionic displacements, local polarization, octahedral
+tilt angles, and time-averaged structures.  A C++ backend (pybind11) handles
+memory-mapped I/O for large trajectory files.</p>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Build neighbor lists with element-selective cutoffs</p></li>
+<li><p>Calculate ionic displacements from MD trajectories (minimum image convention)</p></li>
+<li><p>Compute local polarization per unit cell using Born effective charges</p></li>
+<li><p>Measure octahedral tilt angles about x, y, z axes</p></li>
+<li><p>Average atomic structures across MD frames</p></li>
+<li><p>Read LAMMPS dump, data, and log files via a high-performance C++ backend</p></li>
+<li><p>Visualize vector fields in 1-D profiles, 2-D planes, and 3-D space</p></li>
+</ul>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/MoseyQAQ/ferrodispcalc.git
+<span class="nb">cd</span><span class="w"> </span>ferrodispcalc
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.io</span> <span class="kn">import</span> <span class="n">read_lammps_dump</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.neighborlist</span> <span class="kn">import</span> <span class="n">build_neighbor_list</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.compute</span> <span class="kn">import</span> <span class="n">calculate_displacement</span>
+
+<span class="c1"># Read LAMMPS trajectory</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">read_lammps_dump</span><span class="p">(</span><span class="s2">&quot;dump.lammpstrj&quot;</span><span class="p">,</span> <span class="n">type_map</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Pb&quot;</span><span class="p">,</span> <span class="s2">&quot;Ti&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">])</span>
+
+<span class="c1"># Build Ti–O neighbor list (6 nearest O neighbors per Ti)</span>
+<span class="n">nl</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span>
+    <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">center_elements</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span>
+    <span class="n">neighbor_elements</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span>
+    <span class="n">cutoff</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+    <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Calculate Ti displacements relative to O neighbors</span>
+<span class="n">disp</span> <span class="o">=</span> <span class="n">calculate_displacement</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">nl</span><span class="p">)</span>   <span class="c1"># shape: (n_frames, n_Ti, 3)</span>
+</pre></div>
+</div>
+</section>
+<section id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#python-api">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#lammps-api">LAMMPS API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/ase.html">Introduction to ASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/fdc.html">Introduction to ferrodispcalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/dielectric.html">Example: Dielectric Constant of PbTiO<sub>3</sub></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/example_perov_superlattice.html">Example: PTO-STO Superlattice Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/example_molecular.html">Example: Molecular Ferroelectric (TMCM-CdCl<sub>3</sub>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/example_aln.html">Example: Wurtzite Ferroelectric (ScAlN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/parse_lammps_output.html">Parse LAMMPS Output Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/space_visualization.html">3D Space Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/parse_cp2k.html">Parse CP2K Trajectory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ferrodispcalc.html">ferrodispcalc package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

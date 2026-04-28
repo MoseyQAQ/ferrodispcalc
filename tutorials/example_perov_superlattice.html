@@ -1,0 +1,230 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example: PTO-STO Superlattice Polarization &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Example: Molecular Ferroelectric (TMCM-CdCl3)" href="example_molecular.html" />
+    <link rel="prev" title="Example: Dielectric Constant of PbTiO3" href="dielectric.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ase.html">Introduction to ASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fdc.html">Introduction to ferrodispcalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dielectric.html">Example: Dielectric Constant of PbTiO<sub>3</sub></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example: PTO-STO Superlattice Polarization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#complete-script">Complete Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-by-step-breakdown">Step-by-Step Breakdown</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#read-the-structure">Read the Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-neighbor-lists">Build Neighbor Lists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calculate-polarization">Calculate Polarization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visualize-with-a-2d-plane-profile">Visualize with a 2D Plane Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="example_molecular.html">Example: Molecular Ferroelectric (TMCM-CdCl<sub>3</sub>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_aln.html">Example: Wurtzite Ferroelectric (ScAlN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_lammps_output.html">Parse LAMMPS Output Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="space_visualization.html">3D Space Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_cp2k.html">Parse CP2K Trajectory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Example: PTO-STO Superlattice Polarization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/example_perov_superlattice.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="example-pto-sto-superlattice-polarization">
+<h1>Example: PTO-STO Superlattice Polarization<a class="headerlink" href="#example-pto-sto-superlattice-polarization" title="Link to this heading"></a></h1>
+<p>This example computes and visualizes local polarization
+in a PbTiO<sub>3</sub>/SrTiO<sub>3</sub> (PTO/STO) superlattice.
+For core concepts, see <a class="reference internal" href="fdc.html"><span class="doc">Introduction to ferrodispcalc</span></a>.</p>
+<section id="complete-script">
+<h2>Complete Script<a class="headerlink" href="#complete-script" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.neighborlist</span> <span class="kn">import</span> <span class="n">build_neighbor_list</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.compute</span> <span class="kn">import</span> <span class="n">calculate_polarization</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.vis</span> <span class="kn">import</span> <span class="n">grid_data</span><span class="p">,</span> <span class="n">plane_profile</span>
+
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;stru.traj&quot;</span><span class="p">)</span>
+
+<span class="c1"># Build neighbor lists</span>
+<span class="n">nl_bo</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">nl_ba</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Pb&quot;</span><span class="p">,</span> <span class="s2">&quot;Sr&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># Averaged Born effective charges</span>
+<span class="n">z_a</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">3.45</span> <span class="o">+</span> <span class="mf">2.56</span><span class="p">)</span>
+<span class="n">z_b</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">5.21</span> <span class="o">+</span> <span class="mf">7.40</span><span class="p">)</span>
+<span class="n">z_o</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">z_a</span> <span class="o">+</span> <span class="n">z_b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+<span class="n">bec</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Pb&quot;</span><span class="p">:</span> <span class="n">z_a</span><span class="p">,</span> <span class="s2">&quot;Sr&quot;</span><span class="p">:</span> <span class="n">z_a</span><span class="p">,</span> <span class="s2">&quot;Ti&quot;</span><span class="p">:</span> <span class="n">z_b</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="n">z_o</span><span class="p">}</span>
+
+<span class="c1"># Calculate and visualize</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">calculate_polarization</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">nl_ba</span><span class="p">,</span> <span class="n">nl_bo</span><span class="p">,</span> <span class="n">bec</span><span class="p">)</span>
+<span class="n">P_grid</span> <span class="o">=</span> <span class="n">grid_data</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="n">plane_profile</span><span class="p">(</span><span class="n">P_grid</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="s2">&quot;profile&quot;</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
+</pre></div>
+</div>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/superlattice_YZ_0.png"><img alt="../_images/superlattice_YZ_0.png" src="../_images/superlattice_YZ_0.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Local polarization on the YZ plane (x = 0) of a PTO/STO superlattice.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="step-by-step-breakdown">
+<h2>Step-by-Step Breakdown<a class="headerlink" href="#step-by-step-breakdown" title="Link to this heading"></a></h2>
+<section id="read-the-structure">
+<h3>Read the Structure<a class="headerlink" href="#read-the-structure" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
+
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;stru.traj&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="build-neighbor-lists">
+<h3>Build Neighbor Lists<a class="headerlink" href="#build-neighbor-lists" title="Link to this heading"></a></h3>
+<p>In a superlattice, the A-site is occupied by mixed species (Pb and Sr).
+The key difference from a pure perovskite: pass both species in the neighbor element list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.neighborlist</span> <span class="kn">import</span> <span class="n">build_neighbor_list</span>
+
+<span class="c1"># B-O: 6 neighbors (octahedral coordination)</span>
+<span class="n">nl_bo</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+
+<span class="c1"># B-A: 8 neighbors — [&quot;Pb&quot;, &quot;Sr&quot;] covers both A-site species</span>
+<span class="n">nl_ba</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Pb&quot;</span><span class="p">,</span> <span class="s2">&quot;Sr&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="calculate-polarization">
+<h3>Calculate Polarization<a class="headerlink" href="#calculate-polarization" title="Link to this heading"></a></h3>
+<p>For a 50/50 PTO-STO superlattice, we average the BEC of each end member.
+The oxygen charge is determined by charge neutrality: <code class="docutils literal notranslate"><span class="pre">z_o</span> <span class="pre">=</span> <span class="pre">-(z_a</span> <span class="pre">+</span> <span class="pre">z_b)</span> <span class="pre">/</span> <span class="pre">3</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.compute</span> <span class="kn">import</span> <span class="n">calculate_polarization</span>
+
+<span class="n">z_a</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">3.45</span> <span class="o">+</span> <span class="mf">2.56</span><span class="p">)</span>    <span class="c1"># average of Pb(PTO) and Sr(STO)</span>
+<span class="n">z_b</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">5.21</span> <span class="o">+</span> <span class="mf">7.40</span><span class="p">)</span>    <span class="c1"># average of Ti(PTO) and Ti(STO)</span>
+<span class="n">z_o</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">z_a</span> <span class="o">+</span> <span class="n">z_b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>        <span class="c1"># charge neutrality</span>
+
+<span class="n">bec</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Pb&quot;</span><span class="p">:</span> <span class="n">z_a</span><span class="p">,</span> <span class="s2">&quot;Sr&quot;</span><span class="p">:</span> <span class="n">z_a</span><span class="p">,</span> <span class="s2">&quot;Ti&quot;</span><span class="p">:</span> <span class="n">z_b</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="n">z_o</span><span class="p">}</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="n">calculate_polarization</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">nl_ba</span><span class="p">,</span> <span class="n">nl_bo</span><span class="p">,</span> <span class="n">bec</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">P</span></code> has shape <code class="docutils literal notranslate"><span class="pre">(n_Ti,</span> <span class="pre">3)</span></code> — one polarization vector per B-site unit cell.</p>
+</section>
+<section id="visualize-with-a-2d-plane-profile">
+<h3>Visualize with a 2D Plane Profile<a class="headerlink" href="#visualize-with-a-2d-plane-profile" title="Link to this heading"></a></h3>
+<p>Grid the per-atom data onto a regular 3D lattice, then slice a 2D plane for plotting.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.vis</span> <span class="kn">import</span> <span class="n">grid_data</span><span class="p">,</span> <span class="n">plane_profile</span>
+
+<span class="c1"># Grid polarization onto a 40x20x20 mesh</span>
+<span class="n">P_grid</span> <span class="o">=</span> <span class="n">grid_data</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+
+<span class="c1"># Plot the YZ plane at x=0</span>
+<span class="n">plane_profile</span><span class="p">(</span><span class="n">P_grid</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="s2">&quot;profile&quot;</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">plane_profile</span></code> saves the figure to the specified directory. The <code class="docutils literal notranslate"><span class="pre">select</span></code> parameter
+picks which slice(s) to plot — here we select the first layer along x.</p>
+<p>See <a class="reference internal" href="../ferrodispcalc.html#ferrodispcalc.compute.calculate_polarization" title="ferrodispcalc.compute.calculate_polarization"><code class="xref py py-func docutils literal notranslate"><span class="pre">calculate_polarization()</span></code></a>,
+<a class="reference internal" href="../ferrodispcalc.html#ferrodispcalc.neighborlist.build_neighbor_list" title="ferrodispcalc.neighborlist.build_neighbor_list"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_neighbor_list()</span></code></a>,
+and <a class="reference internal" href="../ferrodispcalc.vis.html#ferrodispcalc.vis.grid.grid_data" title="ferrodispcalc.vis.grid.grid_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">grid_data()</span></code></a> for API details.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dielectric.html" class="btn btn-neutral float-left" title="Example: Dielectric Constant of PbTiO3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example_molecular.html" class="btn btn-neutral float-right" title="Example: Molecular Ferroelectric (TMCM-CdCl3)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

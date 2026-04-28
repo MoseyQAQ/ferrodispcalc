@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parse CP2K Trajectory &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Gallery" href="../gallery.html" />
+    <link rel="prev" title="3D Space Visualization" href="space_visualization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ase.html">Introduction to ASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fdc.html">Introduction to ferrodispcalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dielectric.html">Example: Dielectric Constant of PbTiO<sub>3</sub></a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_perov_superlattice.html">Example: PTO-STO Superlattice Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_molecular.html">Example: Molecular Ferroelectric (TMCM-CdCl<sub>3</sub>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_aln.html">Example: Wurtzite Ferroelectric (ScAlN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_lammps_output.html">Parse LAMMPS Output Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="space_visualization.html">3D Space Visualization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Parse CP2K Trajectory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#complete-script">Complete Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-by-step-walkthrough">Step-by-Step Walkthrough</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#step-1-read-cp2k-trajectory">Step 1: Read CP2K Trajectory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-2-set-cell-and-pbc">Step 2: Set Cell and PBC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-3-build-neighbor-lists">Step 3: Build Neighbor Lists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-4-calculate-displacements-grid">Step 4: Calculate Displacements &amp; Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-5-2d-visualization">Step 5: 2D Visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-6-3d-visualization">Step 6: 3D Visualization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Parse CP2K Trajectory</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/parse_cp2k.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="parse-cp2k-trajectory">
+<h1>Parse CP2K Trajectory<a class="headerlink" href="#parse-cp2k-trajectory" title="Link to this heading"></a></h1>
+<p>This tutorial demonstrates how to read a CP2K molecular dynamics trajectory (XYZ format),
+compute ionic displacements for A-site and B-site ions in a perovskite, and visualize the results
+in 2D and 3D.</p>
+<p>We use SrTiO<sub>3</sub> as an example: Sr sits on the A-site, Ti on the B-site, and O is the
+shared neighbor species.</p>
+<section id="complete-script">
+<h2>Complete Script<a class="headerlink" href="#complete-script" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.neighborlist</span> <span class="kn">import</span> <span class="n">build_neighbor_list</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.compute</span> <span class="kn">import</span> <span class="n">calculate_displacement</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.vis</span> <span class="kn">import</span> <span class="n">grid_data</span><span class="p">,</span> <span class="n">space_profile</span><span class="p">,</span> <span class="n">plane_profile</span>
+<span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
+<span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atoms</span>
+
+<span class="c1"># 1. Read CP2K trajectory</span>
+<span class="n">traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;sto-pos-1.xyz&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Set cell and PBC</span>
+<span class="n">cell</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mf">15.390867</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">15.390867</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">15.929633</span><span class="p">],</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+    <span class="n">atoms</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+    <span class="n">atoms</span><span class="o">.</span><span class="n">set_pbc</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+
+<span class="c1"># 3. Build neighbor lists</span>
+<span class="n">nl_b</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">nl_a</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Sr&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+
+<span class="c1"># 4. Calculate displacements &amp; grid</span>
+<span class="n">disp_a</span> <span class="o">=</span> <span class="n">calculate_displacement</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">nl_a</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">disp_b</span> <span class="o">=</span> <span class="n">calculate_displacement</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">nl_b</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># Print mean displacement of the last frame</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A-site mean displacement (last frame):&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">disp_a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B-site mean displacement (last frame):&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">disp_b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="n">disp_a</span> <span class="o">=</span> <span class="n">grid_data</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">disp_a</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Sr&quot;</span><span class="p">],</span> <span class="n">target_size</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">disp_b</span> <span class="o">=</span> <span class="n">grid_data</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">disp_b</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="n">target_size</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="c1"># 5. 2D visualization</span>
+<span class="n">plane_profile</span><span class="p">(</span><span class="n">disp_a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">save_dir</span><span class="o">=</span><span class="s2">&quot;d_a&quot;</span><span class="p">)</span>
+<span class="n">plane_profile</span><span class="p">(</span><span class="n">disp_b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">save_dir</span><span class="o">=</span><span class="s2">&quot;d_b&quot;</span><span class="p">)</span>
+
+<span class="c1"># 6. 3D visualization</span>
+<span class="n">space_profile</span><span class="p">(</span><span class="n">disp_b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">color_by</span><span class="o">=</span><span class="s2">&quot;dz&quot;</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="step-by-step-walkthrough">
+<h2>Step-by-Step Walkthrough<a class="headerlink" href="#step-by-step-walkthrough" title="Link to this heading"></a></h2>
+<section id="step-1-read-cp2k-trajectory">
+<h3>Step 1: Read CP2K Trajectory<a class="headerlink" href="#step-1-read-cp2k-trajectory" title="Link to this heading"></a></h3>
+<p>CP2K MD simulations produce trajectory files in <code class="docutils literal notranslate"><span class="pre">*-pos-*.xyz</span></code> format. Use ASE’s <code class="docutils literal notranslate"><span class="pre">read</span></code>
+function to load them:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
+<span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atoms</span>
+
+<span class="n">traj</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;sto-pos-1.xyz&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">&quot;:&quot;</span></code> index tells ASE to read all frames. The return value is a list of <code class="docutils literal notranslate"><span class="pre">Atoms</span></code> objects,
+one per trajectory frame.</p>
+</section>
+<section id="step-2-set-cell-and-pbc">
+<h3>Step 2: Set Cell and PBC<a class="headerlink" href="#step-2-set-cell-and-pbc" title="Link to this heading"></a></h3>
+<p>CP2K’s XYZ output typically does not contain cell information, so you need to set the cell
+parameters and periodic boundary conditions (PBC) manually:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cell</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mf">15.390867</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">15.390867</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">15.929633</span><span class="p">],</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+    <span class="n">atoms</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+    <span class="n">atoms</span><span class="o">.</span><span class="n">set_pbc</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The cell parameters should match the <code class="docutils literal notranslate"><span class="pre">&amp;CELL</span></code> section in your CP2K input file. Setting PBC to
+<code class="docutils literal notranslate"><span class="pre">True</span></code> in all three directions is essential for the subsequent neighbor search and the minimum
+image convention (MIC).</p>
+</section>
+<section id="step-3-build-neighbor-lists">
+<h3>Step 3: Build Neighbor Lists<a class="headerlink" href="#step-3-build-neighbor-lists" title="Link to this heading"></a></h3>
+<p>Build separate neighbor lists for the A-site (Sr) and B-site (Ti) ions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.neighborlist</span> <span class="kn">import</span> <span class="n">build_neighbor_list</span>
+
+<span class="c1"># B-site: Ti is coordinated by 6 O (octahedral)</span>
+<span class="n">nl_b</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+
+<span class="c1"># A-site: Sr is coordinated by 12 O</span>
+<span class="n">nl_a</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Sr&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">center_elements</span></code> – element symbols for the center atoms</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">neighbor_elements</span></code> – element symbols for the neighbor atoms</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cutoff</span></code> – search cutoff radius (unit: Angstrom)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">neighbor_num</span></code> – number of neighbors to keep per center atom</p></li>
+</ul>
+<p>Only the first frame (<code class="docutils literal notranslate"><span class="pre">traj[0]</span></code>) is needed to build the neighbor list; the same topology is
+reused for all subsequent frames.</p>
+</section>
+<section id="step-4-calculate-displacements-grid">
+<h3>Step 4: Calculate Displacements &amp; Grid<a class="headerlink" href="#step-4-calculate-displacements-grid" title="Link to this heading"></a></h3>
+<p>Compute ionic displacements and map the results onto a regular grid:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.compute</span> <span class="kn">import</span> <span class="n">calculate_displacement</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.vis</span> <span class="kn">import</span> <span class="n">grid_data</span>
+
+<span class="c1"># Displacement = offset of each center atom from the centroid of its neighbors</span>
+<span class="n">disp_a</span> <span class="o">=</span> <span class="n">calculate_displacement</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">nl_a</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">disp_b</span> <span class="o">=</span> <span class="n">calculate_displacement</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">nl_b</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">select=slice(0,</span> <span class="pre">None,</span> <span class="pre">1)</span></code> selects all frames (equivalent to <code class="docutils literal notranslate"><span class="pre">[::1]</span></code>). If set to <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+only the last 50% of frames are used by default.</p>
+<p>The returned array has shape <code class="docutils literal notranslate"><span class="pre">(n_frames,</span> <span class="pre">n_centers,</span> <span class="pre">3)</span></code> – a 3D displacement vector for each
+center atom in each frame.</p>
+<p>You can print the spatially averaged displacement of the last frame to get a quick sanity check:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A-site mean displacement (last frame):&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">disp_a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B-site mean displacement (last frame):&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">disp_b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This gives the mean displacement vector (dx, dy, dz) in Angstrom, averaged over all center atoms
+in the last frame. A non-zero mean along a particular axis indicates a net polar displacement in
+that direction.</p>
+<p>Next, map the scattered data onto a regular grid:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">disp_a</span> <span class="o">=</span> <span class="n">grid_data</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">disp_a</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Sr&quot;</span><span class="p">],</span> <span class="n">target_size</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">disp_b</span> <span class="o">=</span> <span class="n">grid_data</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">disp_b</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="n">target_size</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">target_size=[4,</span> <span class="pre">4,</span> <span class="pre">4]</span></code> specifies the expected grid dimensions (i.e., 4 equivalent sites along
+each direction in the supercell). The output shape is <code class="docutils literal notranslate"><span class="pre">(n_frames,</span> <span class="pre">4,</span> <span class="pre">4,</span> <span class="pre">4,</span> <span class="pre">3)</span></code>.</p>
+</section>
+<section id="step-5-2d-visualization">
+<h3>Step 5: 2D Visualization<a class="headerlink" href="#step-5-2d-visualization" title="Link to this heading"></a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">plane_profile</span></code> to plot 2D vector fields on cross-sectional slices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.vis</span> <span class="kn">import</span> <span class="n">plane_profile</span>
+
+<span class="n">plane_profile</span><span class="p">(</span><span class="n">disp_a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">save_dir</span><span class="o">=</span><span class="s2">&quot;d_a&quot;</span><span class="p">)</span>
+<span class="n">plane_profile</span><span class="p">(</span><span class="n">disp_b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">save_dir</span><span class="o">=</span><span class="s2">&quot;d_b&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">disp_a[-1]</span></code> takes the last frame, with shape <code class="docutils literal notranslate"><span class="pre">(4,</span> <span class="pre">4,</span> <span class="pre">4,</span> <span class="pre">3)</span></code>. The function slices along the
+x, y, and z directions layer by layer, projects the vectors onto the corresponding plane, and
+saves PNG images to the <code class="docutils literal notranslate"><span class="pre">save_dir</span></code> directory.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">select</span></code> parameter to plot only specific layers, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plane_profile</span><span class="p">(</span><span class="n">disp_b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">save_dir</span><span class="o">=</span><span class="s2">&quot;d_b&quot;</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+</pre></div>
+</div>
+</section>
+<section id="step-6-3d-visualization">
+<h3>Step 6: 3D Visualization<a class="headerlink" href="#step-6-3d-visualization" title="Link to this heading"></a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">space_profile</span></code> to render a 3D vector field:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.vis</span> <span class="kn">import</span> <span class="n">space_profile</span>
+
+<span class="n">space_profile</span><span class="p">(</span><span class="n">disp_b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">color_by</span><span class="o">=</span><span class="s2">&quot;dz&quot;</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">color_by</span></code> – coloring strategy: <code class="docutils literal notranslate"><span class="pre">'dz'</span></code> colors by the z-component; other options include <code class="docutils literal notranslate"><span class="pre">'dx'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dy'</span></code>, <code class="docutils literal notranslate"><span class="pre">'magnitude'</span></code>, <code class="docutils literal notranslate"><span class="pre">'all'</span></code> (RGB from components), etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">factor</span></code> – arrow scale factor; larger values produce longer arrows</p></li>
+</ul>
+<p>This function is built on PyVista and opens an interactive 3D window.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="space_visualization.html" class="btn btn-neutral float-left" title="3D Space Visualization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../gallery.html" class="btn btn-neutral float-right" title="Gallery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

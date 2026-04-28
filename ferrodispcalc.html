@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ferrodispcalc package &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="API Reference" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ferrodispcalc package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-ferrodispcalc.compute">ferrodispcalc.compute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ferrodispcalc.neighborlist">ferrodispcalc.neighborlist</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ferrodispcalc.io">ferrodispcalc.io</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ferrodispcalc.config">ferrodispcalc.config</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ferrodispcalc-vis">ferrodispcalc.vis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-ferrodispcalc.vis.grid">ferrodispcalc.vis.grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ferrodispcalc.vis.line_plot">ferrodispcalc.vis.line_plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ferrodispcalc.vis.plane_plot">ferrodispcalc.vis.plane_plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ferrodispcalc.vis.space_plot">ferrodispcalc.vis.space_plot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">API Reference</a></li>
+      <li class="breadcrumb-item active">ferrodispcalc package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ferrodispcalc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-ferrodispcalc">
+<span id="ferrodispcalc-package"></span><h1>ferrodispcalc package<a class="headerlink" href="#module-ferrodispcalc" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<section id="module-ferrodispcalc.compute">
+<span id="ferrodispcalc-compute"></span><h3>ferrodispcalc.compute<a class="headerlink" href="#module-ferrodispcalc.compute" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.compute.calculate_averaged_structure">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.compute.</span></span><span class="sig-name descname"><span class="pre">calculate_averaged_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Atoms</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">slice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Atoms</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/compute.html#calculate_averaged_structure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.compute.calculate_averaged_structure" title="Link to this definition"></a></dt>
+<dd><p>Compute the time-averaged atomic structure from an MD trajectory.</p>
+<p>Atomic coordinates are unwrapped with respect to the first selected frame
+before averaging to avoid artefacts from periodic boundary crossings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>traj</strong> (<em>list</em><em>[</em><em>Atoms</em><em>]</em>) – Full MD trajectory as a list of ASE Atoms objects.</p></li>
+<li><p><strong>select</strong> (<em>list</em><em>[</em><em>int</em><em>] </em><em>| </em><em>slice</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Frame selection. <code class="docutils literal notranslate"><span class="pre">None</span></code> selects the last 50 % of frames.
+Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ASE Atoms object with averaged positions and cell. Element symbols and
+PBC flags are taken from the first frame of the trajectory.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Atoms</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.compute.calculate_dielectric_constant">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.compute.</span></span><span class="sig-name descname"><span class="pre">calculate_dielectric_constant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polarization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volume</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">300.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atomic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ferrodispcalc/compute.html#calculate_dielectric_constant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.compute.calculate_dielectric_constant" title="Link to this definition"></a></dt>
+<dd><p>Calculate dielectric tensor components from polarization fluctuations.</p>
+<p>The dielectric tensor is computed from the fluctuation formula
+<code class="docutils literal notranslate"><span class="pre">eps_ij</span> <span class="pre">=</span> <span class="pre">V</span> <span class="pre">/</span> <span class="pre">(eps0</span> <span class="pre">*</span> <span class="pre">kB</span> <span class="pre">*</span> <span class="pre">T)</span> <span class="pre">*</span> <span class="pre">(&lt;Pi</span> <span class="pre">Pj&gt;</span> <span class="pre">-</span> <span class="pre">&lt;Pi&gt;&lt;Pj&gt;)</span></code>, where the input
+polarization is assumed to be in C/m². The input volume must be given in
+Å³ and is converted internally to m³. When <code class="docutils literal notranslate"><span class="pre">atomic=False</span></code>, the
+polarization is first averaged over all unit cells. When <code class="docutils literal notranslate"><span class="pre">atomic=True</span></code>,
+the dielectric tensor is computed independently for each unit cell without
+spatial averaging, and <code class="docutils literal notranslate"><span class="pre">volume</span></code> is interpreted as the volume per unit
+cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>polarization</strong> (<em>np.ndarray</em>) – Polarization time series. Shape <code class="docutils literal notranslate"><span class="pre">(n_frames,</span> <span class="pre">n_cells,</span> <span class="pre">3)</span></code> for local
+polarization from <a class="reference internal" href="#ferrodispcalc.compute.calculate_polarization" title="ferrodispcalc.compute.calculate_polarization"><code class="xref py py-func docutils literal notranslate"><span class="pre">calculate_polarization()</span></code></a>, or <code class="docutils literal notranslate"><span class="pre">(n_frames,</span> <span class="pre">3)</span></code>
+for an already averaged polarization trajectory.</p></li>
+<li><p><strong>volume</strong> (<em>float</em>) – Volume in Å³. For <code class="docutils literal notranslate"><span class="pre">atomic=False</span></code>, this is the total volume of the
+system corresponding to the polarization trajectory. For
+<code class="docutils literal notranslate"><span class="pre">atomic=True</span></code>, this must be the volume of a single unit cell.</p></li>
+<li><p><strong>temperature</strong> (<em>float</em><em>, </em><em>optional</em>) – Temperature in K. Defaults to <code class="docutils literal notranslate"><span class="pre">300.0</span></code>.</p></li>
+<li><p><strong>atomic</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to compute local dielectric tensor components for each unit
+cell. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dielectric tensor components <code class="docutils literal notranslate"><span class="pre">eps_xx</span></code>, <code class="docutils literal notranslate"><span class="pre">eps_yy</span></code>, <code class="docutils literal notranslate"><span class="pre">eps_zz</span></code>,
+<code class="docutils literal notranslate"><span class="pre">eps_xy</span></code>, <code class="docutils literal notranslate"><span class="pre">eps_xz</span></code>, and <code class="docutils literal notranslate"><span class="pre">eps_yz</span></code>. Each value is a scalar when
+<code class="docutils literal notranslate"><span class="pre">atomic=False</span></code> and an array of shape <code class="docutils literal notranslate"><span class="pre">(n_cells,)</span></code> when
+<code class="docutils literal notranslate"><span class="pre">atomic=True</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, float | np.ndarray]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function computes only the ionic fluctuation contribution to the
+dielectric response and neglects the electronic contribution.</p>
+<p>No statistical error analysis is performed internally. Users should apply
+their own block averaging or related analysis to estimate uncertainties.
+By default, all provided frames are used in the calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the input shape is invalid, if <code class="docutils literal notranslate"><span class="pre">atomic=True</span></code> but the input is not
+    local polarization, or if volume or temperature is not positive.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.compute.calculate_displacement">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.compute.</span></span><span class="sig-name descname"><span class="pre">calculate_displacement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Atoms</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">slice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/compute.html#calculate_displacement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.compute.calculate_displacement" title="Link to this definition"></a></dt>
+<dd><p>Calculate ionic displacements from an MD trajectory.</p>
+<p>For each center atom in the neighbor list, the displacement is computed as
+the mean vector from its neighbors to itself. Periodic boundary conditions
+are handled via the minimum image convention (MIC).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>traj</strong> (<em>list</em><em>[</em><em>Atoms</em><em>] </em><em>| </em><em>Atoms</em>) – Full MD trajectory (list of ASE Atoms) or a single Atoms object.</p></li>
+<li><p><strong>nl</strong> (<em>np.ndarray</em>) – Neighbor list array of shape <code class="docutils literal notranslate"><span class="pre">(n_centers,</span> <span class="pre">n_neighbors</span> <span class="pre">+</span> <span class="pre">1)</span></code> with
+1-based indices as returned by
+<a class="reference internal" href="#ferrodispcalc.neighborlist.build_neighbor_list" title="ferrodispcalc.neighborlist.build_neighbor_list"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_neighbor_list()</span></code></a>.</p></li>
+<li><p><strong>select</strong> (<em>list</em><em>[</em><em>int</em><em>] </em><em>| </em><em>slice</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Frame selection. <code class="docutils literal notranslate"><span class="pre">None</span></code> selects the last 50 % of frames.
+Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Displacement vectors in Ångström. Shape <code class="docutils literal notranslate"><span class="pre">(n_frames,</span> <span class="pre">n_centers,</span> <span class="pre">3)</span></code>
+for multiple frames, or <code class="docutils literal notranslate"><span class="pre">(n_centers,</span> <span class="pre">3)</span></code> for a single frame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.compute.calculate_octahedral_tilt">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.compute.</span></span><span class="sig-name descname"><span class="pre">calculate_octahedral_tilt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Atoms</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nl_bo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">slice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/compute.html#calculate_octahedral_tilt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.compute.calculate_octahedral_tilt" title="Link to this definition"></a></dt>
+<dd><p>Calculate octahedral tilt angles in a perovskite structure.</p>
+<p>For each octahedral center, the six neighboring anions are sorted into
+±x, ±y, ±z pairs. The tilt angle about each Cartesian axis is the angle
+between the anion–anion bond vector and the corresponding unit vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>traj</strong> (<em>list</em><em>[</em><em>Atoms</em><em>] </em><em>| </em><em>Atoms</em>) – Full MD trajectory or a single ASE Atoms object.</p></li>
+<li><p><strong>nl_bo</strong> (<em>np.ndarray</em>) – Neighbor list for B–O pairs, shape <code class="docutils literal notranslate"><span class="pre">(n_centers,</span> <span class="pre">7)</span></code> (center + 6
+anion neighbors), 1-based indices.</p></li>
+<li><p><strong>select</strong> (<em>list</em><em>[</em><em>int</em><em>] </em><em>| </em><em>slice</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Frame selection. <code class="docutils literal notranslate"><span class="pre">None</span></code> selects the last 50 % of frames.
+Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tilt angles in degrees. Shape <code class="docutils literal notranslate"><span class="pre">(n_frames,</span> <span class="pre">n_centers,</span> <span class="pre">3)</span></code> for
+multiple frames (columns: x-tilt, y-tilt, z-tilt), or
+<code class="docutils literal notranslate"><span class="pre">(n_centers,</span> <span class="pre">3)</span></code> for a single frame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>AssertionError</strong> – If <code class="docutils literal notranslate"><span class="pre">nl_bo</span></code> does not have exactly 6 neighbors per center.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.compute.calculate_polarization">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.compute.</span></span><span class="sig-name descname"><span class="pre">calculate_polarization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nl_ba</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nl_bx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">born_effective_charge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">slice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/compute.html#calculate_polarization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.compute.calculate_polarization" title="Link to this definition"></a></dt>
+<dd><p>Calculate local polarization for each unit cell in a perovskite.</p>
+<p>The local polarization at each B-site unit cell is computed from the
+positions of the B-site cation, the surrounding A-site cations (8
+neighbors), and the anions (6 neighbors), weighted by Born effective
+charges.  Results are returned in C/m².</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>traj</strong> (<em>list</em><em>[</em><em>Atoms</em><em>] </em><em>| </em><em>Atoms</em>) – Full MD trajectory or a single ASE Atoms object.</p></li>
+<li><p><strong>nl_ba</strong> (<em>np.ndarray</em>) – Neighbor list for B–A pairs (B-site center, 8 A-site neighbors),
+shape <code class="docutils literal notranslate"><span class="pre">(n_cells,</span> <span class="pre">9)</span></code>, 1-based indices.</p></li>
+<li><p><strong>nl_bx</strong> (<em>np.ndarray</em>) – Neighbor list for B–X pairs (B-site center, 6 anion neighbors),
+shape <code class="docutils literal notranslate"><span class="pre">(n_cells,</span> <span class="pre">7)</span></code>, 1-based indices.</p></li>
+<li><p><strong>born_effective_charge</strong> (<em>dict</em>) – Mapping of element symbol to scalar Born effective charge, e.g.
+<code class="docutils literal notranslate"><span class="pre">{'Pb':</span> <span class="pre">3.44,</span> <span class="pre">'Ti':</span> <span class="pre">5.18,</span> <span class="pre">'O':</span> <span class="pre">-2.87}</span></code>.</p></li>
+<li><p><strong>select</strong> (<em>list</em><em>[</em><em>int</em><em>] </em><em>| </em><em>slice</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Frame selection. <code class="docutils literal notranslate"><span class="pre">None</span></code> selects the last 50 % of frames.
+Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Local polarization in C/m². Shape <code class="docutils literal notranslate"><span class="pre">(n_frames,</span> <span class="pre">n_cells,</span> <span class="pre">3)</span></code> for
+multiple frames, or <code class="docutils literal notranslate"><span class="pre">(n_cells,</span> <span class="pre">3)</span></code> for a single frame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>AssertionError</strong> – If the B-site center indices in <code class="docutils literal notranslate"><span class="pre">nl_ba</span></code> and <code class="docutils literal notranslate"><span class="pre">nl_bx</span></code> do not match,
+    or if the neighbor counts are not 8 (A-site) and 6 (X-site).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ferrodispcalc.neighborlist">
+<span id="ferrodispcalc-neighborlist"></span><h3>ferrodispcalc.neighborlist<a class="headerlink" href="#module-ferrodispcalc.neighborlist" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.neighborlist.build_neighbor_list">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.neighborlist.</span></span><span class="sig-name descname"><span class="pre">build_neighbor_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighbor_elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighbor_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/neighborlist.html#build_neighbor_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.neighborlist.build_neighbor_list" title="Link to this definition"></a></dt>
+<dd><p>Build neighbor lists for selected atom types.</p>
+<p>Find the neighbor of selected center atoms within a cutoff radius. And return
+the 1-based neighbor list array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>atoms</strong> (<em>ase.Atoms</em>) – ASE Atoms object containing atomic positions, cell and element types.</p></li>
+<li><p><strong>center_elements</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Element symbols to treat as centers (e.g. [“Ti”, “Ba”]).</p></li>
+<li><p><strong>neighbor_elements</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Element symbols considered as neighbors (e.g. [“O”]).</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em>) – Cutoff radius used to search for neighbors (Unit: Angstrom).</p></li>
+<li><p><strong>neighbor_num</strong> (<em>int</em>) – Number of neighbors to keep per center. If fewer neighbors are found and
+<code class="docutils literal notranslate"><span class="pre">defect</span></code> is False a <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code> is raised; if <code class="docutils literal notranslate"><span class="pre">defect</span></code> is
+True missing neighbor slots are filled with the center index.</p></li>
+<li><p><strong>defect</strong> (<em>bool</em><em>, </em><em>optional</em>) – When True, allow centers with fewer than <code class="docutils literal notranslate"><span class="pre">neighbor_num</span></code> neighbors and
+fill missing entries with the center index (default: False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Integer array of shape <code class="docutils literal notranslate"><span class="pre">(n_centers,</span> <span class="pre">neighbor_num</span> <span class="pre">+</span> <span class="pre">1)</span></code>. Each row
+contains the center atom index followed by the neighbor atom indices.
+Indices are 1-based.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If any center atom has fewer than <code class="docutils literal notranslate"><span class="pre">neighbor_num</span></code> neighbors and
+    <code class="docutils literal notranslate"><span class="pre">defect</span></code> is False.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Internally the function uses <code class="xref py py-meth docutils literal notranslate"><span class="pre">pymatgen.core.Structure.get_neighbor_list()</span></code>.</p></li>
+<li><p>A small-cell check prints a warning if any cell vector length is less than
+4.0 Å.</p></li>
+<li><p>Ensure that the provided <code class="docutils literal notranslate"><span class="pre">atoms</span></code> object has periodic boundary
+conditions (PBC) and a valid cell when you expect PBC behavior.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ferrodispcalc.neighborlist</span> <span class="kn">import</span> <span class="n">build_neighbor_list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;POSCAR&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nl</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">atoms</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">center_elements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Pb&#39;</span><span class="p">,</span> <span class="s1">&#39;Sr&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">neighbor_elements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;O&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">cutoff</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">defect</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.neighborlist.save_neighbor_list">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.neighborlist.</span></span><span class="sig-name descname"><span class="pre">save_neighbor_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_based</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/neighborlist.html#save_neighbor_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.neighborlist.save_neighbor_list" title="Link to this definition"></a></dt>
+<dd><p>Save a neighbor list array to a text file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nl</strong> (<em>np.ndarray</em>) – Neighbor list array as returned by <a class="reference internal" href="#ferrodispcalc.neighborlist.build_neighbor_list" title="ferrodispcalc.neighborlist.build_neighbor_list"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_neighbor_list()</span></code></a>. The
+function expects an integer array where each row contains a center
+index followed by neighbor indices.</p></li>
+<li><p><strong>file_name</strong> (<em>str</em>) – Output file path. The neighbor list will be written as a text file
+with fixed-width integer columns.</p></li>
+<li><p><strong>zero_based</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, convert indices to zero-based before saving. By default the
+neighbor list uses 1-based indices and <code class="docutils literal notranslate"><span class="pre">zero_based</span></code> is False.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ferrodispcalc.neighborlist</span> <span class="kn">import</span> <span class="n">save_neighbor_list</span><span class="p">,</span> <span class="n">build_neighbor_list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nl</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">save_neighbor_list</span><span class="p">(</span><span class="n">nl</span><span class="p">,</span> <span class="s1">&#39;nl.dat&#39;</span><span class="p">,</span> <span class="n">zero_based</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-ferrodispcalc.io">
+<span id="ferrodispcalc-io"></span><h3>ferrodispcalc.io<a class="headerlink" href="#module-ferrodispcalc.io" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.io.read_lammps_data">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.io.</span></span><span class="sig-name descname"><span class="pre">read_lammps_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Atoms</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/io.html#read_lammps_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.io.read_lammps_data" title="Link to this definition"></a></dt>
+<dd><p>Read a LAMMPS data file and return the structure as an ASE Atoms object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – Path to the LAMMPS data file.</p></li>
+<li><p><strong>type_map</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Ordered list of element symbols corresponding to LAMMPS atom types,
+e.g. <code class="docutils literal notranslate"><span class="pre">['Pb',</span> <span class="pre">'Ti',</span> <span class="pre">'O']</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The structure described in the data file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Atoms</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.io.read_lammps_dump">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.io.</span></span><span class="sig-name descname"><span class="pre">read_lammps_dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">slice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Atoms</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Atoms</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/io.html#read_lammps_dump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.io.read_lammps_dump" title="Link to this definition"></a></dt>
+<dd><p>Read a LAMMPS dump trajectory file using the high-performance C++ backend.</p>
+<p>The reader memory-maps the file and optionally caches the frame index to a
+sidecar file (<code class="docutils literal notranslate"><span class="pre">.{filename}.idx</span></code>) for fast subsequent reads.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Atom coordinates are read as stored in the dump file and are <strong>not</strong>
+shifted back to the primary unit cell.  A constant offset may therefore
+exist compared to tools such as dpdata, but this does not affect any
+relative-displacement calculations.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – Path to the LAMMPS dump file.</p></li>
+<li><p><strong>type_map</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Ordered list of element symbols corresponding to LAMMPS atom types,
+e.g. <code class="docutils literal notranslate"><span class="pre">['Pb',</span> <span class="pre">'Ti',</span> <span class="pre">'O']</span></code>.</p></li>
+<li><p><strong>select</strong> (<em>int</em><em> | </em><em>slice</em><em> | </em><em>list</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – <p>Frames to read.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> – read all frames (default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int</span></code> – read a single frame by index (negative indices supported);
+returns a single <code class="xref py py-class docutils literal notranslate"><span class="pre">Atoms</span></code> object instead of a list.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slice</span></code> – read a contiguous or strided range of frames.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list[int]</span></code> – read an arbitrary set of frame indices.</p></li>
+</ul>
+</p></li>
+<li><p><strong>cache</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), write/read a sidecar index file so that
+re-reading the same dump file is faster.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A single <code class="xref py py-class docutils literal notranslate"><span class="pre">Atoms</span></code> when <em>select</em> is an integer, otherwise a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Atoms</span></code>.  Returns <code class="docutils literal notranslate"><span class="pre">None</span></code> (integer select) or
+<code class="docutils literal notranslate"><span class="pre">[]</span></code> (other select) if the file is empty.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Atoms | list[Atoms] | None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – If <em>filename</em> does not exist.</p></li>
+<li><p><strong>IOError</strong> – If the C++ backend fails to open or memory-map the file.</p></li>
+<li><p><strong>IndexError</strong> – If an integer <em>select</em> is out of range.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.io.read_lammps_log">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.io.</span></span><span class="sig-name descname"><span class="pre">read_lammps_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/io.html#read_lammps_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.io.read_lammps_log" title="Link to this definition"></a></dt>
+<dd><p>Parse thermodynamic data from the last run in a LAMMPS log file.</p>
+<p>The function locates the final <code class="docutils literal notranslate"><span class="pre">Per</span> <span class="pre">MPI</span> <span class="pre">rank</span> <span class="pre">memory</span></code> header and reads
+all thermo lines up to the matching <code class="docutils literal notranslate"><span class="pre">Loop</span> <span class="pre">time</span> <span class="pre">of</span></code> footer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>str</em>) – Path to the LAMMPS log file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary mapping each thermo keyword (e.g. <code class="docutils literal notranslate"><span class="pre">'Step'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Temp'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'Press'</span></code>) to a NumPy array of values.  An extra key <code class="docutils literal notranslate"><span class="pre">'nframes'</span></code>
+holds the number of thermo records read.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>AssertionError</strong> – If the number of header columns does not match the data columns.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ferrodispcalc.config">
+<span id="ferrodispcalc-config"></span><h3>ferrodispcalc.config<a class="headerlink" href="#module-ferrodispcalc.config" title="Link to this heading"></a></h3>
+<p>Used for common configuration, including type map and born effective charges.</p>
+<p>Author: Denan Li
+Last modified: 2024-07-15
+Email: <a class="reference external" href="mailto:lidenan&#37;&#52;&#48;westlake&#46;edu&#46;cn">lidenan<span>&#64;</span>westlake<span>&#46;</span>edu<span>&#46;</span>cn</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ferrodispcalc.config.TypeMap">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ferrodispcalc.config.</span></span><span class="sig-name descname"><span class="pre">TypeMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">UniPero</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('Ba',</span> <span class="pre">'Pb',</span> <span class="pre">'Ca',</span> <span class="pre">'Sr',</span> <span class="pre">'Bi',</span> <span class="pre">'K',</span> <span class="pre">'Na',</span> <span class="pre">'Hf',</span> <span class="pre">'Ti',</span> <span class="pre">'Zr',</span> <span class="pre">'Nb',</span> <span class="pre">'Mg',</span> <span class="pre">'In',</span> <span class="pre">'Zn',</span> <span class="pre">'O')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PSTO</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('Sr',</span> <span class="pre">'Pb',</span> <span class="pre">'Ti',</span> <span class="pre">'O')</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ferrodispcalc/config.html#TypeMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.config.TypeMap" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.config.TypeMap.PSTO">
+<span class="sig-name descname"><span class="pre">PSTO</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('Sr',</span> <span class="pre">'Pb',</span> <span class="pre">'Ti',</span> <span class="pre">'O')</span></span><a class="headerlink" href="#ferrodispcalc.config.TypeMap.PSTO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.config.TypeMap.UniPero">
+<span class="sig-name descname"><span class="pre">UniPero</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('Ba',</span> <span class="pre">'Pb',</span> <span class="pre">'Ca',</span> <span class="pre">'Sr',</span> <span class="pre">'Bi',</span> <span class="pre">'K',</span> <span class="pre">'Na',</span> <span class="pre">'Hf',</span> <span class="pre">'Ti',</span> <span class="pre">'Zr',</span> <span class="pre">'Nb',</span> <span class="pre">'Mg',</span> <span class="pre">'In',</span> <span class="pre">'Zn',</span> <span class="pre">'O')</span></span><a class="headerlink" href="#ferrodispcalc.config.TypeMap.UniPero" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="ferrodispcalc-vis">
+<h2>ferrodispcalc.vis<a class="headerlink" href="#ferrodispcalc-vis" title="Link to this heading"></a></h2>
+<section id="module-ferrodispcalc.vis.grid">
+<span id="ferrodispcalc-vis-grid"></span><h3>ferrodispcalc.vis.grid<a class="headerlink" href="#module-ferrodispcalc.vis.grid" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.vis.grid.grid_data">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.vis.grid.</span></span><span class="sig-name descname"><span class="pre">grid_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">((1,</span> <span class="pre">0,</span> <span class="pre">0),</span> <span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">0),</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1))</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ferrodispcalc/vis/grid.html#grid_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.vis.grid.grid_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-ferrodispcalc.vis.line_plot">
+<span id="ferrodispcalc-vis-line-plot"></span><h3>ferrodispcalc.vis.line_plot<a class="headerlink" href="#module-ferrodispcalc.vis.line_plot" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.vis.line_plot.line_profile">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.vis.line_plot.</span></span><span class="sig-name descname"><span class="pre">line_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Axes</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">along</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'x'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_back</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ferrodispcalc/vis/line_plot.html#line_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.vis.line_plot.line_profile" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-ferrodispcalc.vis.plane_plot">
+<span id="ferrodispcalc-vis-plane-plot"></span><h3>ferrodispcalc.vis.plane_plot<a class="headerlink" href="#module-ferrodispcalc.vis.plane_plot" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.vis.plane_plot.plane_profile">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.vis.plane_plot.</span></span><span class="sig-name descname"><span class="pre">plane_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'plane_plots'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/vis/plane_plot.html#plane_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.vis.plane_plot.plane_profile" title="Link to this definition"></a></dt>
+<dd><p>Plot 2D cross-sections of 3D vector data.</p>
+<section id="parameters">
+<h4>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>data: np.ndarray</dt><dd><p>The 4D vector data in (nx, ny, nz, 3) format.</p>
+</dd>
+<dt>save_dir: str | Path</dt><dd><p>The directory to save the plots.</p>
+</dd>
+<dt>relative: bool</dt><dd><p>Whether to plot the vector in the relative scale (default True).</p>
+</dd>
+<dt>select: dict, optional</dt><dd><p>The selected layers to plot. Keys should be ‘x’, ‘y’, ‘z’
+(for YZ, XZ, XY planes respectively).
+e.g., {‘z’: [0, 1], ‘y’: [0]}
+If None, all layers are plotted.</p>
+</dd>
+<dt>hot: bool</dt><dd><p>Whether to plot the angle in the hot colormap (default True).</p>
+</dd>
+<dt>fig_size: str | tuple</dt><dd><p>The figure size: ‘auto’, ‘default’, or a (width, height) tuple.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.vis.plane_plot.plane_profile_multi">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.vis.plane_plot.</span></span><span class="sig-name descname"><span class="pre">plane_profile_multi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">slice</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'plane_plots.gif'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ferrodispcalc/vis/plane_plot.html#plane_profile_multi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.vis.plane_plot.plane_profile_multi" title="Link to this definition"></a></dt>
+<dd><p>Plot 2D cross-sections of 5D vector data (nframe, nx, ny, nz, 3)
+and save as a GIF using matplotlib.animation.
+(使用 matplotlib.animation 绘制 5D 矢量数据的 2D 横截面并另存为 GIF)</p>
+<section id="id1">
+<h4>Parameters:<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>data: np.ndarray</dt><dd><p>The 5D vector data in (nframe, nx, ny, nz, 3) format.</p>
+</dd>
+<dt>select: list</dt><dd><p>Defines the plot. Format: [plane_name, layer_index, frame_spec]
+e.g., [‘xz’, 0, slice(0, None, 2)] -&gt; XZ plane, y_index=0, every 2nd frame.</p>
+</dd>
+<dt>save_name: str | Path</dt><dd><p>The output filename (e.g., ‘animation.gif’).</p>
+</dd>
+<dt>relative: bool</dt><dd><p>Whether to plot the vector in the relative scale.</p>
+</dd>
+<dt>hot: bool</dt><dd><p>Whether to plot the angle in the hot colormap.</p>
+</dd>
+<dt>fig_size: str | tuple</dt><dd><p>The figure size: ‘auto’, ‘default’, or a (width, height) tuple.</p>
+</dd>
+<dt>fps: int</dt><dd><p>Frames per second for the output GIF.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-ferrodispcalc.vis.space_plot">
+<span id="ferrodispcalc-vis-space-plot"></span><h3>ferrodispcalc.vis.space_plot<a class="headerlink" href="#module-ferrodispcalc.vis.space_plot" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.vis.space_plot.space_profile">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.vis.space_plot.</span></span><span class="sig-name descname"><span class="pre">space_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'dz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'coolwarm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">25.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ortho'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'3D</span> <span class="pre">Vector</span> <span class="pre">Field'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_bounding_box</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_axes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plotter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pv.Plotter</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pv.Plotter</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/vis/space_plot.html#space_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.vis.space_plot.space_profile" title="Link to this definition"></a></dt>
+<dd><p>Plot a 3D vector field using PyVista.</p>
+<p>Two input modes are supported:</p>
+<ul class="simple">
+<li><p><strong>Grid mode</strong> – <em>data</em> has shape <code class="docutils literal notranslate"><span class="pre">(nx,</span> <span class="pre">ny,</span> <span class="pre">nz,</span> <span class="pre">3)</span></code>.  Coordinates are
+generated automatically from grid indices and <em>coord</em> is ignored.</p></li>
+<li><p><strong>Point mode</strong> – <em>data</em> has shape <code class="docutils literal notranslate"><span class="pre">(npoint,</span> <span class="pre">3)</span></code> and <em>coord</em> (also
+<code class="docutils literal notranslate"><span class="pre">(npoint,</span> <span class="pre">3)</span></code>) must be provided.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – Vector data.  <code class="docutils literal notranslate"><span class="pre">(nx,</span> <span class="pre">ny,</span> <span class="pre">nz,</span> <span class="pre">3)</span></code> for grid mode or <code class="docutils literal notranslate"><span class="pre">(npoint,</span> <span class="pre">3)</span></code>
+for point mode.</p></li>
+<li><p><strong>coord</strong> (<em>np.ndarray</em><em> or </em><em>None</em>) – Cartesian coordinates <code class="docutils literal notranslate"><span class="pre">(npoint,</span> <span class="pre">3)</span></code>.  Required for point mode,
+ignored for grid mode.</p></li>
+<li><p><strong>color_by</strong> (<em>str</em>) – Coloring strategy: <code class="docutils literal notranslate"><span class="pre">'magnitude'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dx'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dy'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dz'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'all'</span></code> (RGB from components), or <code class="docutils literal notranslate"><span class="pre">'gradient'</span></code> (grid mode only).</p></li>
+<li><p><strong>cmap</strong> (<em>str</em>) – Matplotlib colormap name (ignored when <em>color_by=’all’</em>).</p></li>
+<li><p><strong>factor</strong> (<em>float</em>) – Arrow scale factor passed to <code class="docutils literal notranslate"><span class="pre">pv.PolyData.glyph</span></code>.</p></li>
+<li><p><strong>projection</strong> (<em>str</em>) – <code class="docutils literal notranslate"><span class="pre">'ortho'</span></code> for parallel projection, <code class="docutils literal notranslate"><span class="pre">'persp'</span></code> for perspective.</p></li>
+<li><p><strong>clim</strong> (<em>tuple</em><em> or </em><em>None</em>) – Colorbar range <code class="docutils literal notranslate"><span class="pre">(vmin,</span> <span class="pre">vmax)</span></code>.  <em>None</em> for automatic.</p></li>
+<li><p><strong>select</strong> (<em>dict</em><em> or </em><em>None</em>) – Region filter in <strong>fractional</strong> coordinates.  Keys are <code class="docutils literal notranslate"><span class="pre">'x'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'y'</span></code>, <code class="docutils literal notranslate"><span class="pre">'z'</span></code>; values are <code class="docutils literal notranslate"><span class="pre">[lo,</span> <span class="pre">hi]</span></code> or <em>None</em> (no filter).
+In grid mode fractions are computed from grid indices; in point
+mode <em>cell</em> is required.</p></li>
+<li><p><strong>cell</strong> (<em>np.ndarray</em><em> or </em><em>None</em>) – <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3)</span></code> lattice matrix (rows = lattice vectors).  Only needed
+when <em>select</em> is used in point mode.</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Window title.</p></li>
+<li><p><strong>show_bounding_box</strong> (<em>bool</em>) – Draw a wireframe box around the full point cloud.</p></li>
+<li><p><strong>show_axes</strong> (<em>bool</em>) – Show orientation axes widget.</p></li>
+<li><p><strong>plotter</strong> (<em>pv.Plotter</em><em> or </em><em>None</em>) – Reuse an existing plotter.  A new one is created when <em>None</em>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The plotter instance (already shown).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pv.Plotter</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

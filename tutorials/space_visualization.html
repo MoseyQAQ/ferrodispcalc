@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Space Visualization &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Parse CP2K Trajectory" href="parse_cp2k.html" />
+    <link rel="prev" title="Parse LAMMPS Output Files" href="parse_lammps_output.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ase.html">Introduction to ASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fdc.html">Introduction to ferrodispcalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dielectric.html">Example: Dielectric Constant of PbTiO<sub>3</sub></a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_perov_superlattice.html">Example: PTO-STO Superlattice Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_molecular.html">Example: Molecular Ferroelectric (TMCM-CdCl<sub>3</sub>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_aln.html">Example: Wurtzite Ferroelectric (ScAlN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_lammps_output.html">Parse LAMMPS Output Files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3D Space Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-modes">Input Modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#coloring-color-by">Coloring (<code class="docutils literal notranslate"><span class="pre">color_by</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#region-selection-select">Region Selection (<code class="docutils literal notranslate"><span class="pre">select</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-options">Display Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-plotter">Custom Plotter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api-reference">API Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ferrodispcalc.vis.space_plot.space_profile"><code class="docutils literal notranslate"><span class="pre">space_profile()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parse_cp2k.html">Parse CP2K Trajectory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">3D Space Visualization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/space_visualization.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="d-space-visualization">
+<h1>3D Space Visualization<a class="headerlink" href="#d-space-visualization" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">space_profile</span></code> visualizes 3D vector fields (e.g. displacement fields) as
+arrows, powered by PyVista.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ferrodispcalc<span class="o">[</span>vis<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.compute</span> <span class="kn">import</span> <span class="n">calculate_displacement</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.neighborlist</span> <span class="kn">import</span> <span class="n">build_neighbor_list</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.vis</span> <span class="kn">import</span> <span class="n">grid_data</span><span class="p">,</span> <span class="n">space_profile</span>
+
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;structure.vasp&quot;</span><span class="p">)</span>
+<span class="n">nl</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Pb&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">disp</span> <span class="o">=</span> <span class="n">calculate_displacement</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">nl</span><span class="p">)</span>
+<span class="n">d_grid</span><span class="p">,</span> <span class="n">coord</span> <span class="o">=</span> <span class="n">grid_data</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">disp</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Pb&quot;</span><span class="p">],</span>
+                           <span class="n">target_size</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+                           <span class="n">return_coord</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Grid mode (recommended -- supports gradient coloring)</span>
+<span class="n">space_profile</span><span class="p">(</span><span class="n">d_grid</span><span class="p">,</span> <span class="n">color_by</span><span class="o">=</span><span class="s2">&quot;dz&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">25.0</span><span class="p">)</span>
+
+<span class="c1"># Or point mode</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">vecs</span> <span class="o">=</span> <span class="n">d_grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">space_profile</span><span class="p">(</span><span class="n">vecs</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="n">pts</span><span class="p">,</span> <span class="n">color_by</span><span class="o">=</span><span class="s2">&quot;magnitude&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/space_profile_example.png"><img alt="../_images/space_profile_example.png" src="../_images/space_profile_example.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Example output of <code class="docutils literal notranslate"><span class="pre">space_profile</span></code> with <code class="docutils literal notranslate"><span class="pre">color_by=&quot;dz&quot;</span></code>.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="input-modes">
+<h2>Input Modes<a class="headerlink" href="#input-modes" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">space_profile</span></code> accepts two data layouts:</p>
+<ul class="simple">
+<li><p><strong>Grid mode</strong> – <code class="docutils literal notranslate"><span class="pre">data</span></code> has shape <code class="docutils literal notranslate"><span class="pre">(nx,</span> <span class="pre">ny,</span> <span class="pre">nz,</span> <span class="pre">3)</span></code>. Coordinates are
+generated automatically from grid indices; the <code class="docutils literal notranslate"><span class="pre">coord</span></code> argument is ignored.</p></li>
+<li><p><strong>Point mode</strong> – <code class="docutils literal notranslate"><span class="pre">data</span></code> has shape <code class="docutils literal notranslate"><span class="pre">(npoint,</span> <span class="pre">3)</span></code>. You must also pass
+<code class="docutils literal notranslate"><span class="pre">coord</span></code> with the same shape.</p></li>
+</ul>
+</section>
+<section id="coloring-color-by">
+<h2>Coloring (<code class="docutils literal notranslate"><span class="pre">color_by</span></code>)<a class="headerlink" href="#coloring-color-by" title="Link to this heading"></a></h2>
+<p>Controls how arrows are colored:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'magnitude'</span></code> – vector norm</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'dx'</span></code> / <code class="docutils literal notranslate"><span class="pre">'dy'</span></code> / <code class="docutils literal notranslate"><span class="pre">'dz'</span></code> – single component value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'all'</span></code> – RGB mapping (each component normalized to [0, 1])</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'gradient'</span></code> – gradient field magnitude (grid mode only)</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">cmap</span></code> sets the matplotlib colormap (default <code class="docutils literal notranslate"><span class="pre">&quot;coolwarm&quot;</span></code>; ignored when
+<code class="docutils literal notranslate"><span class="pre">color_by=&quot;all&quot;</span></code>). <code class="docutils literal notranslate"><span class="pre">clim</span></code> overrides the colorbar range, e.g.
+<code class="docutils literal notranslate"><span class="pre">clim=(-0.2,</span> <span class="pre">0.2)</span></code>.</p>
+</section>
+<section id="region-selection-select">
+<h2>Region Selection (<code class="docutils literal notranslate"><span class="pre">select</span></code>)<a class="headerlink" href="#region-selection-select" title="Link to this heading"></a></h2>
+<p>Display a sub-region by filtering in fractional coordinates. In grid mode,
+fractions are derived from grid indices automatically. In point mode, you
+must also pass the <code class="docutils literal notranslate"><span class="pre">cell</span></code> parameter (the 3x3 lattice matrix):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grid mode -- no cell needed</span>
+<span class="n">space_profile</span><span class="p">(</span><span class="n">d_grid</span><span class="p">,</span> <span class="n">color_by</span><span class="o">=</span><span class="s2">&quot;dz&quot;</span><span class="p">,</span>
+              <span class="n">select</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
+
+<span class="c1"># Point mode -- cell required</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">cell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">cell</span><span class="p">)</span>
+<span class="n">space_profile</span><span class="p">(</span><span class="n">vecs</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="n">pts</span><span class="p">,</span> <span class="n">color_by</span><span class="o">=</span><span class="s2">&quot;dz&quot;</span><span class="p">,</span>
+              <span class="n">select</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+              <span class="n">cell</span><span class="o">=</span><span class="n">cell</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Each key (<code class="docutils literal notranslate"><span class="pre">'x'</span></code>, <code class="docutils literal notranslate"><span class="pre">'y'</span></code>, <code class="docutils literal notranslate"><span class="pre">'z'</span></code>) maps to a <code class="docutils literal notranslate"><span class="pre">[lo,</span> <span class="pre">hi]</span></code> range or <code class="docutils literal notranslate"><span class="pre">None</span></code>
+(no filtering on that axis).</p>
+</section>
+<section id="display-options">
+<h2>Display Options<a class="headerlink" href="#display-options" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">factor</span></code> – arrow scale factor (default <code class="docutils literal notranslate"><span class="pre">25.0</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">projection</span></code> – <code class="docutils literal notranslate"><span class="pre">&quot;ortho&quot;</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">&quot;persp&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">show_bounding_box</span></code> – draw a wireframe box around the full point cloud
+(default <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">show_axes</span></code> – show the XYZ orientation widget (default <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p></li>
+</ul>
+</section>
+<section id="custom-plotter">
+<h2>Custom Plotter<a class="headerlink" href="#custom-plotter" title="Link to this heading"></a></h2>
+<p>Pass an existing <code class="docutils literal notranslate"><span class="pre">pv.Plotter</span></code> to overlay multiple visualizations or
+customize the scene. When a plotter is provided, <code class="docutils literal notranslate"><span class="pre">space_profile</span></code> adds meshes
+to it but does <strong>not</strong> call <code class="docutils literal notranslate"><span class="pre">show()</span></code>, so you retain full control:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">pv</span>
+
+<span class="n">pl</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">()</span>
+<span class="n">space_profile</span><span class="p">(</span><span class="n">d_grid</span><span class="p">,</span> <span class="n">color_by</span><span class="o">=</span><span class="s2">&quot;dz&quot;</span><span class="p">,</span> <span class="n">plotter</span><span class="o">=</span><span class="n">pl</span><span class="p">)</span>
+<span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.vis.space_plot.space_profile">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.vis.space_plot.</span></span><span class="sig-name descname"><span class="pre">space_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'dz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'coolwarm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">25.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ortho'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'3D</span> <span class="pre">Vector</span> <span class="pre">Field'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_bounding_box</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_axes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plotter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pv.Plotter</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pv.Plotter</span></span></span><a class="reference internal" href="../_modules/ferrodispcalc/vis/space_plot.html#space_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.vis.space_plot.space_profile" title="Link to this definition"></a></dt>
+<dd><p>Plot a 3D vector field using PyVista.</p>
+<p>Two input modes are supported:</p>
+<ul class="simple">
+<li><p><strong>Grid mode</strong> – <em>data</em> has shape <code class="docutils literal notranslate"><span class="pre">(nx,</span> <span class="pre">ny,</span> <span class="pre">nz,</span> <span class="pre">3)</span></code>.  Coordinates are
+generated automatically from grid indices and <em>coord</em> is ignored.</p></li>
+<li><p><strong>Point mode</strong> – <em>data</em> has shape <code class="docutils literal notranslate"><span class="pre">(npoint,</span> <span class="pre">3)</span></code> and <em>coord</em> (also
+<code class="docutils literal notranslate"><span class="pre">(npoint,</span> <span class="pre">3)</span></code>) must be provided.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – Vector data.  <code class="docutils literal notranslate"><span class="pre">(nx,</span> <span class="pre">ny,</span> <span class="pre">nz,</span> <span class="pre">3)</span></code> for grid mode or <code class="docutils literal notranslate"><span class="pre">(npoint,</span> <span class="pre">3)</span></code>
+for point mode.</p></li>
+<li><p><strong>coord</strong> (<em>np.ndarray</em><em> or </em><em>None</em>) – Cartesian coordinates <code class="docutils literal notranslate"><span class="pre">(npoint,</span> <span class="pre">3)</span></code>.  Required for point mode,
+ignored for grid mode.</p></li>
+<li><p><strong>color_by</strong> (<em>str</em>) – Coloring strategy: <code class="docutils literal notranslate"><span class="pre">'magnitude'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dx'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dy'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dz'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'all'</span></code> (RGB from components), or <code class="docutils literal notranslate"><span class="pre">'gradient'</span></code> (grid mode only).</p></li>
+<li><p><strong>cmap</strong> (<em>str</em>) – Matplotlib colormap name (ignored when <em>color_by=’all’</em>).</p></li>
+<li><p><strong>factor</strong> (<em>float</em>) – Arrow scale factor passed to <code class="docutils literal notranslate"><span class="pre">pv.PolyData.glyph</span></code>.</p></li>
+<li><p><strong>projection</strong> (<em>str</em>) – <code class="docutils literal notranslate"><span class="pre">'ortho'</span></code> for parallel projection, <code class="docutils literal notranslate"><span class="pre">'persp'</span></code> for perspective.</p></li>
+<li><p><strong>clim</strong> (<em>tuple</em><em> or </em><em>None</em>) – Colorbar range <code class="docutils literal notranslate"><span class="pre">(vmin,</span> <span class="pre">vmax)</span></code>.  <em>None</em> for automatic.</p></li>
+<li><p><strong>select</strong> (<em>dict</em><em> or </em><em>None</em>) – Region filter in <strong>fractional</strong> coordinates.  Keys are <code class="docutils literal notranslate"><span class="pre">'x'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'y'</span></code>, <code class="docutils literal notranslate"><span class="pre">'z'</span></code>; values are <code class="docutils literal notranslate"><span class="pre">[lo,</span> <span class="pre">hi]</span></code> or <em>None</em> (no filter).
+In grid mode fractions are computed from grid indices; in point
+mode <em>cell</em> is required.</p></li>
+<li><p><strong>cell</strong> (<em>np.ndarray</em><em> or </em><em>None</em>) – <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3)</span></code> lattice matrix (rows = lattice vectors).  Only needed
+when <em>select</em> is used in point mode.</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Window title.</p></li>
+<li><p><strong>show_bounding_box</strong> (<em>bool</em>) – Draw a wireframe box around the full point cloud.</p></li>
+<li><p><strong>show_axes</strong> (<em>bool</em>) – Show orientation axes widget.</p></li>
+<li><p><strong>plotter</strong> (<em>pv.Plotter</em><em> or </em><em>None</em>) – Reuse an existing plotter.  A new one is created when <em>None</em>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The plotter instance (already shown).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pv.Plotter</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="parse_lammps_output.html" class="btn btn-neutral float-left" title="Parse LAMMPS Output Files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="parse_cp2k.html" class="btn btn-neutral float-right" title="Parse CP2K Trajectory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

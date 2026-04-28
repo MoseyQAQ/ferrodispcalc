@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ferrodispcalc.vis.space_plot &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../vis.html">ferrodispcalc.vis</a></li>
+      <li class="breadcrumb-item active">ferrodispcalc.vis.space_plot</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ferrodispcalc.vis.space_plot</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">pv</span>
+
+
+<div class="viewcode-block" id="space_profile">
+<a class="viewcode-back" href="../../../tutorials/space_visualization.html#ferrodispcalc.vis.space_plot.space_profile">[docs]</a>
+<span class="k">def</span> <span class="nf">space_profile</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">coord</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">color_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dz&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span>
+    <span class="n">factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">25.0</span><span class="p">,</span>
+    <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ortho&quot;</span><span class="p">,</span>
+    <span class="n">clim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">select</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cell</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;3D Vector Field&quot;</span><span class="p">,</span>
+    <span class="n">show_bounding_box</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">show_axes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">plotter</span><span class="p">:</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot a 3D vector field using PyVista.</span>
+
+<span class="sd">    Two input modes are supported:</span>
+
+<span class="sd">    * **Grid mode** – *data* has shape ``(nx, ny, nz, 3)``.  Coordinates are</span>
+<span class="sd">      generated automatically from grid indices and *coord* is ignored.</span>
+<span class="sd">    * **Point mode** – *data* has shape ``(npoint, 3)`` and *coord* (also</span>
+<span class="sd">      ``(npoint, 3)``) must be provided.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : np.ndarray</span>
+<span class="sd">        Vector data.  ``(nx, ny, nz, 3)`` for grid mode or ``(npoint, 3)``</span>
+<span class="sd">        for point mode.</span>
+<span class="sd">    coord : np.ndarray or None</span>
+<span class="sd">        Cartesian coordinates ``(npoint, 3)``.  Required for point mode,</span>
+<span class="sd">        ignored for grid mode.</span>
+<span class="sd">    color_by : str</span>
+<span class="sd">        Coloring strategy: ``&#39;magnitude&#39;``, ``&#39;dx&#39;``, ``&#39;dy&#39;``, ``&#39;dz&#39;``,</span>
+<span class="sd">        ``&#39;all&#39;`` (RGB from components), or ``&#39;gradient&#39;`` (grid mode only).</span>
+<span class="sd">    cmap : str</span>
+<span class="sd">        Matplotlib colormap name (ignored when *color_by=&#39;all&#39;*).</span>
+<span class="sd">    factor : float</span>
+<span class="sd">        Arrow scale factor passed to ``pv.PolyData.glyph``.</span>
+<span class="sd">    projection : str</span>
+<span class="sd">        ``&#39;ortho&#39;`` for parallel projection, ``&#39;persp&#39;`` for perspective.</span>
+<span class="sd">    clim : tuple or None</span>
+<span class="sd">        Colorbar range ``(vmin, vmax)``.  *None* for automatic.</span>
+<span class="sd">    select : dict or None</span>
+<span class="sd">        Region filter in **fractional** coordinates.  Keys are ``&#39;x&#39;``,</span>
+<span class="sd">        ``&#39;y&#39;``, ``&#39;z&#39;``; values are ``[lo, hi]`` or *None* (no filter).</span>
+<span class="sd">        In grid mode fractions are computed from grid indices; in point</span>
+<span class="sd">        mode *cell* is required.</span>
+<span class="sd">    cell : np.ndarray or None</span>
+<span class="sd">        ``(3, 3)`` lattice matrix (rows = lattice vectors).  Only needed</span>
+<span class="sd">        when *select* is used in point mode.</span>
+<span class="sd">    title : str</span>
+<span class="sd">        Window title.</span>
+<span class="sd">    show_bounding_box : bool</span>
+<span class="sd">        Draw a wireframe box around the full point cloud.</span>
+<span class="sd">    show_axes : bool</span>
+<span class="sd">        Show orientation axes widget.</span>
+<span class="sd">    plotter : pv.Plotter or None</span>
+<span class="sd">        Reuse an existing plotter.  A new one is created when *None*.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pv.Plotter</span>
+<span class="sd">        The plotter instance (already shown).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">_pv</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+            <span class="s2">&quot;PyVista is not installed. &quot;</span>
+            <span class="s2">&quot;Install it with `pip install pyvista` or &quot;</span>
+            <span class="s2">&quot;`pip install ferrodispcalc[vis]`.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># --- resolve input mode ---</span>
+    <span class="n">grid_data_raw</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># keep for gradient</span>
+
+    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># Grid mode (nx, ny, nz, 3)</span>
+        <span class="n">grid_data_raw</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nz</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">gx</span><span class="p">,</span> <span class="n">gy</span><span class="p">,</span> <span class="n">gz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nx</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">ny</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">nz</span><span class="p">]</span>
+        <span class="n">coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">gx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">gy</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">gz</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># Point mode</span>
+        <span class="k">if</span> <span class="n">coord</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;coord is required when data has shape (npoint, 3).&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">coord</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;data </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> and coord </span><span class="si">{</span><span class="n">coord</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> shape mismatch.&quot;</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unsupported data shape </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. &quot;</span>
+            <span class="s2">&quot;Expected (nx, ny, nz, 3) or (npoint, 3).&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">coord</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+    <span class="c1"># --- filter NaN ---</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">vecs</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">full_bounds</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">pts</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">pts</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+        <span class="n">pts</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">pts</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+        <span class="n">pts</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">pts</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+    <span class="p">]</span>
+
+    <span class="c1"># --- region selection (fractional coords) ---</span>
+    <span class="k">if</span> <span class="n">select</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">grid_data_raw</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Grid mode: fractional = index / grid_size</span>
+            <span class="n">frac</span> <span class="o">=</span> <span class="n">pts</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nz</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">cell</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frac</span> <span class="o">=</span> <span class="n">pts</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cell is required when select is used in point mode.&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ax_name</span><span class="p">,</span> <span class="n">ax_idx</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+            <span class="n">rng</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ax_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rng</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">rng</span>
+                <span class="n">mask</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">frac</span><span class="p">[:,</span> <span class="n">ax_idx</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">lo</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">frac</span><span class="p">[:,</span> <span class="n">ax_idx</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">hi</span><span class="p">)</span>
+
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">pts</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="n">vecs</span> <span class="o">=</span> <span class="n">vecs</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+
+    <span class="c1"># --- build scalars based on color_by ---</span>
+    <span class="n">_component</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;dx&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;dy&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;dz&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="n">color_by</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">color_by</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">scalars_title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">rgb_scalars</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">scalar_values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">color_by</span> <span class="o">==</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">:</span>
+        <span class="n">scalar_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vecs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">scalars_title</span> <span class="o">=</span> <span class="s2">&quot;|d|&quot;</span>
+    <span class="k">elif</span> <span class="n">color_by</span> <span class="ow">in</span> <span class="n">_component</span><span class="p">:</span>
+        <span class="n">scalar_values</span> <span class="o">=</span> <span class="n">vecs</span><span class="p">[:,</span> <span class="n">_component</span><span class="p">[</span><span class="n">color_by</span><span class="p">]]</span>
+        <span class="n">scalars_title</span> <span class="o">=</span> <span class="n">color_by</span>
+    <span class="k">elif</span> <span class="n">color_by</span> <span class="o">==</span> <span class="s2">&quot;gradient&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">grid_data_raw</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;color_by=&#39;gradient&#39; requires grid mode data (nx, ny, nz, 3).&quot;</span>
+            <span class="p">)</span>
+        <span class="n">d3</span> <span class="o">=</span> <span class="n">grid_data_raw</span>
+        <span class="n">grad_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">d3</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">comp</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">d3</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">comp</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+                <span class="n">grad_mag</span> <span class="o">+=</span> <span class="n">g</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">grad_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">grad_mag</span><span class="p">)</span>
+        <span class="n">scalar_values</span> <span class="o">=</span> <span class="n">grad_mag</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="n">mask</span><span class="p">]</span>
+        <span class="n">scalars_title</span> <span class="o">=</span> <span class="s2">&quot;Gradient&quot;</span>
+    <span class="k">elif</span> <span class="n">color_by</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+        <span class="n">rgb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">vecs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">vecs</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">vecs</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="n">rgb</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">vecs</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lo</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">hi</span> <span class="o">-</span> <span class="n">lo</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+        <span class="n">rgb_scalars</span> <span class="o">=</span> <span class="p">(</span><span class="n">rgb</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unknown color_by=&#39;</span><span class="si">{</span><span class="n">color_by</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+            <span class="s2">&quot;Choose from: magnitude, dx, dy, dz, all, gradient.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># --- pyvista scene ---</span>
+    <span class="n">_pv</span><span class="o">.</span><span class="n">set_plot_theme</span><span class="p">(</span><span class="s2">&quot;document&quot;</span><span class="p">)</span>
+    <span class="n">pl</span> <span class="o">=</span> <span class="n">plotter</span> <span class="k">if</span> <span class="n">plotter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">_pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="n">cloud</span> <span class="o">=</span> <span class="n">_pv</span><span class="o">.</span><span class="n">PolyData</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+    <span class="n">cloud</span><span class="p">[</span><span class="s2">&quot;displacement&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vecs</span>
+    <span class="n">cloud</span><span class="p">[</span><span class="s2">&quot;magnitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vecs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">rgb_scalars</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cloud</span><span class="p">[</span><span class="s2">&quot;RGB&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rgb_scalars</span>
+    <span class="k">if</span> <span class="n">scalar_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cloud</span><span class="p">[</span><span class="s2">&quot;scalars&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scalar_values</span>
+
+    <span class="n">arrows</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">glyph</span><span class="p">(</span>
+        <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;displacement&quot;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s2">&quot;magnitude&quot;</span><span class="p">,</span>
+        <span class="n">factor</span><span class="o">=</span><span class="n">factor</span><span class="p">,</span> <span class="n">geom</span><span class="o">=</span><span class="n">_pv</span><span class="o">.</span><span class="n">Arrow</span><span class="p">(),</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">rgb_scalars</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">arrows</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span><span class="p">,</span> <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sbar</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">scalars_title</span><span class="p">,</span>
+            <span class="s2">&quot;title_font_size&quot;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+            <span class="s2">&quot;label_font_size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+            <span class="s2">&quot;position_x&quot;</span><span class="p">:</span> <span class="mf">0.82</span><span class="p">,</span>
+            <span class="s2">&quot;position_y&quot;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mf">0.12</span><span class="p">,</span>
+            <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span>
+            <span class="n">arrows</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="s2">&quot;scalars&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="n">clim</span><span class="p">,</span>
+            <span class="n">scalar_bar_args</span><span class="o">=</span><span class="n">sbar</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">show_bounding_box</span><span class="p">:</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">_pv</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="n">full_bounds</span><span class="p">)</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">outline</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">show_axes</span><span class="p">:</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">add_axes</span><span class="p">(</span>
+            <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="n">zlabel</span><span class="o">=</span><span class="s2">&quot;Z&quot;</span><span class="p">,</span>
+            <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="p">(</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="n">pl</span><span class="o">.</span><span class="n">camera_position</span> <span class="o">=</span> <span class="s2">&quot;iso&quot;</span>
+    <span class="k">if</span> <span class="n">projection</span> <span class="o">==</span> <span class="s2">&quot;ortho&quot;</span><span class="p">:</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">enable_parallel_projection</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">plotter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">pl</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

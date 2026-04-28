@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction to ferrodispcalc &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Example: Dielectric Constant of PbTiO3" href="dielectric.html" />
+    <link rel="prev" title="Introduction to ASE" href="ase.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ase.html">Introduction to ASE</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction to ferrodispcalc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-ferrodispcalc">What is ferrodispcalc?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-core-idea-coordination-and-neighbor-lists">The Core Idea: Coordination and Neighbor Lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-pbtio3-displacement-and-polarization">Example: PbTiO<sub>3</sub> Displacement and Polarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#beyond-perovskites">Beyond Perovskites</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dielectric.html">Example: Dielectric Constant of PbTiO<sub>3</sub></a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_perov_superlattice.html">Example: PTO-STO Superlattice Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_molecular.html">Example: Molecular Ferroelectric (TMCM-CdCl<sub>3</sub>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_aln.html">Example: Wurtzite Ferroelectric (ScAlN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_lammps_output.html">Parse LAMMPS Output Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="space_visualization.html">3D Space Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_cp2k.html">Parse CP2K Trajectory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Introduction to ferrodispcalc</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/fdc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction-to-ferrodispcalc">
+<h1>Introduction to ferrodispcalc<a class="headerlink" href="#introduction-to-ferrodispcalc" title="Link to this heading"></a></h1>
+<section id="what-is-ferrodispcalc">
+<h2>What is ferrodispcalc?<a class="headerlink" href="#what-is-ferrodispcalc" title="Link to this heading"></a></h2>
+<p>ferrodispcalc is a Python library for computing order parameters in ferroelectric materials,
+including ionic displacements, local polarization, and octahedral tilting.
+It is designed for perovskite-type structures but can be extended to other systems
+as long as the coordination environment is well-defined.</p>
+<p>In addition, ferrodispcalc provides high-performance I/O utilities for LAMMPS,
+including fast trajectory reading (<code class="docutils literal notranslate"><span class="pre">read_lammps_dump</span></code>) and log file parsing
+(<code class="docutils literal notranslate"><span class="pre">read_lammps_log</span></code>). See the <a class="reference internal" href="parse_lammps_output.html"><span class="doc">LAMMPS output tutorial</span></a>
+and the <a class="reference internal" href="../ferrodispcalc.html#module-ferrodispcalc.io" title="ferrodispcalc.io"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ferrodispcalc.io</span></code></a> API reference for details.</p>
+</section>
+<section id="the-core-idea-coordination-and-neighbor-lists">
+<h2>The Core Idea: Coordination and Neighbor Lists<a class="headerlink" href="#the-core-idea-coordination-and-neighbor-lists" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial assumes basic familiarity with ASE’s <code class="docutils literal notranslate"><span class="pre">Atoms</span></code> object.
+See <a class="reference internal" href="ase.html"><span class="doc">Introduction to ASE</span></a> if you are new to ASE.</p>
+</div>
+<p>All calculations in ferrodispcalc boil down to one thing: <strong>finding the right neighbors</strong>.</p>
+<p>Take a perovskite ABO<sub>3</sub> as an example. The B-site cation sits at the center of an
+oxygen octahedron, and the A-site cation occupies the corner of the unit cell.
+If you can correctly identify which O atoms coordinate a given B atom (and vice versa),
+you can compute:</p>
+<ul class="simple">
+<li><p><strong>Ionic displacement</strong>: the offset of the center atom from the geometric center of its neighbors.</p></li>
+<li><p><strong>Local polarization</strong>: displacement weighted by Born effective charges, converted to C/m².</p></li>
+<li><p><strong>Octahedral tilt</strong>: the rotation angles of the BO<sub>6</sub> octahedron about the Cartesian axes.</p></li>
+</ul>
+<p>ferrodispcalc uses <code class="docutils literal notranslate"><span class="pre">build_neighbor_list</span></code> to construct these coordination lists.
+You specify the center element, the neighbor element, a cutoff distance, and the expected
+coordination number. Everything else follows from there.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ferrodispcalc.neighborlist</span> <span class="kn">import</span> <span class="n">build_neighbor_list</span>
+
+<span class="c1"># B-O coordination (octahedron): 6 neighbors</span>
+<span class="n">nl_bo</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+
+<span class="c1"># B-A coordination: 8 neighbors</span>
+<span class="n">nl_ba</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Pb&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># A-O coordination: 12 neighbors</span>
+<span class="n">nl_ao</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Pb&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="example-pbtio3-displacement-and-polarization">
+<h2>Example: PbTiO<sub>3</sub> Displacement and Polarization<a class="headerlink" href="#example-pbtio3-displacement-and-polarization" title="Link to this heading"></a></h2>
+<p>This example computes ionic displacements and local polarization for a PbTiO<sub>3</sub> (PTO) structure.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.neighborlist</span> <span class="kn">import</span> <span class="n">build_neighbor_list</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.compute</span> <span class="kn">import</span> <span class="n">calculate_displacement</span><span class="p">,</span> <span class="n">calculate_polarization</span>
+<span class="kn">from</span> <span class="nn">ferrodispcalc.config</span> <span class="kn">import</span> <span class="n">BEC</span>
+
+<span class="c1"># 1. Read structure</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;PTO.vasp&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Build neighbor lists</span>
+<span class="n">nl_bo</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">nl_ba</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Pb&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">nl_ao</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Pb&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="c1"># 3. Calculate displacements</span>
+<span class="n">disp_bo</span> <span class="o">=</span> <span class="n">calculate_displacement</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">nl_bo</span><span class="p">)</span>   <span class="c1"># Ti off-center in O octahedron</span>
+<span class="n">disp_ao</span> <span class="o">=</span> <span class="n">calculate_displacement</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">nl_ao</span><span class="p">)</span>   <span class="c1"># Pb off-center in O cage</span>
+
+<span class="c1"># 4. Calculate polarization</span>
+<span class="n">bec</span> <span class="o">=</span> <span class="n">BEC</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PTO&quot;</span><span class="p">)</span>   <span class="c1"># {&#39;Pb&#39;: 3.44, &#39;Ti&#39;: 5.18, &#39;O&#39;: -2.87}</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">calculate_polarization</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">nl_ba</span><span class="p">,</span> <span class="n">nl_bo</span><span class="p">,</span> <span class="n">bec</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">calculate_displacement</span></code> returns an array of shape <code class="docutils literal notranslate"><span class="pre">(n_centers,</span> <span class="pre">3)</span></code>, where each row is
+the displacement vector of a center atom relative to the geometric center of its neighbors.
+For trajectories (<code class="docutils literal notranslate"><span class="pre">list[Atoms]</span></code>), the output shape is <code class="docutils literal notranslate"><span class="pre">(n_frames,</span> <span class="pre">n_centers,</span> <span class="pre">3)</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">calculate_polarization</span></code> converts these displacements into local polarization (in C/m²)
+using Born effective charges. It requires two neighbor lists: B-A and B-X.</p>
+</section>
+<section id="beyond-perovskites">
+<h2>Beyond Perovskites<a class="headerlink" href="#beyond-perovskites" title="Link to this heading"></a></h2>
+<p>ferrodispcalc is not limited to simple ABO<sub>3</sub> perovskites. As long as you can define
+the coordination environment, you can use the same workflow:</p>
+<ol class="arabic simple">
+<li><p>Identify center and neighbor elements.</p></li>
+<li><p>Choose an appropriate cutoff and coordination number.</p></li>
+<li><p>Build the neighbor list and compute.</p></li>
+</ol>
+<p>This makes it applicable to:</p>
+<ul class="simple">
+<li><p><strong>Solid solutions</strong> (e.g. PbTiO<sub>3</sub>-SrTiO<sub>3</sub>): use mixed element lists
+like <code class="docutils literal notranslate"><span class="pre">[&quot;Ti&quot;]</span></code> for B-site and <code class="docutils literal notranslate"><span class="pre">[&quot;Pb&quot;,</span> <span class="pre">&quot;Sr&quot;]</span></code> for A-site, and provide averaged
+Born effective charges. See <a class="reference internal" href="example_perov_superlattice.html"><span class="doc">Example: PTO-STO Superlattice Polarization</span></a>.</p></li>
+<li><p><strong>Molecular ferroelectrics</strong>: use bond vectors as dipole proxies.
+See <a class="reference internal" href="example_molecular.html"><span class="doc">Example: Molecular Ferroelectric (TMCM-CdCl3)</span></a> for a TMCM-CdCl<sub>3</sub> example.</p></li>
+<li><p><strong>Other coordination geometries</strong>: any system where the order parameter can be defined
+as a displacement from the coordination center.
+See <a class="reference internal" href="example_aln.html"><span class="doc">Example: Wurtzite Ferroelectric (ScAlN)</span></a> for a wurtzite example with a custom neighbor list.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solid solution example: PTO-STO superlattice</span>
+<span class="n">nl_ba</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Pb&quot;</span><span class="p">,</span> <span class="s2">&quot;Sr&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">nl_bo</span> <span class="o">=</span> <span class="n">build_neighbor_list</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;O&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">neighbor_num</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+
+<span class="n">bec</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Pb&quot;</span><span class="p">:</span> <span class="mf">3.44</span><span class="p">,</span> <span class="s2">&quot;Sr&quot;</span><span class="p">:</span> <span class="mf">2.56</span><span class="p">,</span> <span class="s2">&quot;Ti&quot;</span><span class="p">:</span> <span class="mf">5.18</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.87</span><span class="p">}</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">calculate_polarization</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">nl_ba</span><span class="p">,</span> <span class="n">nl_bo</span><span class="p">,</span> <span class="n">bec</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ase.html" class="btn btn-neutral float-left" title="Introduction to ASE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dielectric.html" class="btn btn-neutral float-right" title="Example: Dielectric Constant of PbTiO3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

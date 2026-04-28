@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction to ASE &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction to ferrodispcalc" href="fdc.html" />
+    <link rel="prev" title="Tutorials" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction to ASE</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-ase">What is ASE?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-does-ferrodispcalc-use-ase">Why does ferrodispcalc use ASE?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-operations">Basic Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#reading-files">Reading Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-manipulation">Structure Manipulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#writing-files">Writing Files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fdc.html">Introduction to ferrodispcalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dielectric.html">Example: Dielectric Constant of PbTiO<sub>3</sub></a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_perov_superlattice.html">Example: PTO-STO Superlattice Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_molecular.html">Example: Molecular Ferroelectric (TMCM-CdCl<sub>3</sub>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_aln.html">Example: Wurtzite Ferroelectric (ScAlN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_lammps_output.html">Parse LAMMPS Output Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="space_visualization.html">3D Space Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_cp2k.html">Parse CP2K Trajectory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Introduction to ASE</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/ase.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction-to-ase">
+<h1>Introduction to ASE<a class="headerlink" href="#introduction-to-ase" title="Link to this heading"></a></h1>
+<section id="what-is-ase">
+<h2>What is ASE?<a class="headerlink" href="#what-is-ase" title="Link to this heading"></a></h2>
+<p>The Atomic Simulation Environment (<a class="reference external" href="https://ase-lib.org/index.html">ASE</a>) is a Python library that provides
+a flexible set of APIs for creating, manipulating, and analyzing atomic structures.
+It supports a wide range of file formats and offers a consistent interface for working with
+atoms regardless of the simulation code you use.</p>
+</section>
+<section id="why-does-ferrodispcalc-use-ase">
+<h2>Why does ferrodispcalc use ASE?<a class="headerlink" href="#why-does-ferrodispcalc-use-ase" title="Link to this heading"></a></h2>
+<p>ferrodispcalc uses ASE’s <code class="docutils literal notranslate"><span class="pre">Atoms</span></code> object as its core data structure.
+Rather than reinventing the wheel, ferrodispcalc builds directly on ASE’s I/O and structure
+manipulation APIs, so you can seamlessly integrate ferrodispcalc into any ASE-based workflow.</p>
+</section>
+<section id="basic-operations">
+<h2>Basic Operations<a class="headerlink" href="#basic-operations" title="Link to this heading"></a></h2>
+<p>In ASE, everything revolves around two things:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Atoms</span></code>: a single atomic structure (positions, cell, species, etc.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list[Atoms]</span></code>: a trajectory, i.e. a sequence of structures (e.g. from an MD simulation)</p></li>
+</ul>
+<p>Once you are comfortable with these two, you can do almost anything.</p>
+<section id="reading-files">
+<h3>Reading Files<a class="headerlink" href="#reading-files" title="Link to this heading"></a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">ase.io.read</span></code> to load structures from files. The <code class="docutils literal notranslate"><span class="pre">format</span></code> argument is usually
+optional — ASE can infer it from the file extension — but being explicit never hurts.</p>
+<p><strong>Single structure</strong> (e.g. a POSCAR or LAMMPS data file):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
+
+<span class="c1"># VASP POSCAR</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;POSCAR&quot;</span><span class="p">)</span>
+
+<span class="c1"># LAMMPS data file</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;structure.data&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;lammps-data&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;atomic&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Trajectory</strong> (e.g. a multi-frame XYZ file):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read all frames — note the index=&quot;:&quot; argument</span>
+<span class="n">trajectory</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;trajectory.xyz&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">trajectory</span><span class="p">))</span>        <span class="c1"># &lt;class &#39;list&#39;&gt;</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">trajectory</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>     <span class="c1"># &lt;class &#39;ase.atoms.Atoms&#39;&gt;</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trajectory</span><span class="p">))</span>         <span class="c1"># number of frames</span>
+</pre></div>
+</div>
+</section>
+<section id="structure-manipulation">
+<h3>Structure Manipulation<a class="headerlink" href="#structure-manipulation" title="Link to this heading"></a></h3>
+<p>All manipulations below operate on an <code class="docutils literal notranslate"><span class="pre">Atoms</span></code> object in-place or return a new one.</p>
+<p><strong>Supercell expansion</strong></p>
+<p>The simplest way is to multiply the <code class="docutils literal notranslate"><span class="pre">Atoms</span></code> object directly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2x2x2 supercell</span>
+<span class="n">supercell</span> <span class="o">=</span> <span class="n">atoms</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Substitution / doping</strong></p>
+<p>Replace an atom by changing its symbol directly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace the first atom with Ba</span>
+<span class="n">atoms</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Ba&quot;</span>
+
+<span class="c1"># Replace all Ti with Zr</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">symbols</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">symbol</span> <span class="o">==</span> <span class="s2">&quot;Ti&quot;</span><span class="p">:</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Zr&quot;</span>
+</pre></div>
+</div>
+<p><strong>Coordinate operations</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get positions as a numpy array of shape (N, 3)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()</span>
+
+<span class="c1"># Set positions</span>
+<span class="n">atoms</span><span class="o">.</span><span class="n">set_positions</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+
+<span class="c1"># Wrap atoms back into the unit cell (useful after displacement)</span>
+<span class="n">atoms</span><span class="o">.</span><span class="n">wrap</span><span class="p">()</span>
+
+<span class="c1"># Translate all atoms by a vector</span>
+<span class="n">atoms</span><span class="o">.</span><span class="n">translate</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><strong>Applying strain</strong></p>
+<p>To apply strain, scale the cell and (optionally) the atomic positions together:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">cell</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_cell</span><span class="p">()</span>
+
+<span class="c1"># Apply 2% tensile strain along the x-axis</span>
+<span class="n">strain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">strain</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.02</span>
+
+<span class="n">atoms</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="n">cell</span> <span class="o">@</span> <span class="n">strain</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">scale_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">scale_atoms=True</span></code> ensures that fractional coordinates are preserved,
+so the atoms move with the cell rather than staying at their Cartesian positions.</p>
+</section>
+<section id="writing-files">
+<h3>Writing Files<a class="headerlink" href="#writing-files" title="Link to this heading"></a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">ase.io.write</span></code> to save structures. The API mirrors <code class="docutils literal notranslate"><span class="pre">read</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">write</span>
+
+<span class="c1"># Write a single structure</span>
+<span class="n">write</span><span class="p">(</span><span class="s2">&quot;POSCAR_out&quot;</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;vasp&quot;</span><span class="p">)</span>
+
+<span class="c1"># Write a trajectory to a multi-frame XYZ file</span>
+<span class="n">write</span><span class="p">(</span><span class="s2">&quot;trajectory_out.xyz&quot;</span><span class="p">,</span> <span class="n">trajectory</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For more information, please refer to the <a class="reference external" href="https://ase-lib.org/examples_generated/tutorials/index.html">ASE documentation</a>.</p>
+<p>Once you are comfortable with ASE, head to <a class="reference internal" href="fdc.html"><span class="doc">Introduction to ferrodispcalc</span></a> to learn how
+ferrodispcalc builds on these concepts.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fdc.html" class="btn btn-neutral float-right" title="Introduction to ferrodispcalc" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
