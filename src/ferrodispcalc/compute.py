@@ -253,7 +253,7 @@ def calculate_octahedral_tilt(traj: list[Atoms] | Atoms, nl_bo: np.ndarray, sele
 
             # sort the neighbors into +/-x, +/-y, +/-z based on their relative positions to center
             diffs = neighbors_coords - center_coords[j] # shape: (6, 3)
-            
+
             # sort along the x direction
             x_pos_idx = np.argmax(diffs[:, 0])
             x_neg_idx = np.argmin(diffs[:, 0])
@@ -273,11 +273,109 @@ def calculate_octahedral_tilt(traj: list[Atoms] | Atoms, nl_bo: np.ndarray, sele
             z_angle = np.arccos(np.dot(z_vector, np.array([0,0,1])) / np.linalg.norm(z_vector))
 
             octahedral_tilt[i, j] = np.rad2deg([x_angle, y_angle, z_angle])
-            
+
     if nframes == 1:
         octahedral_tilt = octahedral_tilt[0]
-        
+
     return octahedral_tilt
+
+
+def calculate_dielectric_constant(polarization: np.ndarray,
+                                  volume: float,
+                                  temperature: float = 300.0,
+                                  atomic: bool = False) -> dict[str, float | np.ndarray]:
+    """Calculate dielectric tensor components from polarization fluctuations.
+
+    The dielectric tensor is computed from the fluctuation formula
+    ``eps_ij = V / (eps0 * kB * T) * (<Pi Pj> - <Pi><Pj>)``, where the input
+    polarization is assumed to be in C/m². The input volume must be given in
+    Å³ and is converted internally to m³. When ``atomic=False``, the
+    polarization is first averaged over all unit cells. When ``atomic=True``,
+    the dielectric tensor is computed independently for each unit cell without
+    spatial averaging, and ``volume`` is interpreted as the volume per unit
+    cell.
+
+    Parameters
+    ----------
+    polarization : np.ndarray
+        Polarization time series. Shape ``(n_frames, n_cells, 3)`` for local
+        polarization from :func:`calculate_polarization`, or ``(n_frames, 3)``
+        for an already averaged polarization trajectory.
+    volume : float
+        Volume in Å³. For ``atomic=False``, this is the total volume of the
+        system corresponding to the polarization trajectory. For
+        ``atomic=True``, this must be the volume of a single unit cell.
+    temperature : float, optional
+        Temperature in K. Defaults to ``300.0``.
+    atomic : bool, optional
+        Whether to compute local dielectric tensor components for each unit
+        cell. Defaults to ``False``.
+
+    Returns
+    -------
+    dict[str, float | np.ndarray]
+        Dielectric tensor components ``eps_xx``, ``eps_yy``, ``eps_zz``,
+        ``eps_xy``, ``eps_xz``, and ``eps_yz``. Each value is a scalar when
+        ``atomic=False`` and an array of shape ``(n_cells,)`` when
+        ``atomic=True``.
+
+    Notes
+    -----
+    This function computes only the ionic fluctuation contribution to the
+    dielectric response and neglects the electronic contribution.
+
+    No statistical error analysis is performed internally. Users should apply
+    their own block averaging or related analysis to estimate uncertainties.
+    By default, all provided frames are used in the calculation.
+
+    Raises
+    ------
+    ValueError
+        If the input shape is invalid, if ``atomic=True`` but the input is not
+        local polarization, or if volume or temperature is not positive.
+    """
+    if volume <= 0:
+        raise ValueError("volume must be positive.")
+    if temperature <= 0:
+        raise ValueError("temperature must be positive.")
+    if polarization.ndim not in (2, 3):
+        raise ValueError("polarization must have shape (n_frames, 3) or (n_frames, n_cells, 3).")
+    if polarization.shape[-1] != 3:
+        raise ValueError("The last dimension of polarization must be 3.")
+    if polarization.shape[0] < 1:
+        raise ValueError("polarization must contain at least one frame.")
+    if atomic and polarization.ndim != 3:
+        raise ValueError("atomic=True requires polarization with shape (n_frames, n_cells, 3).")
+
+    if atomic:
+        pol = polarization
+    elif polarization.ndim == 3:
+        pol = np.mean(polarization, axis=1)
+    else:
+        pol = polarization
+
+    eps0 = 8.854187817e-12
+    kB = 1.380649e-23
+    volume_m3 = volume * 1.0E-30
+    factor = volume_m3 / (eps0 * kB * temperature)
+
+    components = {
+        "xx": (0, 0),
+        "yy": (1, 1),
+        "zz": (2, 2),
+        "xy": (0, 1),
+        "xz": (0, 2),
+        "yz": (1, 2),
+    }
+    dielectric = {}
+    for label, (i, j) in components.items():
+        mean_pi = np.mean(pol[..., i], axis=0)
+        mean_pj = np.mean(pol[..., j], axis=0)
+        mean_pipj = np.mean(pol[..., i] * pol[..., j], axis=0)
+        dielectric[f"eps_{label}"] = factor * (mean_pipj - mean_pi * mean_pj)
+
+    return dielectric
+
 
 def calculate_averaged_structure(traj: list[Atoms], select: list[int] | slice | None = None) -> Atoms:
     """Compute the time-averaged atomic structure from an MD trajectory.
