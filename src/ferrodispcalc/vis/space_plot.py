@@ -378,7 +378,86 @@ def space_animation(
     loop: bool = True,
     dtype: type | str | np.dtype = np.float32,
 ) -> pv.Plotter:
-    """Play a 3D vector-field animation in a PyVista window."""
+    """Play a 3-D vector-field animation in a PyVista window.
+
+    Two time-dependent input modes are supported:
+
+    * **Grid mode** - *data* has shape ``(nframe, nx, ny, nz, 3)``.
+      Coordinates are generated automatically from grid indices and *coord*
+      is ignored.
+    * **Point mode** - *data* has shape ``(nframe, npoint, 3)`` and *coord*
+      has shape ``(npoint, 3)``.
+
+    The scene is created once and updated in-place as frames advance. A slider
+    widget is shown by default for direct frame selection. Keyboard shortcuts
+    are available when more than one frame is selected: space toggles playback,
+    and the left/right arrow keys step backward/forward by one displayed frame.
+
+    Parameters
+    ----------
+    data : np.ndarray
+        Vector animation data. Expected shape is ``(nframe, nx, ny, nz, 3)``
+        for grid mode or ``(nframe, npoint, 3)`` for point mode.
+    coord : np.ndarray or None
+        Cartesian coordinates ``(npoint, 3)``. Required for point mode,
+        ignored for grid mode.
+    color_by : str
+        Coloring strategy: ``'magnitude'``, ``'dx'``, ``'dy'``, ``'dz'``,
+        ``'all'`` (RGB from components), or ``'gradient'`` (grid mode only).
+    cmap : str
+        Matplotlib colormap name (ignored when *color_by='all'*).
+    factor : float
+        Arrow scale factor passed to ``pv.PolyData.glyph``.
+    projection : str
+        ``'ortho'`` for parallel projection, ``'persp'`` for perspective.
+    clim : tuple or None
+        Colorbar range ``(vmin, vmax)``. *None* updates the scalar range from
+        the current frame.
+    select : dict or None
+        Region filter in fractional coordinates. Keys are ``'x'``, ``'y'``,
+        ``'z'``; values are ``[lo, hi]`` or *None* (no filter). In grid mode
+        fractions are computed from grid indices; in point mode *cell* is
+        required.
+    cell : np.ndarray or None
+        ``(3, 3)`` lattice matrix (rows = lattice vectors). Only needed when
+        *select* is used in point mode.
+    title : str
+        Window title.
+    show_bounding_box : bool
+        Draw a wireframe box around the full point cloud.
+    show_axes : bool
+        Show orientation axes widget.
+    show_slider : bool
+        Show a frame slider at the bottom of the window.
+    show_frame_text : bool
+        Show the current frame index in the upper-left corner.
+    plotter : pv.Plotter or None
+        Reuse an existing plotter. A new one is created when *None*.
+    stride : int or sequence of int
+        Spatial down-sampling. In grid mode, an int applies to all axes and a
+        3-item sequence applies to ``x``, ``y`` and ``z``. In point mode, only
+        an int stride is accepted.
+    frame_indices : sequence of int, slice, or None
+        Frames to expose in the animation. *None* selects all frames after
+        applying *frame_step*.
+    frame_step : int
+        Temporal down-sampling step used when *frame_indices* is *None*; also
+        applied to a slice selection when greater than one.
+    fps : float
+        Playback rate in displayed frames per second.
+    autoplay : bool
+        Start playback immediately when the window opens.
+    loop : bool
+        Restart from the first displayed frame after the last one.
+    dtype : type, str, or np.dtype
+        Floating dtype used for the per-frame vector arrays passed to PyVista.
+
+    Returns
+    -------
+    pv.Plotter
+        The plotter instance. When *plotter* is *None*, the window is shown
+        before returning.
+    """
     _pv = _import_pyvista()
 
     if fps <= 0:
