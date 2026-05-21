@@ -2,7 +2,8 @@
 ======================
 
 ``space_profile`` visualizes 3D vector fields (e.g. displacement fields) as
-arrows, powered by PyVista.
+arrows, powered by PyVista. ``space_animation`` plays time-dependent vector
+fields in an interactive PyVista window.
 
 Installation
 ------------
@@ -98,6 +99,33 @@ Display Options
   (default ``True``)
 - ``show_axes`` -- show the XYZ orientation widget (default ``True``)
 
+Animation
+---------
+
+Use ``space_animation`` for time-dependent 3D vector fields. Grid-mode
+animations use ``(nframe, nx, ny, nz, 3)`` data. Point-mode animations use
+``(nframe, npoint, 3)`` data with a matching ``coord`` array.
+
+.. code-block:: python
+
+   from ferrodispcalc.vis import space_animation
+
+   # disp_grid has shape (nframe, nx, ny, nz, 3)
+   space_animation(
+       disp_grid,
+       color_by="dz",
+       cmap="coolwarm",
+       factor=10.0,
+       stride=(2, 1, 1),
+       frame_step=2,
+       fps=20,
+   )
+
+The animation window includes a frame slider. Press space to pause or resume
+playback, and use the left/right arrow keys to step through displayed frames.
+For large datasets, use ``stride`` for spatial down-sampling and
+``frame_step`` or ``frame_indices`` for temporal down-sampling.
+
 Custom Plotter
 --------------
 
@@ -117,3 +145,5 @@ API Reference
 -------------
 
 .. autofunction:: ferrodispcalc.vis.space_plot.space_profile
+
+.. autofunction:: ferrodispcalc.vis.space_plot.space_animation
