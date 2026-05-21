@@ -1,10 +1,17 @@
 import matplotlib.pyplot as plt
 from .line_plot import line_profile
 from .plane_plot import plane_profile
-from .space_plot import space_profile
+from .space_plot import space_animation, space_profile
 from .grid import grid_data
 
-__all__ = ['line_profile', 'plane_profile', 'space_profile', 'grid_data', 'use_science_style']
+__all__ = [
+    'line_profile',
+    'plane_profile',
+    'space_profile',
+    'space_animation',
+    'grid_data',
+    'use_science_style',
+]
 
 _science_style_enabled = False
 
