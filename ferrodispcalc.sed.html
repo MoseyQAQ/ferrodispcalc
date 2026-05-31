@@ -1,0 +1,535 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ferrodispcalc.sed package &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ferrodispcalc.sed package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ferrodispcalc.sed.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ferrodispcalc-sed-package">
+<h1>ferrodispcalc.sed package<a class="headerlink" href="#ferrodispcalc-sed-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-ferrodispcalc.sed.calc">
+<span id="ferrodispcalc-sed-calc-module"></span><h2>ferrodispcalc.sed.calc module<a class="headerlink" href="#module-ferrodispcalc.sed.calc" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calc.DipoleSedResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.calc.</span></span><span class="sig-name descname"><span class="pre">DipoleSedResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq_THz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qpoints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primitive_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ferrodispcalc/sed/calc.html#DipoleSedResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Result of a local-mode SED calculation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calc.DipoleSedResult.freq_THz">
+<span class="sig-name descname"><span class="pre">freq_THz</span></span><a class="headerlink" href="#ferrodispcalc.sed.calc.DipoleSedResult.freq_THz" title="Link to this definition"></a></dt>
+<dd><p>Positive-frequency axis in THz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calc.DipoleSedResult.qpoints">
+<span class="sig-name descname"><span class="pre">qpoints</span></span><a class="headerlink" href="#ferrodispcalc.sed.calc.DipoleSedResult.qpoints" title="Link to this definition"></a></dt>
+<dd><p>Reduced q-points used in the spatial Fourier transform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calc.DipoleSedResult.sed">
+<span class="sig-name descname"><span class="pre">sed</span></span><a class="headerlink" href="#ferrodispcalc.sed.calc.DipoleSedResult.sed" title="Link to this definition"></a></dt>
+<dd><p>SED intensity with shape <code class="docutils literal notranslate"><span class="pre">(nfreq,</span> <span class="pre">nq,</span> <span class="pre">4)</span></code>. The last axis stores
+<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>, and <code class="docutils literal notranslate"><span class="pre">total</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calc.DipoleSedResult.primitive_shape">
+<span class="sig-name descname"><span class="pre">primitive_shape</span></span><a class="headerlink" href="#ferrodispcalc.sed.calc.DipoleSedResult.primitive_shape" title="Link to this definition"></a></dt>
+<dd><p>Primitive block size used to group the input grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calc.DipoleSedResult.cell_shape">
+<span class="sig-name descname"><span class="pre">cell_shape</span></span><a class="headerlink" href="#ferrodispcalc.sed.calc.DipoleSedResult.cell_shape" title="Link to this definition"></a></dt>
+<dd><p>Number of primitive cells along each grid direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">cell_shape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">freq_THz</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">primitive_shape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">qpoints</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">sed</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calc.calculate_sed">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.calc.</span></span><span class="sig-name descname"><span class="pre">calculate_sed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt_ps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qpoints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primitive_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_splits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'threading'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="ferrodispcalc.sed.calc.DipoleSedResult"><span class="pre">DipoleSedResult</span></a></span></span><a class="reference internal" href="_modules/ferrodispcalc/sed/calc.html#calculate_sed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.calc.calculate_sed" title="Link to this definition"></a></dt>
+<dd><p>Calculate SED for a gridded local vector-field trajectory.</p>
+<p>The input field is assumed to be fixed on a regular grid of local modes,
+such as Ti-centered displacement, local dipole, local polarization, or the
+corresponding time derivative. Users must provide the reduced q-points
+explicitly; use <a class="reference internal" href="#ferrodispcalc.sed.calc.generate_commensurate_qpath" title="ferrodispcalc.sed.calc.generate_commensurate_qpath"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_commensurate_qpath()</span></code></a> when a path should be
+sampled by q-points commensurate with the simulation cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> (<em>np.ndarray</em>) – Input trajectory with shape <code class="docutils literal notranslate"><span class="pre">(nframe,</span> <span class="pre">nx,</span> <span class="pre">ny,</span> <span class="pre">nz,</span> <span class="pre">3)</span></code>. The last axis
+stores the Cartesian <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">z</span></code> components. If <code class="docutils literal notranslate"><span class="pre">dt_ps</span></code> is
+in ps and the field is from LAMMPS metal units, displacement-like input
+is typically in Angstrom and velocity-like input is in Angstrom/ps.</p></li>
+<li><p><strong>dt_ps</strong> (<em>float</em>) – Time interval between stored frames in ps. The returned frequency axis
+is in THz because <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">ps</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">THz</span></code>.</p></li>
+<li><p><strong>qpoints</strong> (<em>np.ndarray</em>) – Reduced q-points with shape <code class="docutils literal notranslate"><span class="pre">(nq,</span> <span class="pre">3)</span></code>. The phase convention is
+<code class="docutils literal notranslate"><span class="pre">exp(+i</span> <span class="pre">*</span> <span class="pre">2*pi</span> <span class="pre">*</span> <span class="pre">dot(q,</span> <span class="pre">cell_index))</span></code>. The opposite sign gives the
+same intensity after taking <code class="docutils literal notranslate"><span class="pre">|A|^2</span></code>.</p></li>
+<li><p><strong>primitive_shape</strong> (<em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>, </em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Primitive block size in grid units. For example, <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">5)</span></code> groups
+five local modes into each primitive cell along z. Defaults to
+<code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">1)</span></code>.</p></li>
+<li><p><strong>num_splits</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of equal time blocks used for block averaging. <code class="docutils literal notranslate"><span class="pre">nframe</span></code> must
+be divisible by this value. Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>remove_mean</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, subtract the per-block time average at every grid point
+and component before the FFT. This is usually appropriate for a
+displacement-like field to remove the static/DC component. Velocity-like
+fields are usually used as-is. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of q-points to evaluate in parallel with joblib. <code class="docutils literal notranslate"><span class="pre">1</span></code> means
+serial execution; negative values follow joblib’s convention. Defaults
+to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>parallel_backend</strong> (<em>str</em><em>, </em><em>optional</em>) – Joblib backend. The default <code class="docutils literal notranslate"><span class="pre">&quot;threading&quot;</span></code> avoids copying the large
+block array into worker processes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Frequency axis, q-points, SED intensity, and grid metadata.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="ferrodispcalc.sed.calc.DipoleSedResult">DipoleSedResult</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The normalization is <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(Nt</span> <span class="pre">*</span> <span class="pre">Ncell)</span></code> before averaging over time
+blocks, where <code class="docutils literal notranslate"><span class="pre">Nt</span></code> is the number of frames per block and <code class="docutils literal notranslate"><span class="pre">Ncell</span></code> is the
+number of primitive cells. No mass weighting is applied. Therefore the
+absolute intensity is an internal convention; peak positions and dispersion
+are the robust quantities to compare across definitions.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calc.generate_commensurate_qpath">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.calc.</span></span><span class="sig-name descname"><span class="pre">generate_commensurate_qpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ferrodispcalc/sed/calc.html#generate_commensurate_qpath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.calc.generate_commensurate_qpath" title="Link to this definition"></a></dt>
+<dd><p>Generate q-points along a path that is commensurate with a cell grid.</p>
+<p>For cell shape <code class="docutils literal notranslate"><span class="pre">(Nx,</span> <span class="pre">Ny,</span> <span class="pre">Nz)</span></code>, allowed reduced q-points satisfy
+<code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">*</span> <span class="pre">(Nx,</span> <span class="pre">Ny,</span> <span class="pre">Nz)</span></code> being integer-valued.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Reduced q-points and cumulative reduced-coordinate distances.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#id8" title="ferrodispcalc.sed.DipoleSedResult.qpoints">qpoints</a>, q_distances</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calc.load_sed">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.calc.</span></span><span class="sig-name descname"><span class="pre">load_sed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="ferrodispcalc.sed.calc.DipoleSedResult"><span class="pre">DipoleSedResult</span></a></span></span><a class="reference internal" href="_modules/ferrodispcalc/sed/calc.html#load_sed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.calc.load_sed" title="Link to this definition"></a></dt>
+<dd><p>Load a <a class="reference internal" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="ferrodispcalc.sed.calc.DipoleSedResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">DipoleSedResult</span></code></a> saved by <a class="reference internal" href="#ferrodispcalc.sed.calc.save_sed" title="ferrodispcalc.sed.calc.save_sed"><code class="xref py py-func docutils literal notranslate"><span class="pre">save_sed()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calc.save_sed">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.calc.</span></span><span class="sig-name descname"><span class="pre">save_sed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="ferrodispcalc.sed.calc.DipoleSedResult"><span class="pre">DipoleSedResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/sed/calc.html#save_sed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.calc.save_sed" title="Link to this definition"></a></dt>
+<dd><p>Save SED arrays and grid metadata to a compressed npz file.</p>
+</dd></dl>
+
+</section>
+<section id="module-ferrodispcalc.sed.plot">
+<span id="ferrodispcalc-sed-plot-module"></span><h2>ferrodispcalc.sed.plot module<a class="headerlink" href="#module-ferrodispcalc.sed.plot" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.plot.plot_sed">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.plot.</span></span><span class="sig-name descname"><span class="pre">plot_sed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="ferrodispcalc.sed.calc.DipoleSedResult"><span class="pre">DipoleSedResult</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_THz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qpoints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_distances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">component</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'total'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('$\\Gamma$',</span> <span class="pre">'X')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'RdBu_r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_contourf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Figure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ferrodispcalc/sed/plot.html#plot_sed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.plot.plot_sed" title="Link to this definition"></a></dt>
+<dd><p>Plot one SED component.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<a class="reference internal" href="#ferrodispcalc.sed.DipoleSedResult" title="ferrodispcalc.sed.DipoleSedResult"><em>DipoleSedResult</em></a><em> | </em><em>np.ndarray</em>) – A <code class="xref py py-class docutils literal notranslate"><span class="pre">DipoleSedResult</span></code>, or a raw SED array with shape
+<code class="docutils literal notranslate"><span class="pre">(nfreq,</span> <span class="pre">nq,</span> <span class="pre">4)</span></code> or <code class="docutils literal notranslate"><span class="pre">(nfreq,</span> <span class="pre">nq)</span></code>. If an array is provided,
+<code class="docutils literal notranslate"><span class="pre">freq_THz</span></code> and <code class="docutils literal notranslate"><span class="pre">qpoints</span></code> must also be provided.</p></li>
+<li><p><strong>freq_THz</strong> (<em>np.ndarray</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Frequency axis in THz. Ignored when <code class="docutils literal notranslate"><span class="pre">result</span></code> is a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DipoleSedResult</span></code>.</p></li>
+<li><p><strong>qpoints</strong> (<em>np.ndarray</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Reduced q-points with shape <code class="docutils literal notranslate"><span class="pre">(nq,</span> <span class="pre">3)</span></code>. Ignored when <code class="docutils literal notranslate"><span class="pre">result</span></code> is a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DipoleSedResult</span></code>.</p></li>
+<li><p><strong>q_distances</strong> (<em>np.ndarray</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Cumulative q-path distances. If not provided, they are reconstructed
+from neighboring q-point differences.</p></li>
+<li><p><strong>component</strong> (<em>str</em><em>, </em><em>optional</em>) – One of <code class="docutils literal notranslate"><span class="pre">&quot;x&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;y&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;z&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;total&quot;</span></code>. Defaults to
+<code class="docutils literal notranslate"><span class="pre">&quot;total&quot;</span></code>.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Existing axes. A new figure and axes are created when <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>q_labels</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Labels for the first and last q-points. Defaults to Gamma-X labels.</p></li>
+<li><p><strong>freq_max</strong> (<em>float</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Maximum plotted frequency in THz. Defaults to the maximum available
+frequency.</p></li>
+<li><p><strong>freq_interval</strong> (<em>float</em><em>, </em><em>optional</em>) – Frequency tick interval in THz. Defaults to <code class="docutils literal notranslate"><span class="pre">5.0</span></code>.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em>, </em><em>optional</em>) – Matplotlib colormap. Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;RdBu_r&quot;</span></code>.</p></li>
+<li><p><strong>colorbar_min</strong> (<em>float</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Colorbar limits on the log-intensity scale.</p></li>
+<li><p><strong>colorbar_max</strong> (<em>float</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Colorbar limits on the log-intensity scale.</p></li>
+<li><p><strong>use_contourf</strong> (<em>bool</em><em>, </em><em>optional</em>) – Use <code class="docutils literal notranslate"><span class="pre">contourf</span></code> instead of the default <code class="docutils literal notranslate"><span class="pre">imshow</span></code> rendering.</p></li>
+<li><p><strong>savepath</strong> (<em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Save the figure when provided.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>optional</em>) – Show the figure interactively before returning.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib figure and axes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>fig, ax</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ferrodispcalc.sed">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ferrodispcalc.sed" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.DipoleSedResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.</span></span><span class="sig-name descname"><span class="pre">DipoleSedResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq_THz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qpoints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primitive_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ferrodispcalc/sed/calc.html#DipoleSedResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.DipoleSedResult" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Result of a local-mode SED calculation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.DipoleSedResult.freq_THz">
+<span class="sig-name descname"><span class="pre">freq_THz</span></span><a class="headerlink" href="#ferrodispcalc.sed.DipoleSedResult.freq_THz" title="Link to this definition"></a></dt>
+<dd><p>Positive-frequency axis in THz.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.DipoleSedResult.qpoints">
+<span class="sig-name descname"><span class="pre">qpoints</span></span><a class="headerlink" href="#ferrodispcalc.sed.DipoleSedResult.qpoints" title="Link to this definition"></a></dt>
+<dd><p>Reduced q-points used in the spatial Fourier transform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.DipoleSedResult.sed">
+<span class="sig-name descname"><span class="pre">sed</span></span><a class="headerlink" href="#ferrodispcalc.sed.DipoleSedResult.sed" title="Link to this definition"></a></dt>
+<dd><p>SED intensity with shape <code class="docutils literal notranslate"><span class="pre">(nfreq,</span> <span class="pre">nq,</span> <span class="pre">4)</span></code>. The last axis stores
+<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>, and <code class="docutils literal notranslate"><span class="pre">total</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.DipoleSedResult.primitive_shape">
+<span class="sig-name descname"><span class="pre">primitive_shape</span></span><a class="headerlink" href="#ferrodispcalc.sed.DipoleSedResult.primitive_shape" title="Link to this definition"></a></dt>
+<dd><p>Primitive block size used to group the input grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.DipoleSedResult.cell_shape">
+<span class="sig-name descname"><span class="pre">cell_shape</span></span><a class="headerlink" href="#ferrodispcalc.sed.DipoleSedResult.cell_shape" title="Link to this definition"></a></dt>
+<dd><p>Number of primitive cells along each grid direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">cell_shape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">freq_THz</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">primitive_shape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">qpoints</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">sed</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#id9" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.calculate_sed">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.</span></span><span class="sig-name descname"><span class="pre">calculate_sed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt_ps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qpoints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primitive_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_splits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'threading'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="ferrodispcalc.sed.calc.DipoleSedResult"><span class="pre">DipoleSedResult</span></a></span></span><a class="reference internal" href="_modules/ferrodispcalc/sed/calc.html#calculate_sed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.calculate_sed" title="Link to this definition"></a></dt>
+<dd><p>Calculate SED for a gridded local vector-field trajectory.</p>
+<p>The input field is assumed to be fixed on a regular grid of local modes,
+such as Ti-centered displacement, local dipole, local polarization, or the
+corresponding time derivative. Users must provide the reduced q-points
+explicitly; use <a class="reference internal" href="#ferrodispcalc.sed.generate_commensurate_qpath" title="ferrodispcalc.sed.generate_commensurate_qpath"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_commensurate_qpath()</span></code></a> when a path should be
+sampled by q-points commensurate with the simulation cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> (<em>np.ndarray</em>) – Input trajectory with shape <code class="docutils literal notranslate"><span class="pre">(nframe,</span> <span class="pre">nx,</span> <span class="pre">ny,</span> <span class="pre">nz,</span> <span class="pre">3)</span></code>. The last axis
+stores the Cartesian <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">z</span></code> components. If <code class="docutils literal notranslate"><span class="pre">dt_ps</span></code> is
+in ps and the field is from LAMMPS metal units, displacement-like input
+is typically in Angstrom and velocity-like input is in Angstrom/ps.</p></li>
+<li><p><strong>dt_ps</strong> (<em>float</em>) – Time interval between stored frames in ps. The returned frequency axis
+is in THz because <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">ps</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">THz</span></code>.</p></li>
+<li><p><strong>qpoints</strong> (<em>np.ndarray</em>) – Reduced q-points with shape <code class="docutils literal notranslate"><span class="pre">(nq,</span> <span class="pre">3)</span></code>. The phase convention is
+<code class="docutils literal notranslate"><span class="pre">exp(+i</span> <span class="pre">*</span> <span class="pre">2*pi</span> <span class="pre">*</span> <span class="pre">dot(q,</span> <span class="pre">cell_index))</span></code>. The opposite sign gives the
+same intensity after taking <code class="docutils literal notranslate"><span class="pre">|A|^2</span></code>.</p></li>
+<li><p><strong>primitive_shape</strong> (<em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>, </em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Primitive block size in grid units. For example, <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">5)</span></code> groups
+five local modes into each primitive cell along z. Defaults to
+<code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">1)</span></code>.</p></li>
+<li><p><strong>num_splits</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of equal time blocks used for block averaging. <code class="docutils literal notranslate"><span class="pre">nframe</span></code> must
+be divisible by this value. Defaults to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>remove_mean</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, subtract the per-block time average at every grid point
+and component before the FFT. This is usually appropriate for a
+displacement-like field to remove the static/DC component. Velocity-like
+fields are usually used as-is. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of q-points to evaluate in parallel with joblib. <code class="docutils literal notranslate"><span class="pre">1</span></code> means
+serial execution; negative values follow joblib’s convention. Defaults
+to <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>parallel_backend</strong> (<em>str</em><em>, </em><em>optional</em>) – Joblib backend. The default <code class="docutils literal notranslate"><span class="pre">&quot;threading&quot;</span></code> avoids copying the large
+block array into worker processes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Frequency axis, q-points, SED intensity, and grid metadata.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#ferrodispcalc.sed.DipoleSedResult" title="ferrodispcalc.sed.DipoleSedResult">DipoleSedResult</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The normalization is <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(Nt</span> <span class="pre">*</span> <span class="pre">Ncell)</span></code> before averaging over time
+blocks, where <code class="docutils literal notranslate"><span class="pre">Nt</span></code> is the number of frames per block and <code class="docutils literal notranslate"><span class="pre">Ncell</span></code> is the
+number of primitive cells. No mass weighting is applied. Therefore the
+absolute intensity is an internal convention; peak positions and dispersion
+are the robust quantities to compare across definitions.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.generate_commensurate_qpath">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.</span></span><span class="sig-name descname"><span class="pre">generate_commensurate_qpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ferrodispcalc/sed/calc.html#generate_commensurate_qpath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.generate_commensurate_qpath" title="Link to this definition"></a></dt>
+<dd><p>Generate q-points along a path that is commensurate with a cell grid.</p>
+<p>For cell shape <code class="docutils literal notranslate"><span class="pre">(Nx,</span> <span class="pre">Ny,</span> <span class="pre">Nz)</span></code>, allowed reduced q-points satisfy
+<code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">*</span> <span class="pre">(Nx,</span> <span class="pre">Ny,</span> <span class="pre">Nz)</span></code> being integer-valued.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Reduced q-points and cumulative reduced-coordinate distances.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#id8" title="ferrodispcalc.sed.DipoleSedResult.qpoints">qpoints</a>, q_distances</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.load_sed">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.</span></span><span class="sig-name descname"><span class="pre">load_sed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="ferrodispcalc.sed.calc.DipoleSedResult"><span class="pre">DipoleSedResult</span></a></span></span><a class="reference internal" href="_modules/ferrodispcalc/sed/calc.html#load_sed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.load_sed" title="Link to this definition"></a></dt>
+<dd><p>Load a <a class="reference internal" href="#ferrodispcalc.sed.DipoleSedResult" title="ferrodispcalc.sed.DipoleSedResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">DipoleSedResult</span></code></a> saved by <a class="reference internal" href="#ferrodispcalc.sed.save_sed" title="ferrodispcalc.sed.save_sed"><code class="xref py py-func docutils literal notranslate"><span class="pre">save_sed()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.plot_sed">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.</span></span><span class="sig-name descname"><span class="pre">plot_sed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="ferrodispcalc.sed.calc.DipoleSedResult"><span class="pre">DipoleSedResult</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_THz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qpoints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_distances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">component</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'total'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('$\\Gamma$',</span> <span class="pre">'X')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'RdBu_r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_contourf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Figure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ferrodispcalc/sed/plot.html#plot_sed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.plot_sed" title="Link to this definition"></a></dt>
+<dd><p>Plot one SED component.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<a class="reference internal" href="#ferrodispcalc.sed.DipoleSedResult" title="ferrodispcalc.sed.DipoleSedResult"><em>DipoleSedResult</em></a><em> | </em><em>np.ndarray</em>) – A <a class="reference internal" href="#ferrodispcalc.sed.DipoleSedResult" title="ferrodispcalc.sed.DipoleSedResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">DipoleSedResult</span></code></a>, or a raw SED array with shape
+<code class="docutils literal notranslate"><span class="pre">(nfreq,</span> <span class="pre">nq,</span> <span class="pre">4)</span></code> or <code class="docutils literal notranslate"><span class="pre">(nfreq,</span> <span class="pre">nq)</span></code>. If an array is provided,
+<code class="docutils literal notranslate"><span class="pre">freq_THz</span></code> and <code class="docutils literal notranslate"><span class="pre">qpoints</span></code> must also be provided.</p></li>
+<li><p><strong>freq_THz</strong> (<em>np.ndarray</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Frequency axis in THz. Ignored when <code class="docutils literal notranslate"><span class="pre">result</span></code> is a
+<a class="reference internal" href="#ferrodispcalc.sed.DipoleSedResult" title="ferrodispcalc.sed.DipoleSedResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">DipoleSedResult</span></code></a>.</p></li>
+<li><p><strong>qpoints</strong> (<em>np.ndarray</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Reduced q-points with shape <code class="docutils literal notranslate"><span class="pre">(nq,</span> <span class="pre">3)</span></code>. Ignored when <code class="docutils literal notranslate"><span class="pre">result</span></code> is a
+<a class="reference internal" href="#ferrodispcalc.sed.DipoleSedResult" title="ferrodispcalc.sed.DipoleSedResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">DipoleSedResult</span></code></a>.</p></li>
+<li><p><strong>q_distances</strong> (<em>np.ndarray</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Cumulative q-path distances. If not provided, they are reconstructed
+from neighboring q-point differences.</p></li>
+<li><p><strong>component</strong> (<em>str</em><em>, </em><em>optional</em>) – One of <code class="docutils literal notranslate"><span class="pre">&quot;x&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;y&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;z&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;total&quot;</span></code>. Defaults to
+<code class="docutils literal notranslate"><span class="pre">&quot;total&quot;</span></code>.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Existing axes. A new figure and axes are created when <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>q_labels</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Labels for the first and last q-points. Defaults to Gamma-X labels.</p></li>
+<li><p><strong>freq_max</strong> (<em>float</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Maximum plotted frequency in THz. Defaults to the maximum available
+frequency.</p></li>
+<li><p><strong>freq_interval</strong> (<em>float</em><em>, </em><em>optional</em>) – Frequency tick interval in THz. Defaults to <code class="docutils literal notranslate"><span class="pre">5.0</span></code>.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em>, </em><em>optional</em>) – Matplotlib colormap. Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;RdBu_r&quot;</span></code>.</p></li>
+<li><p><strong>colorbar_min</strong> (<em>float</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Colorbar limits on the log-intensity scale.</p></li>
+<li><p><strong>colorbar_max</strong> (<em>float</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Colorbar limits on the log-intensity scale.</p></li>
+<li><p><strong>use_contourf</strong> (<em>bool</em><em>, </em><em>optional</em>) – Use <code class="docutils literal notranslate"><span class="pre">contourf</span></code> instead of the default <code class="docutils literal notranslate"><span class="pre">imshow</span></code> rendering.</p></li>
+<li><p><strong>savepath</strong> (<em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Save the figure when provided.</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em>, </em><em>optional</em>) – Show the figure interactively before returning.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib figure and axes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>fig, ax</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ferrodispcalc.sed.save_sed">
+<span class="sig-prename descclassname"><span class="pre">ferrodispcalc.sed.</span></span><span class="sig-name descname"><span class="pre">save_sed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ferrodispcalc.sed.calc.DipoleSedResult" title="ferrodispcalc.sed.calc.DipoleSedResult"><span class="pre">DipoleSedResult</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ferrodispcalc/sed/calc.html#save_sed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ferrodispcalc.sed.save_sed" title="Link to this definition"></a></dt>
+<dd><p>Save SED arrays and grid metadata to a compressed npz file.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
