@@ -1,7 +1,5 @@
-# 待做清单
+SED:
 
-- update常见教程：计算离子位移，极化，平均结构，lammps thermo
-- 更新建模部分，并update教程（DW、超晶格、分子）
-- 更新课题组常见模型和input
-- 更新跑蒙卡定Tc和d33
-- 更新skills
+1. lammps接口：输出模式和速度
+2. SED实现
+3. SED验证（和pysed）：PTO，AlN,HfO2

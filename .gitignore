@@ -189,3 +189,7 @@ dist/
 *.idx
 
 _build/
+
+# for tmp binary file
+*.o 
+*.so

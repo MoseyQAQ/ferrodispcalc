@@ -1,4 +1,4 @@
-LMP_SOURCE_DIR=/shared_storage/home/lidenan/lmp_plugin_test/lammps-stable_2Aug2023_update3/src
+LMP_SOURCE_DIR=/opt/apps/lammps/lammps-29Aug2024_update4/src/
 CXX=mpicxx
 CXXFLAGS=-I${LMP_SOURCE_DIR} -Wall -Wextra -O3 -fPIC -I${LMP_SOURCE_DIR}/OPENMP -fopenmp
 LD=$(CXX) -shared -rdynamic -fopenmp

@@ -1,13 +1,20 @@
 /*
 
-LAMMPS plugin for calculate the displacement of atoms relative to the centroid of their neighbors.
+LAMMPS plugin for calculating the displacement of atoms relative to the
+centroid of user-provided neighbors, and the matching displacement velocity.
 
 The neighbor list file is provided by the user.
 The first column is the central atom ID, and the rest of the columns are the neighbor IDs.
 
 Usage:
-compute compute-ID all customdisp nnfile file_name
+atom_modify map array
+compute compute-ID all disp/atom nnfile file_name [vel yes|no]
 nnfile = neighbor list file name
+vel = output displacement velocity; default is no
+
+Output columns:
+1-3: displacement = average(r_center - r_neighbor)
+4-6: displacement velocity = average(v_center - v_neighbor), only with vel yes
 
 */
 
@@ -38,6 +45,7 @@ namespace LAMMPS_NS {
             std::vector<int> central_id; // central atom ID
             std::vector<std::vector<int>> neighbor_id; // neighbor atom ID
             int nmax;
+            int velocity_flag;
     };
 
 }   // namespace LAMMPS_NS
