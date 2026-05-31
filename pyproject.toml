@@ -20,7 +20,9 @@ classifiers = [
 
 dependencies = [
     "numpy",
+    "joblib>=1.3",
     "matplotlib",
+    "tqdm",
     "ase",
     "pymatgen",
     "dpdata",
