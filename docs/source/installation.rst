@@ -25,8 +25,8 @@ For the optional 3-D visualisation tools (pyvista):
 LAMMPS API
 ----------
 
-The LAMMPS API provides ``compute disp/atom`` and ``compute polar/atom`` computes as a
-runtime plugin.
+The LAMMPS API provides a file-based ``compute disp/atom`` runtime plugin.
+It outputs displacement and displacement velocity from a user-provided neighbor list.
 
 **Prerequisites**
 
@@ -53,7 +53,7 @@ Load the required modules (example for a cluster with environment modules):
 .. code-block:: bash
 
    module purge
-   module load mpich/3.0.4 gcc/9.3.0
+   module load lammps/29aug2024-dpv3
 
 Edit ``Makefile`` and set the two ``-I`` flags to your actual LAMMPS source paths:
 
@@ -84,17 +84,34 @@ In a LAMMPS input file, load the plugin and confirm it is registered:
    plugin load /path/to/dispplugin.so
    plugin list
 
-``plugin list`` should show ``disp/atom`` and ``polar/atom`` among the
-available compute styles:
+``plugin list`` should show only ``disp/atom`` from this plugin:
 
 .. code-block:: bash
 
    Loading plugin: compute disp/atom by Denan Li (lidenan@westlake.edu.cn)
-   Loading plugin: compute polar/atom by Denan Li (lidenan@westlake.edu.cn)
-   Loading plugin: compute customdisp by Denan Li (lidenan@westlake.edu.cn)
-   Loading plugin: compute distance/electride by Denan Li (lidenan@westlake.edu.cn)
-   Currently loaded plugins: 4
+   Currently loaded plugins: 1
       1: compute style plugin disp/atom
-      2: compute style plugin polar/atom
-      3: compute style plugin customdisp
-      4: compute style plugin distance/electride
+
+A minimal input setup for displacement only is:
+
+.. code-block:: lammps
+
+   atom_modify map array
+   plugin load /path/to/dispplugin.so
+   compute d all disp/atom nnfile nn.dat
+
+This returns three per-atom columns: ``c_d[1]``-``c_d[3]`` are
+``r_center - mean(r_neighbors)``.
+
+To also output the displacement velocity, enable ghost velocity communication
+and pass ``vel yes``:
+
+.. code-block:: lammps
+
+   atom_modify map array
+   comm_modify vel yes
+   plugin load /path/to/dispplugin.so
+   compute d all disp/atom nnfile nn.dat vel yes
+
+With ``vel yes``, the compute returns six per-atom columns. ``c_d[4]``-``c_d[6]``
+are ``v_center - mean(v_neighbors)``.

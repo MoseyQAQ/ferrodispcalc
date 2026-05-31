@@ -32,6 +32,12 @@ __Path:__ `./gallery/PTO-STO-superlattice/plot.py`
 
 __Path:__ `./gallery/PTO-HH-DW/plot.py` 
 
+### SED for local Ti displacement in PbTiO<sub>3</sub>
+
+<div align=center>  
+<img src="./gallery/PTO-SED-z.png" width=100%>
+</div>
+
 
 ## Documentation
 -------------

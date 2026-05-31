@@ -62,7 +62,9 @@ endif()
 ##########################
 # building the plugins
 
-add_library(dispplugin MODULE compute_disp_atom.cpp)
+add_library(dispplugin MODULE
+  dispplugin.cpp
+  compute_custom_disp.cpp)
 target_link_libraries(dispplugin PRIVATE lammps)
 
 set_target_properties(dispplugin PROPERTIES PREFIX "" SUFFIX ".so")

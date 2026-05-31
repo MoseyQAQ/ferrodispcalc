@@ -41,6 +41,15 @@ ferrodispcalc.config
    :undoc-members:
    :show-inheritance:
 
+ferrodispcalc.sed
+~~~~~~~~~~~~~~~~~
+
+.. automodule:: ferrodispcalc.sed
+   :members:
+   :imported-members:
+   :undoc-members:
+   :show-inheritance:
+
 ferrodispcalc.vis
 -----------------
 
