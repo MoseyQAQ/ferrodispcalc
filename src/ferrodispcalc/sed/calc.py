@@ -36,6 +36,9 @@ class DipoleSedResult:
         Primitive block size used to group the input grid.
     cell_shape : tuple[int, int, int]
         Number of primitive cells along each grid direction.
+    basis_summation : str
+        Basis summation rule. ``"incoherent"`` sums intensities over basis
+        degrees of freedom; ``"coherent"`` sums amplitudes before squaring.
     """
 
     freq_THz: np.ndarray
@@ -43,6 +46,7 @@ class DipoleSedResult:
     sed: np.ndarray
     primitive_shape: tuple[int, int, int]
     cell_shape: tuple[int, int, int]
+    basis_summation: str = "incoherent"
 
 
 def calculate_sed(
@@ -54,8 +58,10 @@ def calculate_sed(
     remove_mean: bool = False,
     n_jobs: int = 1,
     parallel_backend: str = "threading",
+    *,
+    basis_summation: str = "incoherent",
 ) -> DipoleSedResult:
-    """Calculate SED for a gridded local vector-field trajectory.
+    """Calculate a local-mode fluctuation spectrum for a gridded trajectory.
 
     The input field is assumed to be fixed on a regular grid of local modes,
     such as Ti-centered displacement, local dipole, local polarization, or the
@@ -74,9 +80,10 @@ def calculate_sed(
         Time interval between stored frames in ps. The returned frequency axis
         is in THz because ``1 / ps = 1 THz``.
     qpoints : np.ndarray
-        Reduced q-points with shape ``(nq, 3)``. The phase convention is
-        ``exp(+i * 2*pi * dot(q, cell_index))``. The opposite sign gives the
-        same intensity after taking ``|A|^2``.
+        Reduced q-points with shape ``(nq, 3)``. The spatial phase is
+        ``exp(+i * 2*pi * dot(q, cell_index + basis_offset))``, where
+        ``basis_offset`` is the fractional position inside the primitive block.
+        The opposite sign gives the same intensity after taking ``|A|^2``.
     primitive_shape : tuple[int, int, int], optional
         Primitive block size in grid units. For example, ``(1, 1, 5)`` groups
         five local modes into each primitive cell along z. Defaults to
@@ -96,6 +103,12 @@ def calculate_sed(
     parallel_backend : str, optional
         Joblib backend. The default ``"threading"`` avoids copying the large
         block array into worker processes.
+    basis_summation : {"incoherent", "coherent"}, optional
+        Basis summation rule. ``"incoherent"`` computes
+        ``sum_b |U_b(q, omega)|^2`` and is the default local-fluctuation
+        spectrum. ``"coherent"`` computes ``|sum_b U_b(q, omega)|^2`` and
+        preserves basis interference, closer to a structure-factor-like
+        representation.
 
     Returns
     -------
@@ -106,10 +119,14 @@ def calculate_sed(
     -----
     The normalization is ``1 / (Nt * Ncell)`` before averaging over time
     blocks, where ``Nt`` is the number of frames per block and ``Ncell`` is the
-    number of primitive cells. No mass weighting is applied. Therefore the
-    absolute intensity is an internal convention; peak positions and dispersion
-    are the robust quantities to compare across definitions.
+    number of primitive cells. No mass weighting is applied, so this is not a
+    strict mass-weighted phonon SED unless the input field and normalization are
+    defined accordingly. The spatial Fourier transform uses the full local-mode
+    position within the current folded-cell representation and, by default,
+    sums basis intensities incoherently.
     """
+
+    basis_summation = _validate_basis_summation(basis_summation)
 
     field, qpoints, primitive_shape, nframe, cell_shape = _check_parameter(
         field=field,
@@ -122,6 +139,7 @@ def calculate_sed(
 
     # 1. Build primitive-cell coordinates and frequency buffers.
     cell_indices = _make_cell_indices(cell_shape)
+    basis_offsets = _make_basis_offsets(primitive_shape)
     nt = nframe // num_splits
     ncell = cell_indices.shape[0]
     norm = 1.0 / (float(nt) * float(ncell))
@@ -156,7 +174,9 @@ def calculate_sed(
                 block_basis,
                 qpoints,
                 cell_indices,
+                basis_offsets,
                 norm,
+                basis_summation=basis_summation,
                 progress=progress,
                 n_jobs=n_jobs,
                 parallel_backend=parallel_backend,
@@ -174,6 +194,7 @@ def calculate_sed(
         sed=sed_avg,
         primitive_shape=primitive_shape,
         cell_shape=cell_shape,
+        basis_summation=basis_summation,
     )
 
 
@@ -224,6 +245,7 @@ def save_sed(result: DipoleSedResult, filename: str | Path) -> None:
 
     filename = Path(filename)
     filename.parent.mkdir(parents=True, exist_ok=True)
+    basis_summation = _validate_basis_summation(result.basis_summation)
     np.savez_compressed(
         filename,
         freq_THz=result.freq_THz,
@@ -231,6 +253,7 @@ def save_sed(result: DipoleSedResult, filename: str | Path) -> None:
         sed=result.sed,
         primitive_shape=np.asarray(result.primitive_shape, dtype=np.int64),
         cell_shape=np.asarray(result.cell_shape, dtype=np.int64),
+        basis_summation=np.asarray(basis_summation),
     )
 
 
@@ -249,6 +272,9 @@ def load_sed(filename: str | Path) -> DipoleSedResult:
         sed=data["sed"],
         primitive_shape=tuple(int(v) for v in data["primitive_shape"]),
         cell_shape=tuple(int(v) for v in data["cell_shape"]),
+        basis_summation=_validate_basis_summation(
+            _load_npz_string(data, "basis_summation", default="incoherent")
+        ),
     )
 
 
@@ -256,7 +282,9 @@ def _compute_block_sed(
     block_basis: np.ndarray,
     qpoints: np.ndarray,
     cell_indices: np.ndarray,
+    basis_offsets: np.ndarray,
     normalization_factor: float,
+    basis_summation: str,
     progress=None,
     n_jobs: int = 1,
     parallel_backend: str = "threading",
@@ -266,17 +294,27 @@ def _compute_block_sed(
     if block_basis.ndim != 4 or block_basis.shape[-1] != 3:
         raise ValueError("block_basis must have shape (nt, ncell, nbasis, 3).")
 
-    nt, ncell, _, _ = block_basis.shape
+    nt, ncell, nbasis, _ = block_basis.shape
     if cell_indices.shape != (ncell, 3):
         raise ValueError(
             "cell_indices shape must be (ncell, 3), matching block_basis."
+        )
+    if basis_offsets.shape != (nbasis, 3):
+        raise ValueError(
+            "basis_offsets shape must be (nbasis, 3), matching block_basis."
         )
 
     sed_comp = np.empty((nt, len(qpoints), 3), dtype=np.float64)
 
     if n_jobs == 1:
         for iq, q in enumerate(qpoints):
-            sed_comp[:, iq, :] = _compute_q_sed(block_basis, cell_indices, q)
+            sed_comp[:, iq, :] = _compute_q_sed(
+                block_basis,
+                cell_indices,
+                basis_offsets,
+                q,
+                basis_summation,
+            )
             if progress is not None:
                 progress.update(1)
     else:
@@ -285,7 +323,14 @@ def _compute_block_sed(
             backend=parallel_backend,
             return_as="generator_unordered",
         )(
-            delayed(_compute_q_sed_indexed)(iq, block_basis, cell_indices, q)
+            delayed(_compute_q_sed_indexed)(
+                iq,
+                block_basis,
+                cell_indices,
+                basis_offsets,
+                q,
+                basis_summation,
+            )
             for iq, q in enumerate(qpoints)
         )
         for iq, sed_q in results:
@@ -340,6 +385,13 @@ def _make_cell_indices(cell_shape: tuple[int, int, int]) -> np.ndarray:
 
     grid = np.indices((nx, ny, nz), dtype=np.float64)
     return np.moveaxis(grid, 0, -1).reshape(-1, 3)
+
+
+def _make_basis_offsets(primitive_shape: tuple[int, int, int]) -> np.ndarray:
+    px, py, pz = _validate_primitive_shape(primitive_shape)
+    grid = np.indices((px, py, pz), dtype=np.float64)
+    offsets = np.moveaxis(grid, 0, -1).reshape(-1, 3)
+    return offsets / np.asarray((px, py, pz), dtype=np.float64)
 
 
 def _reduced_q_distances(qpoints: np.ndarray) -> np.ndarray:
@@ -420,20 +472,38 @@ def _compute_q_sed_indexed(
     iq: int,
     block_basis: np.ndarray,
     cell_indices: np.ndarray,
+    basis_offsets: np.ndarray,
     qpoint: np.ndarray,
+    basis_summation: str,
 ) -> tuple[int, np.ndarray]:
-    return iq, _compute_q_sed(block_basis, cell_indices, qpoint)
+    return iq, _compute_q_sed(
+        block_basis,
+        cell_indices,
+        basis_offsets,
+        qpoint,
+        basis_summation,
+    )
 
 
 def _compute_q_sed(
     block_basis: np.ndarray,
     cell_indices: np.ndarray,
+    basis_offsets: np.ndarray,
     qpoint: np.ndarray,
+    basis_summation: str,
 ) -> np.ndarray:
     phase = np.exp(2.0j * np.pi * (cell_indices @ qpoint))
     q_signal = np.einsum("tlbc,l->tbc", block_basis, phase, optimize=True)
+    basis_phase = np.exp(2.0j * np.pi * (basis_offsets @ qpoint))
+    q_signal = q_signal * basis_phase[None, :, None]
+
     amp = np.fft.fft(q_signal, axis=0)
-    return np.sum(np.abs(amp) ** 2, axis=1).real
+
+    if basis_summation == "incoherent":
+        return np.sum(np.abs(amp) ** 2, axis=1).real
+    if basis_summation == "coherent":
+        return (np.abs(np.sum(amp, axis=1)) ** 2).real
+    raise ValueError("basis_summation must be 'incoherent' or 'coherent'.")
 
 
 def _allowed_path_fractions(
@@ -478,6 +548,33 @@ def _solve_allowed_fractions_1d(a: Fraction, b: Fraction) -> list[Fraction] | No
         if 0 <= f <= 1:
             values.append(f)
     return values
+
+
+def _load_npz_string(data, name: str, default: str) -> str:
+    if name not in data.files:
+        return default
+
+    value = np.asarray(data[name])
+    if value.shape == ():
+        item = value.item()
+    elif value.size == 1:
+        item = value.reshape(-1)[0].item()
+    else:
+        raise ValueError(f"SED field {name!r} must contain a single string.")
+
+    if isinstance(item, bytes):
+        return item.decode("utf-8")
+    return str(item)
+
+
+def _validate_basis_summation(basis_summation: str) -> str:
+    if not isinstance(basis_summation, str):
+        raise ValueError("basis_summation must be 'incoherent' or 'coherent'.")
+
+    basis_summation = basis_summation.strip().lower()
+    if basis_summation not in {"incoherent", "coherent"}:
+        raise ValueError("basis_summation must be 'incoherent' or 'coherent'.")
+    return basis_summation
 
 
 def _validate_field(field: np.ndarray) -> None:
