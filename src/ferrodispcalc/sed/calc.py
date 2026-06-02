@@ -11,10 +11,14 @@ from tqdm import tqdm
 
 
 __all__ = [
+    "DipoleModeResult",
     "DipoleSedResult",
     "calculate_sed",
+    "extract_eigen_vector",
     "generate_commensurate_qpath",
+    "load_eigen_vector",
     "load_sed",
+    "save_eigen_vector",
     "save_sed",
 ]
 
@@ -47,6 +51,57 @@ class DipoleSedResult:
     primitive_shape: tuple[int, int, int]
     cell_shape: tuple[int, int, int]
     basis_summation: str = "incoherent"
+
+
+@dataclass(frozen=True)
+class DipoleModeResult:
+    """Result of a basis-resolved local-mode extraction.
+
+    Attributes
+    ----------
+    mode_movie : np.ndarray
+        Real-space mode movie with shape ``(nphase, nx, ny, nz, 3)``.
+    phases : np.ndarray
+        Phase samples in radians with shape ``(nphase,)``.
+    evec_basis : np.ndarray
+        Complex basis-resolved eigenvector with shape ``(px, py, pz, 3)``.
+    amplitude_basis : np.ndarray
+        Complex, unnormalized Fourier amplitude after gauge fixing, with shape
+        ``(px, py, pz, 3)``.
+    qpoint : np.ndarray
+        Reduced-coordinate q-point used for extraction.
+    requested_freq_THz : float
+        Target frequency requested by the user.
+    actual_freq_THz : float
+        Frequency actually used. This can differ from the requested value for
+        ``freq_method="nearest_fft"``.
+    primitive_shape : tuple[int, int, int]
+        Primitive block size used to group the input grid.
+    cell_shape : tuple[int, int, int]
+        Number of primitive cells along each grid direction.
+    freq_method : str
+        Frequency extraction method, either ``"nearest_fft"`` or ``"direct"``.
+    gauge : str
+        Gauge-fixing method, either ``"max_real"`` or ``"none"``.
+    normalize : bool
+        Whether ``evec_basis`` was normalized by ``sqrt(sum(abs(A)**2))``.
+    remove_mean : bool
+        Whether per-grid-point time means were removed before extraction.
+    """
+
+    mode_movie: np.ndarray
+    phases: np.ndarray
+    evec_basis: np.ndarray
+    amplitude_basis: np.ndarray
+    qpoint: np.ndarray
+    requested_freq_THz: float
+    actual_freq_THz: float
+    primitive_shape: tuple[int, int, int]
+    cell_shape: tuple[int, int, int]
+    freq_method: str
+    gauge: str
+    normalize: bool
+    remove_mean: bool
 
 
 def calculate_sed(
@@ -198,6 +253,149 @@ def calculate_sed(
     )
 
 
+def extract_eigen_vector(
+    field: np.ndarray,
+    dt_ps: float,
+    qpoint: np.ndarray,
+    freq_THz: float,
+    primitive_shape: tuple[int, int, int] = (1, 1, 1),
+    nphase: int = 24,
+    remove_mean: bool = True,
+    freq_method: str = "nearest_fft",
+    gauge: str = "max_real",
+    normalize: bool = True,
+) -> DipoleModeResult:
+    """Extract a basis-resolved complex mode and rebuild a real-space movie.
+
+    The extraction uses the full local-mode position,
+    ``cell_index + basis_offset``, in the spatial Fourier transform. It keeps
+    the complex amplitude before any basis summation or absolute-square
+    operation, then reconstructs the selected ``(q, frequency)`` mode over one
+    artificial vibration period.
+
+    Parameters
+    ----------
+    field : np.ndarray
+        Input trajectory with shape ``(nframe, nx, ny, nz, 3)``.
+    dt_ps : float
+        Time interval between stored frames in ps.
+    qpoint : np.ndarray
+        Single reduced-coordinate q-point with shape ``(3,)``.
+    freq_THz : float
+        Target frequency in THz.
+    primitive_shape : tuple[int, int, int], optional
+        Primitive block size in grid units. This should match the SED
+        calculation used to identify the selected peak.
+    nphase : int, optional
+        Number of phase frames in the returned one-period movie.
+    remove_mean : bool, optional
+        If ``True``, remove the per-grid-point time average before extracting
+        the mode. Defaults to ``True``.
+    freq_method : {"nearest_fft", "direct"}, optional
+        ``"nearest_fft"`` uses the closest non-negative FFT frequency bin.
+        ``"direct"`` projects the trajectory directly at ``freq_THz``.
+    gauge : {"max_real", "none"}, optional
+        ``"max_real"`` rotates the global complex phase so the largest
+        eigenvector component is positive real. ``"none"`` leaves the phase as
+        extracted.
+    normalize : bool, optional
+        If ``True``, normalize the eigenvector by
+        ``sqrt(sum(abs(A)**2))``. Defaults to ``True``.
+
+    Returns
+    -------
+    DipoleModeResult
+        Mode movie, basis eigenvector, raw basis amplitude, and metadata.
+
+    Notes
+    -----
+    The returned ``mode_movie`` is a normalized local-mode pattern when
+    ``normalize=True``. Its amplitude is therefore not the physical MD
+    vibration amplitude; use ``amplitude_basis`` or the SED intensity to judge
+    mode strength.
+    """
+
+    (
+        field,
+        qpoint,
+        primitive_shape,
+        _nframe,
+        cell_shape,
+        nphase,
+        freq_THz,
+        freq_method,
+        gauge,
+    ) = _check_mode_parameter(
+        field=field,
+        dt_ps=dt_ps,
+        qpoint=qpoint,
+        freq_THz=freq_THz,
+        primitive_shape=primitive_shape,
+        nphase=nphase,
+        freq_method=freq_method,
+        gauge=gauge,
+    )
+
+    remove_mean = _validate_bool(remove_mean, name="remove_mean")
+    normalize = _validate_bool(normalize, name="normalize")
+    cell_indices = _make_cell_indices(cell_shape)
+    basis_offsets = _make_basis_offsets(primitive_shape)
+    block_basis = _reshape_grid_to_basis(field, primitive_shape)
+
+    if remove_mean:
+        block_basis = block_basis - block_basis.mean(axis=0, keepdims=True)
+    else:
+        block_basis = np.asarray(block_basis)
+
+    q_signal = _compute_q_signal(
+        block_basis,
+        cell_indices,
+        basis_offsets,
+        qpoint,
+    )
+    amplitude, actual_freq_THz = _extract_frequency_amplitude(
+        q_signal=q_signal,
+        dt_ps=dt_ps,
+        freq_THz=freq_THz,
+        freq_method=freq_method,
+    )
+    evec = _normalize_eigenvector(amplitude, normalize=normalize)
+    evec, amplitude = _apply_mode_gauge(evec, amplitude, gauge=gauge)
+
+    px, py, pz = primitive_shape
+    evec_basis = evec.reshape(px, py, pz, 3)
+    amplitude_basis = amplitude.reshape(px, py, pz, 3)
+    phases = np.linspace(0.0, 2.0 * np.pi, nphase, endpoint=False)
+    mode_basis = _reconstruct_mode_basis(
+        evec=evec,
+        phases=phases,
+        qpoint=qpoint,
+        cell_indices=cell_indices,
+        basis_offsets=basis_offsets,
+    )
+    mode_movie = _reshape_basis_to_grid(
+        mode_basis,
+        cell_shape=cell_shape,
+        primitive_shape=primitive_shape,
+    )
+
+    return DipoleModeResult(
+        mode_movie=mode_movie,
+        phases=phases,
+        evec_basis=evec_basis,
+        amplitude_basis=amplitude_basis,
+        qpoint=qpoint,
+        requested_freq_THz=freq_THz,
+        actual_freq_THz=actual_freq_THz,
+        primitive_shape=primitive_shape,
+        cell_shape=cell_shape,
+        freq_method=freq_method,
+        gauge=gauge,
+        normalize=normalize,
+        remove_mean=remove_mean,
+    )
+
+
 def generate_commensurate_qpath(
     q_path: np.ndarray,
     cell_shape: tuple[int, int, int],
@@ -275,6 +473,73 @@ def load_sed(filename: str | Path) -> DipoleSedResult:
         basis_summation=_validate_basis_summation(
             _load_npz_string(data, "basis_summation", default="incoherent")
         ),
+    )
+
+
+def save_eigen_vector(result: DipoleModeResult, filename: str | Path) -> None:
+    """Save an extracted mode result to a compressed npz file."""
+
+    filename = Path(filename)
+    filename.parent.mkdir(parents=True, exist_ok=True)
+    freq_method = _validate_freq_method(result.freq_method)
+    gauge = _validate_gauge(result.gauge)
+    np.savez_compressed(
+        filename,
+        mode_movie=result.mode_movie,
+        phases=result.phases,
+        evec_basis=result.evec_basis,
+        amplitude_basis=result.amplitude_basis,
+        qpoint=result.qpoint,
+        requested_freq_THz=np.asarray(result.requested_freq_THz, dtype=np.float64),
+        actual_freq_THz=np.asarray(result.actual_freq_THz, dtype=np.float64),
+        primitive_shape=np.asarray(result.primitive_shape, dtype=np.int64),
+        cell_shape=np.asarray(result.cell_shape, dtype=np.int64),
+        freq_method=np.asarray(freq_method),
+        gauge=np.asarray(gauge),
+        normalize=np.asarray(bool(result.normalize)),
+        remove_mean=np.asarray(bool(result.remove_mean)),
+    )
+
+
+def load_eigen_vector(filename: str | Path) -> DipoleModeResult:
+    """Load a :class:`DipoleModeResult` saved by :func:`save_eigen_vector`."""
+
+    data = np.load(filename)
+    required = {
+        "mode_movie",
+        "phases",
+        "evec_basis",
+        "amplitude_basis",
+        "qpoint",
+        "requested_freq_THz",
+        "actual_freq_THz",
+        "primitive_shape",
+        "cell_shape",
+        "freq_method",
+        "gauge",
+        "normalize",
+        "remove_mean",
+    }
+    missing = required.difference(data.files)
+    if missing:
+        raise ValueError(f"Missing mode fields in {filename}: {sorted(missing)}")
+
+    return DipoleModeResult(
+        mode_movie=data["mode_movie"],
+        phases=data["phases"],
+        evec_basis=data["evec_basis"],
+        amplitude_basis=data["amplitude_basis"],
+        qpoint=data["qpoint"],
+        requested_freq_THz=float(np.asarray(data["requested_freq_THz"]).item()),
+        actual_freq_THz=float(np.asarray(data["actual_freq_THz"]).item()),
+        primitive_shape=tuple(int(v) for v in data["primitive_shape"]),
+        cell_shape=tuple(int(v) for v in data["cell_shape"]),
+        freq_method=_validate_freq_method(
+            _load_npz_string(data, "freq_method", default="nearest_fft")
+        ),
+        gauge=_validate_gauge(_load_npz_string(data, "gauge", default="max_real")),
+        normalize=_load_npz_bool(data, "normalize"),
+        remove_mean=_load_npz_bool(data, "remove_mean"),
     )
 
 
@@ -378,10 +643,47 @@ def _reshape_grid_to_basis(
     )
 
 
+def _reshape_basis_to_grid(
+    basis_field: np.ndarray,
+    cell_shape: tuple[int, int, int],
+    primitive_shape: tuple[int, int, int],
+) -> np.ndarray:
+    """Reshape ``(nt, ncell, nbasis, 3)`` back to grid form."""
+
+    basis_field = np.asarray(basis_field)
+    if basis_field.ndim != 4 or basis_field.shape[-1] != 3:
+        raise ValueError("basis_field must have shape (nt, ncell, nbasis, 3).")
+
+    nx_cell, ny_cell, nz_cell = _validate_cell_shape(cell_shape)
+    px, py, pz = _validate_primitive_shape(primitive_shape)
+    nframe_like, ncell, nbasis, _ = basis_field.shape
+    if ncell != nx_cell * ny_cell * nz_cell:
+        raise ValueError("basis_field ncell does not match cell_shape.")
+    if nbasis != px * py * pz:
+        raise ValueError("basis_field nbasis does not match primitive_shape.")
+
+    reshaped = basis_field.reshape(
+        nframe_like,
+        nx_cell,
+        ny_cell,
+        nz_cell,
+        px,
+        py,
+        pz,
+        3,
+    )
+    reordered = reshaped.transpose(0, 1, 4, 2, 5, 3, 6, 7)
+    return reordered.reshape(
+        nframe_like,
+        nx_cell * px,
+        ny_cell * py,
+        nz_cell * pz,
+        3,
+    )
+
+
 def _make_cell_indices(cell_shape: tuple[int, int, int]) -> np.ndarray:
-    nx, ny, nz = (int(v) for v in cell_shape)
-    if nx <= 0 or ny <= 0 or nz <= 0:
-        raise ValueError("cell_shape values must be positive.")
+    nx, ny, nz = _validate_cell_shape(cell_shape)
 
     grid = np.indices((nx, ny, nz), dtype=np.float64)
     return np.moveaxis(grid, 0, -1).reshape(-1, 3)
@@ -468,6 +770,72 @@ def _check_parameter(
     return field, qpoints, primitive_shape, nframe, cell_shape
 
 
+def _check_mode_parameter(
+    field: np.ndarray,
+    dt_ps: float,
+    qpoint: np.ndarray,
+    freq_THz: float,
+    primitive_shape: tuple[int, int, int],
+    nphase: int,
+    freq_method: str,
+    gauge: str,
+) -> tuple[
+    np.ndarray,
+    np.ndarray,
+    tuple[int, int, int],
+    int,
+    tuple[int, int, int],
+    int,
+    float,
+    str,
+    str,
+]:
+    field = np.asarray(field)
+    qpoint = np.asarray(qpoint, dtype=np.float64)
+    primitive_shape = _validate_primitive_shape(primitive_shape)
+    freq_method = _validate_freq_method(freq_method)
+    gauge = _validate_gauge(gauge)
+    _validate_field(field)
+
+    if qpoint.shape != (3,):
+        raise ValueError("qpoint must have shape (3,).")
+    if not np.isfinite(dt_ps) or dt_ps <= 0.0:
+        raise ValueError("dt_ps must be positive.")
+
+    freq_THz = float(freq_THz)
+    if not np.isfinite(freq_THz) or freq_THz < 0.0:
+        raise ValueError("freq_THz must be non-negative.")
+
+    if isinstance(nphase, bool):
+        raise ValueError("nphase must be an integer >= 1.")
+    if isinstance(nphase, (float, np.floating)) and not float(nphase).is_integer():
+        raise ValueError("nphase must be an integer >= 1.")
+    nphase = int(nphase)
+    if nphase < 1:
+        raise ValueError("nphase must be >= 1.")
+
+    nframe, nx, ny, nz, _ = field.shape
+    px, py, pz = primitive_shape
+    if nx % px or ny % py or nz % pz:
+        raise ValueError(
+            f"primitive_shape={primitive_shape} must divide grid shape "
+            f"({nx}, {ny}, {nz})."
+        )
+
+    cell_shape = (nx // px, ny // py, nz // pz)
+    return (
+        field,
+        qpoint,
+        primitive_shape,
+        nframe,
+        cell_shape,
+        nphase,
+        freq_THz,
+        freq_method,
+        gauge,
+    )
+
+
 def _compute_q_sed_indexed(
     iq: int,
     block_basis: np.ndarray,
@@ -492,11 +860,7 @@ def _compute_q_sed(
     qpoint: np.ndarray,
     basis_summation: str,
 ) -> np.ndarray:
-    phase = np.exp(2.0j * np.pi * (cell_indices @ qpoint))
-    q_signal = np.einsum("tlbc,l->tbc", block_basis, phase, optimize=True)
-    basis_phase = np.exp(2.0j * np.pi * (basis_offsets @ qpoint))
-    q_signal = q_signal * basis_phase[None, :, None]
-
+    q_signal = _compute_q_signal(block_basis, cell_indices, basis_offsets, qpoint)
     amp = np.fft.fft(q_signal, axis=0)
 
     if basis_summation == "incoherent":
@@ -504,6 +868,87 @@ def _compute_q_sed(
     if basis_summation == "coherent":
         return (np.abs(np.sum(amp, axis=1)) ** 2).real
     raise ValueError("basis_summation must be 'incoherent' or 'coherent'.")
+
+
+def _compute_q_signal(
+    block_basis: np.ndarray,
+    cell_indices: np.ndarray,
+    basis_offsets: np.ndarray,
+    qpoint: np.ndarray,
+) -> np.ndarray:
+    """Spatial Fourier transform at one q-point, keeping the basis axis."""
+
+    phase = np.exp(2.0j * np.pi * (cell_indices @ qpoint))
+    q_signal = np.einsum("tlbc,l->tbc", block_basis, phase, optimize=True)
+    basis_phase = np.exp(2.0j * np.pi * (basis_offsets @ qpoint))
+    return q_signal * basis_phase[None, :, None]
+
+
+def _extract_frequency_amplitude(
+    q_signal: np.ndarray,
+    dt_ps: float,
+    freq_THz: float,
+    freq_method: str,
+) -> tuple[np.ndarray, float]:
+    if freq_method == "nearest_fft":
+        freq_full = np.fft.fftfreq(q_signal.shape[0], d=dt_ps)
+        candidate_indices = np.where(freq_full >= 0.0)[0]
+        ifreq = candidate_indices[
+            np.argmin(np.abs(freq_full[candidate_indices] - freq_THz))
+        ]
+        amp = np.fft.fft(q_signal, axis=0)
+        return amp[ifreq], float(freq_full[ifreq])
+
+    if freq_method == "direct":
+        time_ps = np.arange(q_signal.shape[0], dtype=np.float64) * dt_ps
+        time_phase = np.exp(-2.0j * np.pi * freq_THz * time_ps)
+        amp = np.einsum("tbc,t->bc", q_signal, time_phase, optimize=True)
+        return amp, float(freq_THz)
+
+    raise ValueError("freq_method must be 'nearest_fft' or 'direct'.")
+
+
+def _normalize_eigenvector(amplitude: np.ndarray, normalize: bool) -> np.ndarray:
+    if not normalize:
+        return amplitude.copy()
+
+    norm = float(np.sqrt(np.sum(np.abs(amplitude) ** 2)))
+    if norm <= np.finfo(np.float64).tiny:
+        raise ValueError("The selected (q, freq) has nearly zero amplitude.")
+    return amplitude / norm
+
+
+def _apply_mode_gauge(
+    evec: np.ndarray,
+    amplitude: np.ndarray,
+    gauge: str,
+) -> tuple[np.ndarray, np.ndarray]:
+    if gauge == "none":
+        return evec, amplitude
+
+    if gauge == "max_real":
+        idx = np.unravel_index(np.argmax(np.abs(evec)), evec.shape)
+        phase0 = np.angle(evec[idx])
+        factor = np.exp(-1.0j * phase0)
+        return evec * factor, amplitude * factor
+
+    raise ValueError("gauge must be 'max_real' or 'none'.")
+
+
+def _reconstruct_mode_basis(
+    evec: np.ndarray,
+    phases: np.ndarray,
+    qpoint: np.ndarray,
+    cell_indices: np.ndarray,
+    basis_offsets: np.ndarray,
+) -> np.ndarray:
+    full_positions = cell_indices[:, None, :] + basis_offsets[None, :, :]
+    inverse_phase = np.exp(-2.0j * np.pi * (full_positions @ qpoint))
+    return np.real(
+        np.exp(1.0j * phases[:, None, None, None])
+        * inverse_phase[None, :, :, None]
+        * evec[None, None, :, :]
+    )
 
 
 def _allowed_path_fractions(
@@ -560,11 +1005,35 @@ def _load_npz_string(data, name: str, default: str) -> str:
     elif value.size == 1:
         item = value.reshape(-1)[0].item()
     else:
-        raise ValueError(f"SED field {name!r} must contain a single string.")
+        raise ValueError(f"NPZ field {name!r} must contain a single string.")
 
     if isinstance(item, bytes):
         return item.decode("utf-8")
     return str(item)
+
+
+def _load_npz_bool(data, name: str) -> bool:
+    value = np.asarray(data[name])
+    if value.shape == ():
+        return bool(value.item())
+    if value.size == 1:
+        return bool(value.reshape(-1)[0].item())
+    raise ValueError(f"NPZ field {name!r} must contain a single boolean.")
+
+
+def _validate_cell_shape(cell_shape: tuple[int, int, int]) -> tuple[int, int, int]:
+    if len(cell_shape) != 3:
+        raise ValueError("cell_shape must contain exactly three integers.")
+    cell_shape = tuple(int(v) for v in cell_shape)
+    if any(v <= 0 for v in cell_shape):
+        raise ValueError("cell_shape values must be positive.")
+    return cell_shape
+
+
+def _validate_bool(value: bool, name: str) -> bool:
+    if isinstance(value, (bool, np.bool_)):
+        return bool(value)
+    raise ValueError(f"{name} must be a boolean.")
 
 
 def _validate_basis_summation(basis_summation: str) -> str:
@@ -575,6 +1044,26 @@ def _validate_basis_summation(basis_summation: str) -> str:
     if basis_summation not in {"incoherent", "coherent"}:
         raise ValueError("basis_summation must be 'incoherent' or 'coherent'.")
     return basis_summation
+
+
+def _validate_freq_method(freq_method: str) -> str:
+    if not isinstance(freq_method, str):
+        raise ValueError("freq_method must be 'nearest_fft' or 'direct'.")
+
+    freq_method = freq_method.strip().lower()
+    if freq_method not in {"nearest_fft", "direct"}:
+        raise ValueError("freq_method must be 'nearest_fft' or 'direct'.")
+    return freq_method
+
+
+def _validate_gauge(gauge: str) -> str:
+    if not isinstance(gauge, str):
+        raise ValueError("gauge must be 'max_real' or 'none'.")
+
+    gauge = gauge.strip().lower()
+    if gauge not in {"max_real", "none"}:
+        raise ValueError("gauge must be 'max_real' or 'none'.")
+    return gauge
 
 
 def _validate_field(field: np.ndarray) -> None:
