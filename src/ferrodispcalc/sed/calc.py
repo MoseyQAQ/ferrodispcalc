@@ -61,6 +61,9 @@ class DipoleModeResult:
     ----------
     mode_movie : np.ndarray
         Real-space mode movie with shape ``(nphase, nx, ny, nz, 3)``.
+    primitive_mode_movie : np.ndarray
+        Representative primitive-block movie with shape
+        ``(nphase, px, py, pz, 3)``.
     phases : np.ndarray
         Phase samples in radians with shape ``(nphase,)``.
     evec_basis : np.ndarray
@@ -90,6 +93,7 @@ class DipoleModeResult:
     """
 
     mode_movie: np.ndarray
+    primitive_mode_movie: np.ndarray
     phases: np.ndarray
     evec_basis: np.ndarray
     amplitude_basis: np.ndarray
@@ -305,14 +309,14 @@ def extract_eigen_vector(
     Returns
     -------
     DipoleModeResult
-        Mode movie, basis eigenvector, raw basis amplitude, and metadata.
+        Mode movies, basis eigenvector, raw basis amplitude, and metadata.
 
     Notes
     -----
-    The returned ``mode_movie`` is a normalized local-mode pattern when
-    ``normalize=True``. Its amplitude is therefore not the physical MD
-    vibration amplitude; use ``amplitude_basis`` or the SED intensity to judge
-    mode strength.
+    The returned ``mode_movie`` and ``primitive_mode_movie`` are normalized
+    local-mode patterns when ``normalize=True``. Their amplitudes are therefore
+    not the physical MD vibration amplitude; use ``amplitude_basis`` or the SED
+    intensity to judge mode strength.
     """
 
     (
@@ -373,6 +377,10 @@ def extract_eigen_vector(
         cell_indices=cell_indices,
         basis_offsets=basis_offsets,
     )
+    primitive_mode_movie = _reshape_one_cell_to_primitive_grid(
+        mode_basis[:, 0, :, :],
+        primitive_shape=primitive_shape,
+    )
     mode_movie = _reshape_basis_to_grid(
         mode_basis,
         cell_shape=cell_shape,
@@ -381,6 +389,7 @@ def extract_eigen_vector(
 
     return DipoleModeResult(
         mode_movie=mode_movie,
+        primitive_mode_movie=primitive_mode_movie,
         phases=phases,
         evec_basis=evec_basis,
         amplitude_basis=amplitude_basis,
@@ -486,6 +495,7 @@ def save_eigen_vector(result: DipoleModeResult, filename: str | Path) -> None:
     np.savez_compressed(
         filename,
         mode_movie=result.mode_movie,
+        primitive_mode_movie=result.primitive_mode_movie,
         phases=result.phases,
         evec_basis=result.evec_basis,
         amplitude_basis=result.amplitude_basis,
@@ -507,9 +517,9 @@ def load_eigen_vector(filename: str | Path) -> DipoleModeResult:
     data = np.load(filename)
     required = {
         "mode_movie",
-        "phases",
         "evec_basis",
         "amplitude_basis",
+        "phases",
         "qpoint",
         "requested_freq_THz",
         "actual_freq_THz",
@@ -524,15 +534,28 @@ def load_eigen_vector(filename: str | Path) -> DipoleModeResult:
     if missing:
         raise ValueError(f"Missing mode fields in {filename}: {sorted(missing)}")
 
+    primitive_shape = tuple(int(v) for v in data["primitive_shape"])
+    primitive_mode_movie = (
+        data["primitive_mode_movie"]
+        if "primitive_mode_movie" in data.files
+        else _reconstruct_primitive_mode_movie(
+            evec_basis=data["evec_basis"],
+            phases=data["phases"],
+            qpoint=data["qpoint"],
+            primitive_shape=primitive_shape,
+        )
+    )
+
     return DipoleModeResult(
         mode_movie=data["mode_movie"],
+        primitive_mode_movie=primitive_mode_movie,
         phases=data["phases"],
         evec_basis=data["evec_basis"],
         amplitude_basis=data["amplitude_basis"],
         qpoint=data["qpoint"],
         requested_freq_THz=float(np.asarray(data["requested_freq_THz"]).item()),
         actual_freq_THz=float(np.asarray(data["actual_freq_THz"]).item()),
-        primitive_shape=tuple(int(v) for v in data["primitive_shape"]),
+        primitive_shape=primitive_shape,
         cell_shape=tuple(int(v) for v in data["cell_shape"]),
         freq_method=_validate_freq_method(
             _load_npz_string(data, "freq_method", default="nearest_fft")
@@ -679,6 +702,54 @@ def _reshape_basis_to_grid(
         ny_cell * py,
         nz_cell * pz,
         3,
+    )
+
+
+def _reshape_one_cell_to_primitive_grid(
+    basis_field: np.ndarray,
+    primitive_shape: tuple[int, int, int],
+) -> np.ndarray:
+    """Reshape ``(nt, nbasis, 3)`` to ``(nt, px, py, pz, 3)``."""
+
+    basis_field = np.asarray(basis_field)
+    if basis_field.ndim != 3 or basis_field.shape[-1] != 3:
+        raise ValueError("basis_field must have shape (nt, nbasis, 3).")
+
+    px, py, pz = _validate_primitive_shape(primitive_shape)
+    nframe_like, nbasis, _ = basis_field.shape
+    if nbasis != px * py * pz:
+        raise ValueError("basis_field nbasis does not match primitive_shape.")
+    return basis_field.reshape(nframe_like, px, py, pz, 3)
+
+
+def _reconstruct_primitive_mode_movie(
+    evec_basis: np.ndarray,
+    phases: np.ndarray,
+    qpoint: np.ndarray,
+    primitive_shape: tuple[int, int, int],
+) -> np.ndarray:
+    evec_basis = np.asarray(evec_basis)
+    phases = np.asarray(phases, dtype=np.float64)
+    qpoint = np.asarray(qpoint, dtype=np.float64)
+    px, py, pz = _validate_primitive_shape(primitive_shape)
+    if evec_basis.shape != (px, py, pz, 3):
+        raise ValueError("evec_basis shape must match primitive_shape + (3,).")
+    if phases.ndim != 1:
+        raise ValueError("phases must have shape (nphase,).")
+    if qpoint.shape != (3,):
+        raise ValueError("qpoint must have shape (3,).")
+
+    evec = evec_basis.reshape(px * py * pz, 3)
+    basis_offsets = _make_basis_offsets(primitive_shape)
+    inverse_phase = np.exp(-2.0j * np.pi * (basis_offsets @ qpoint))
+    primitive_basis = np.real(
+        np.exp(1.0j * phases[:, None, None])
+        * inverse_phase[None, :, None]
+        * evec[None, :, :]
+    )
+    return _reshape_one_cell_to_primitive_grid(
+        primitive_basis,
+        primitive_shape=primitive_shape,
     )
 
 
