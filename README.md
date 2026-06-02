@@ -59,9 +59,9 @@ We plan to publish this package to PyPI soon.
 Please cite this repo if it helps your research. Thanks!
 
 ## Papers used this package
-1. GPUMDkit (submitted soon)
+1. MGE Advances, 4, e70074 (2026)
 2. Disentangling the Discrepancy Between Theoretical and Experimental Curie Temperatures in Ferroelectric PbTiO (under review @ MRS Comm.), arXiv:2601.13125 (2026) (perovskite system)
 3. Phys. Rev. Lett. 136, 016801 (2026) (organic-inorganic hybrid system)
 4. J. Phys. Chem. C 129, 21538 (2025) (perovskite system)
-5. Dipolar Nematic State in Relaxor Ferroelectrics (under review @ PRX),arXiv:2509.01464 (2025) (perovskite system)
+5. Phys. Rev. X 16, 021022 (2026) (perovskite system)
 6. Phys. Rev. X 15, 021042 (2025) (HfO2 system)
