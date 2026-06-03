@@ -168,34 +168,26 @@ def plot_sed(
 
 
 def plot_sed_1d(
-    result: DipoleSedResult | np.ndarray,
+    result: DipoleSedResult,
     qpoint: int | Sequence[float] | np.ndarray,
-    freq_THz: np.ndarray | None = None,
-    qpoints: np.ndarray | None = None,
     component: str = "total",
     ax: plt.Axes | None = None,
     style: dict | None = None,
+    file_name: str | Path | None = None,
     data_only: bool = False,
 ) -> plt.Axes | tuple[np.ndarray, np.ndarray]:
     """Plot the SED spectrum at one exact q-point.
 
     Parameters
     ----------
-    result : DipoleSedResult | np.ndarray
-        A :class:`DipoleSedResult`, or a raw SED array with shape
-        ``(nfreq, nq, 4)`` or ``(nfreq, nq)``. If an array is provided,
-        ``freq_THz`` and ``qpoints`` must also be provided.
+    result : DipoleSedResult
+        A :class:`DipoleSedResult` containing the SED intensity, frequency
+        axis, and q-points.
     qpoint : int | sequence of float | np.ndarray
         Q-point selector. An integer is interpreted as a zero-based q-point
         index. A length-3 array-like value is interpreted as a reduced q-point
         coordinate and must match exactly one row in ``qpoints``; no
         nearest-neighbor or tolerance-based matching is applied.
-    freq_THz : np.ndarray | None, optional
-        Frequency axis in THz. Ignored when ``result`` is a
-        :class:`DipoleSedResult`.
-    qpoints : np.ndarray | None, optional
-        Reduced q-points with shape ``(nq, 3)``. Ignored when ``result`` is a
-        :class:`DipoleSedResult`.
     component : str, optional
         Component plotted when ``data_only`` is ``False``. One of ``"total"``,
         ``"x"``, ``"y"``, or ``"z"``. Defaults to ``"total"``.
@@ -203,6 +195,9 @@ def plot_sed_1d(
         Existing axes. A new figure and axes are created when ``None``.
     style : dict | None, optional
         Matplotlib style arguments passed directly to ``ax.plot``.
+    file_name : str | pathlib.Path | None, optional
+        Save the figure to this path when provided. The figure is saved with
+        ``dpi=650`` and ``bbox_inches="tight"``.
     data_only : bool, optional
         If ``True``, return the selected q-point data instead of plotting.
         The returned ``intensity`` array has shape ``(nfreq, 4)`` with columns
@@ -217,13 +212,20 @@ def plot_sed_1d(
         Returned when ``data_only`` is ``True``.
     """
 
-    sed, freq_THz, qpoints = _unpack_sed_input(result, freq_THz, qpoints)
+    if not isinstance(result, DipoleSedResult):
+        raise TypeError("result must be a DipoleSedResult.")
+
+    sed = result.sed
+    freq_THz = result.freq_THz
+    qpoints = result.qpoints
     freq_THz = np.asarray(freq_THz, dtype=np.float64)
     qpoints = np.asarray(qpoints, dtype=np.float64)
     _validate_qpoints(qpoints)
     q_index = _qpoint_index(qpoint, qpoints)
 
     if data_only:
+        if file_name is not None:
+            raise ValueError("file_name cannot be used when data_only=True.")
         intensity = _select_qpoint_all_components(sed, q_index)
         if intensity.shape[0] != len(freq_THz):
             raise ValueError(
@@ -246,7 +248,10 @@ def plot_sed_1d(
     ax.plot(freq_THz, sed_2d[:, q_index], **plot_style)
     ax.set_xlabel("Frequency (THz)")
     ax.set_ylabel("SED intensity")
-    ax.set_title(f"SED {component} at q={_format_qpoint(qpoints[q_index])}")
+    if file_name is not None:
+        file_path = Path(file_name)
+        file_path.parent.mkdir(parents=True, exist_ok=True)
+        ax.figure.savefig(file_path, dpi=650, bbox_inches="tight")
     return ax
 
 
