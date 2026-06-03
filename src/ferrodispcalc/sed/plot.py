@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -8,7 +9,7 @@ import numpy as np
 from .calc import DipoleSedResult
 
 
-__all__ = ["plot_sed"]
+__all__ = ["plot_sed", "plot_sed_1d"]
 
 _COMPONENTS = {
     "x": 0,
@@ -16,6 +17,8 @@ _COMPONENTS = {
     "z": 2,
     "total": 3,
 }
+
+_SED_1D_DATA_COMPONENTS = ("total", "x", "y", "z")
 
 
 def plot_sed(
@@ -164,6 +167,89 @@ def plot_sed(
     return fig, ax
 
 
+def plot_sed_1d(
+    result: DipoleSedResult | np.ndarray,
+    qpoint: int | Sequence[float] | np.ndarray,
+    freq_THz: np.ndarray | None = None,
+    qpoints: np.ndarray | None = None,
+    component: str = "total",
+    ax: plt.Axes | None = None,
+    style: dict | None = None,
+    data_only: bool = False,
+) -> plt.Axes | tuple[np.ndarray, np.ndarray]:
+    """Plot the SED spectrum at one exact q-point.
+
+    Parameters
+    ----------
+    result : DipoleSedResult | np.ndarray
+        A :class:`DipoleSedResult`, or a raw SED array with shape
+        ``(nfreq, nq, 4)`` or ``(nfreq, nq)``. If an array is provided,
+        ``freq_THz`` and ``qpoints`` must also be provided.
+    qpoint : int | sequence of float | np.ndarray
+        Q-point selector. An integer is interpreted as a zero-based q-point
+        index. A length-3 array-like value is interpreted as a reduced q-point
+        coordinate and must match exactly one row in ``qpoints``; no
+        nearest-neighbor or tolerance-based matching is applied.
+    freq_THz : np.ndarray | None, optional
+        Frequency axis in THz. Ignored when ``result`` is a
+        :class:`DipoleSedResult`.
+    qpoints : np.ndarray | None, optional
+        Reduced q-points with shape ``(nq, 3)``. Ignored when ``result`` is a
+        :class:`DipoleSedResult`.
+    component : str, optional
+        Component plotted when ``data_only`` is ``False``. One of ``"total"``,
+        ``"x"``, ``"y"``, or ``"z"``. Defaults to ``"total"``.
+    ax : matplotlib.axes.Axes | None, optional
+        Existing axes. A new figure and axes are created when ``None``.
+    style : dict | None, optional
+        Matplotlib style arguments passed directly to ``ax.plot``.
+    data_only : bool, optional
+        If ``True``, return the selected q-point data instead of plotting.
+        The returned ``intensity`` array has shape ``(nfreq, 4)`` with columns
+        ``total``, ``x``, ``y``, and ``z``. This requires full component SED
+        data with shape ``(nfreq, nq, 4)``.
+
+    Returns
+    -------
+    ax : matplotlib.axes.Axes
+        Returned when ``data_only`` is ``False``.
+    freq_THz, intensity : tuple[np.ndarray, np.ndarray]
+        Returned when ``data_only`` is ``True``.
+    """
+
+    sed, freq_THz, qpoints = _unpack_sed_input(result, freq_THz, qpoints)
+    freq_THz = np.asarray(freq_THz, dtype=np.float64)
+    qpoints = np.asarray(qpoints, dtype=np.float64)
+    _validate_qpoints(qpoints)
+    q_index = _qpoint_index(qpoint, qpoints)
+
+    if data_only:
+        intensity = _select_qpoint_all_components(sed, q_index)
+        if intensity.shape[0] != len(freq_THz):
+            raise ValueError(
+                "Selected q-point intensity must have length nfreq. "
+                f"Got {intensity.shape[0]}, expected {len(freq_THz)}."
+            )
+        return freq_THz.copy(), intensity.copy()
+
+    sed_2d = _select_component(sed, component)
+    if sed_2d.shape != (len(freq_THz), len(qpoints)):
+        raise ValueError(
+            "Selected SED component must have shape (nfreq, nq). "
+            f"Got {sed_2d.shape}, expected {(len(freq_THz), len(qpoints))}."
+        )
+
+    if ax is None:
+        _, ax = plt.subplots()
+
+    plot_style = {} if style is None else dict(style)
+    ax.plot(freq_THz, sed_2d[:, q_index], **plot_style)
+    ax.set_xlabel("Frequency (THz)")
+    ax.set_ylabel("SED intensity")
+    ax.set_title(f"SED {component} at q={_format_qpoint(qpoints[q_index])}")
+    return ax
+
+
 def _unpack_sed_input(
     result: DipoleSedResult | np.ndarray,
     freq_THz: np.ndarray | None,
@@ -188,6 +274,62 @@ def _select_component(sed: np.ndarray, component: str) -> np.ndarray:
     if sed.ndim != 3 or sed.shape[-1] < 4:
         raise ValueError("SED must have shape (nfreq, nq) or (nfreq, nq, 4).")
     return sed[:, :, _COMPONENTS[component]]
+
+
+def _select_qpoint_all_components(sed: np.ndarray, q_index: int) -> np.ndarray:
+    sed = np.asarray(sed)
+    if sed.ndim != 3 or sed.shape[-1] < 4:
+        raise ValueError(
+            "data_only=True requires SED data with shape (nfreq, nq, 4) "
+            "to return total, x, y, and z intensities."
+        )
+    return np.column_stack(
+        [
+            sed[:, q_index, _COMPONENTS[component]]
+            for component in _SED_1D_DATA_COMPONENTS
+        ]
+    )
+
+
+def _validate_qpoints(qpoints: np.ndarray) -> None:
+    if qpoints.ndim != 2 or qpoints.shape[1] != 3:
+        raise ValueError(f"qpoints must have shape (nq, 3). Got {qpoints.shape}.")
+
+
+def _qpoint_index(
+    qpoint: int | Sequence[float] | np.ndarray,
+    qpoints: np.ndarray,
+) -> int:
+    if isinstance(qpoint, (int, np.integer)) and not isinstance(qpoint, bool):
+        q_index = int(qpoint)
+        if q_index < 0 or q_index >= len(qpoints):
+            raise IndexError(
+                f"qpoint index {q_index} is out of range for nq={len(qpoints)}."
+            )
+        return q_index
+
+    qpoint_array = np.asarray(qpoint, dtype=np.float64)
+    if qpoint_array.shape != (3,):
+        raise ValueError(
+            "qpoint must be a zero-based integer index or a reduced coordinate "
+            f"with shape (3,). Got shape {qpoint_array.shape}."
+        )
+
+    matches = np.flatnonzero(np.all(qpoints == qpoint_array, axis=1))
+    if len(matches) == 0:
+        raise ValueError(
+            f"qpoint {_format_qpoint(qpoint_array)} was not found by exact matching."
+        )
+    if len(matches) > 1:
+        raise ValueError(
+            f"qpoint {_format_qpoint(qpoint_array)} matches multiple qpoints: "
+            f"{matches.tolist()}."
+        )
+    return int(matches[0])
+
+
+def _format_qpoint(qpoint: np.ndarray) -> str:
+    return "(" + ", ".join(f"{value:g}" for value in qpoint) + ")"
 
 
 def _q_axis(qpoints: np.ndarray, q_distances: np.ndarray | None) -> np.ndarray:

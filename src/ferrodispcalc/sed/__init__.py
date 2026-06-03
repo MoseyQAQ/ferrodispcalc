@@ -9,7 +9,7 @@ from .calc import (
     save_eigen_vector,
     save_sed,
 )
-from .plot import plot_sed
+from .plot import plot_sed, plot_sed_1d
 
 __all__ = [
     "DipoleModeResult",
@@ -20,6 +20,7 @@ __all__ = [
     "load_eigen_vector",
     "load_sed",
     "plot_sed",
+    "plot_sed_1d",
     "save_eigen_vector",
     "save_sed",
 ]
