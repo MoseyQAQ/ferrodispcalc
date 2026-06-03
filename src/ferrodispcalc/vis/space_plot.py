@@ -123,6 +123,42 @@ def _color_arrays(
     return scalars_title, rgb_scalars, scalar_values
 
 
+def _activate_point_scalars(mesh, array_name: str) -> None:
+    if array_name in mesh.point_data:
+        mesh.set_active_scalars(array_name)
+        if hasattr(mesh, "Modified"):
+            mesh.Modified()
+
+
+def _mapper_use_point_array(actor, array_name: str, mesh=None) -> None:
+    mapper = getattr(actor, "mapper", None)
+    if mapper is None:
+        return
+
+    if mesh is not None:
+        if hasattr(mapper, "dataset"):
+            mapper.dataset = mesh
+        elif hasattr(mapper, "SetInputData"):
+            mapper.SetInputData(mesh)
+
+    if hasattr(mapper, "scalar_map_mode"):
+        mapper.scalar_map_mode = "point"
+    elif hasattr(mapper, "SetScalarModeToUsePointData"):
+        mapper.SetScalarModeToUsePointData()
+
+    if hasattr(mapper, "array_name"):
+        mapper.array_name = array_name
+    elif hasattr(mapper, "SelectColorArray"):
+        mapper.SelectColorArray(array_name)
+
+    if hasattr(mapper, "scalar_visibility"):
+        mapper.scalar_visibility = True
+    if hasattr(mapper, "Update"):
+        mapper.Update()
+    if hasattr(mapper, "Modified"):
+        mapper.Modified()
+
+
 def _scalar_bar_args(title: str | None) -> dict:
     return {
         "title": title,
@@ -326,8 +362,10 @@ def space_profile(
     )
 
     if rgb_scalars is not None:
+        _activate_point_scalars(arrows, "RGB")
         pl.add_mesh(arrows, scalars="RGB", rgb=True)
     else:
+        _activate_point_scalars(arrows, "scalars")
         pl.add_mesh(
             arrows, scalars="scalars", cmap=cmap, clim=clim,
             scalar_bar_args=_scalar_bar_args(scalars_title),
@@ -566,6 +604,8 @@ def space_animation(
         factor=factor,
         geom=arrow_geom,
     )
+    color_array_name = "RGB" if rgb_scalars is not None else "scalars"
+    _activate_point_scalars(arrows, color_array_name)
 
     if rgb_scalars is not None:
         actor = pl.add_mesh(arrows, scalars="RGB", rgb=True)
@@ -608,6 +648,8 @@ def space_animation(
         )
 
     def set_slot(slot: int, *, update_slider: bool = True) -> None:
+        nonlocal arrows
+
         slot = max(0, min(int(slot), len(frames) - 1))
         state["slot"] = slot
         frame_index = frames[slot]
@@ -637,7 +679,9 @@ def space_animation(
             factor=factor,
             geom=arrow_geom,
         )
-        arrows.copy_from(new_arrows)
+        _activate_point_scalars(new_arrows, color_array_name)
+        arrows = new_arrows
+        _mapper_use_point_array(actor, color_array_name, arrows)
 
         if frame_text is not None:
             _set_text(frame_text, f"Frame {frame_index} ({slot + 1}/{len(frames)})")
