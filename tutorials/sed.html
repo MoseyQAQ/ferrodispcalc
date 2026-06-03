@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local-Mode SED from a LAMMPS Run &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Example: PTO-STO Superlattice Polarization" href="example_perov_superlattice.html" />
+    <link rel="prev" title="Example: Dielectric Constant of PbTiO3" href="dielectric.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ase.html">Introduction to ASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fdc.html">Introduction to ferrodispcalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dielectric.html">Example: Dielectric Constant of PbTiO<sub>3</sub></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Local-Mode SED from a LAMMPS Run</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lammps-setup">LAMMPS Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#convert-dipole-dat-to-dipole-npy">Convert <code class="docutils literal notranslate"><span class="pre">dipole.dat</span></code> to <code class="docutils literal notranslate"><span class="pre">dipole.npy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculate-sed">Calculate SED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reference-output">Reference Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#q-point-and-primitive-cell-convention">q-Point and Primitive-Cell Convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sed-array-convention">SED Array Convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-and-replotting">Loading and Replotting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="example_perov_superlattice.html">Example: PTO-STO Superlattice Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_molecular.html">Example: Molecular Ferroelectric (TMCM-CdCl<sub>3</sub>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_aln.html">Example: Wurtzite Ferroelectric (ScAlN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_lammps_output.html">Parse LAMMPS Output Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="space_visualization.html">3D Space Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_cp2k.html">Parse CP2K Trajectory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Local-Mode SED from a LAMMPS Run</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/sed.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="local-mode-sed-from-a-lammps-run">
+<h1>Local-Mode SED from a LAMMPS Run<a class="headerlink" href="#local-mode-sed-from-a-lammps-run" title="Link to this heading"></a></h1>
+<p>This tutorial shows the full local-mode SED workflow starting from a LAMMPS MD
+run. The target signal is a Ti-centered local polar distortion <code class="docutils literal notranslate"><span class="pre">d(Ti)</span></code> and its
+time derivative, not an all-atom velocity field. The workflow is:</p>
+<ol class="arabic simple">
+<li><p>write the local Ti displacement and displacement velocity from LAMMPS</p></li>
+<li><p>convert the LAMMPS text dump to <code class="docutils literal notranslate"><span class="pre">npy</span></code> arrays on a fixed grid</p></li>
+<li><p>calculate and plot the local-mode SED with <code class="docutils literal notranslate"><span class="pre">ferrodispcalc.sed</span></code></p></li>
+</ol>
+<p>The example uses LAMMPS metal units:</p>
+<ul class="simple">
+<li><p>time in ps</p></li>
+<li><p>displacement in Angstrom</p></li>
+<li><p>velocity in Angstrom/ps</p></li>
+</ul>
+<p>With <code class="docutils literal notranslate"><span class="pre">dt_ps</span></code> in ps, <code class="docutils literal notranslate"><span class="pre">numpy.fft.fftfreq</span></code> returns frequency in <code class="docutils literal notranslate"><span class="pre">1/ps</span></code>, which
+is numerically THz.</p>
+<section id="lammps-setup">
+<h2>LAMMPS Setup<a class="headerlink" href="#lammps-setup" title="Link to this heading"></a></h2>
+<p>Only the SED-specific LAMMPS setup is shown here. The force field, thermostat,
+cell setup, and equilibration details are not part of the SED interface.</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span>atom_style      atomic
+units           metal
+atom_modify     map array
+comm_modify     vel yes
+
+plugin load     /path/to/ferrodispcalc/src/lammps/dispplugin.so
+plugin list
+
+timestep        0.001
+variable        dt_dump equal 10
+
+compute         1 all disp/atom nnfile ./structure/nl-bo.dat vel yes
+group           Ti type 3
+dump            dipole Ti custom ${dt_dump} dipole.dat \
+                id type c_1[1] c_1[2] c_1[3] c_1[4] c_1[5] c_1[6]
+dump_modify     dipole sort id
+</pre></div>
+</div>
+<p>The plugin command <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">...</span> <span class="pre">disp/atom</span></code> reads the neighbor-list file
+<code class="docutils literal notranslate"><span class="pre">nl-bo.dat</span></code> and computes six values for each selected Ti atom:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">c_1[1:3]</span></code>: local Ti displacement <code class="docutils literal notranslate"><span class="pre">d(Ti)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c_1[4:6]</span></code>: local Ti displacement velocity</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">comm_modify</span> <span class="pre">vel</span> <span class="pre">yes</span></code> is required when velocity output is requested with
+<code class="docutils literal notranslate"><span class="pre">vel</span> <span class="pre">yes</span></code>. Dump sorting by atom id makes the downstream grid mapping stable.
+If the production dump is written to <code class="docutils literal notranslate"><span class="pre">dipole.dat</span></code> with stride
+<code class="docutils literal notranslate"><span class="pre">dt_dump</span> <span class="pre">=</span> <span class="pre">10</span></code> and timestep <code class="docutils literal notranslate"><span class="pre">0.001</span> <span class="pre">ps</span></code>, the stored-frame spacing is
+<code class="docutils literal notranslate"><span class="pre">dt_ps</span> <span class="pre">=</span> <span class="pre">0.01</span> <span class="pre">ps</span></code>.</p>
+</section>
+<section id="convert-dipole-dat-to-dipole-npy">
+<h2>Convert <code class="docutils literal notranslate"><span class="pre">dipole.dat</span></code> to <code class="docutils literal notranslate"><span class="pre">dipole.npy</span></code><a class="headerlink" href="#convert-dipole-dat-to-dipole-npy" title="Link to this heading"></a></h2>
+<p>The following script converts the LAMMPS text dump to a fixed-grid numpy array.
+It assumes the current directory contains:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dipole.dat</span></code> from the LAMMPS <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">dipole</span></code> command</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">structure/model.xyz</span></code> for the structure used to define the grid</p></li>
+</ul>
+<p>Save this as <code class="docutils literal notranslate"><span class="pre">load_dipole_data.py</span></code> and adjust <code class="docutils literal notranslate"><span class="pre">nframe</span></code>, <code class="docutils literal notranslate"><span class="pre">natom</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">target_size</span></code> for your system.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
+
+<span class="kn">from</span> <span class="nn">ferrodispcalc.vis</span> <span class="kn">import</span> <span class="n">grid_data</span>
+
+
+<span class="k">def</span> <span class="nf">load_c1_to_npy</span><span class="p">(</span>
+    <span class="n">dump_file</span><span class="p">,</span>
+    <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;c1.npy&quot;</span><span class="p">,</span>
+    <span class="n">nframe</span><span class="o">=</span><span class="mi">100001</span><span class="p">,</span>
+    <span class="n">natom</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">c1_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">open_memmap</span><span class="p">(</span>
+        <span class="n">out_file</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w+&quot;</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">nframe</span><span class="p">,</span> <span class="n">natom</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">timesteps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nframe</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">cidx</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ncol</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">iframe</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nframe</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Reading frames&quot;</span><span class="p">):</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>                         <span class="c1"># ITEM: TIMESTEP</span>
+            <span class="n">timesteps</span><span class="p">[</span><span class="n">iframe</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+
+            <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>                         <span class="c1"># ITEM: NUMBER OF ATOMS</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>                         <span class="c1"># natom</span>
+
+            <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>                         <span class="c1"># ITEM: BOX BOUNDS ...</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+
+            <span class="n">atoms_header</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="n">atoms_header</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+
+            <span class="k">if</span> <span class="n">cidx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">wanted_cols</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;c_1[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)]</span>
+                <span class="n">cidx</span> <span class="o">=</span> <span class="p">[</span><span class="n">columns</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">wanted_cols</span><span class="p">]</span>
+                <span class="n">ncol</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+
+            <span class="n">block</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">natom</span><span class="p">))</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+                <span class="n">natom</span><span class="p">,</span>
+                <span class="n">ncol</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">c1_out</span><span class="p">[</span><span class="n">iframe</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[:,</span> <span class="n">cidx</span><span class="p">]</span>
+
+    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;timesteps.npy&quot;</span><span class="p">,</span> <span class="n">timesteps</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">c1_out</span>
+    <span class="k">return</span> <span class="n">out_file</span>
+
+
+<span class="c1"># Step 1: text dump -&gt; c1.npy with shape (nframe, n_Ti, 6)</span>
+<span class="n">load_c1_to_npy</span><span class="p">(</span>
+    <span class="n">dump_file</span><span class="o">=</span><span class="s2">&quot;dipole.dat&quot;</span><span class="p">,</span>
+    <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;c1.npy&quot;</span><span class="p">,</span>
+    <span class="n">nframe</span><span class="o">=</span><span class="mi">100001</span><span class="p">,</span>
+    <span class="n">natom</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Step 2: atom-wise Ti data -&gt; fixed grid</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;c1.npy&quot;</span><span class="p">,</span> <span class="n">mmap_mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;structure/model.xyz&quot;</span><span class="p">)</span>
+<span class="n">dipole</span> <span class="o">=</span> <span class="n">grid_data</span><span class="p">(</span>
+    <span class="n">atoms</span><span class="p">,</span>
+    <span class="n">c1</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">&quot;Ti&quot;</span><span class="p">],</span>
+    <span class="n">target_size</span><span class="o">=</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;dipole.npy&quot;</span><span class="p">,</span> <span class="n">dipole</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The intermediate <code class="docutils literal notranslate"><span class="pre">c1.npy</span></code> has shape <code class="docutils literal notranslate"><span class="pre">(nframe,</span> <span class="pre">n_Ti,</span> <span class="pre">6)</span></code>. The final
+<code class="docutils literal notranslate"><span class="pre">dipole.npy</span></code> has shape <code class="docutils literal notranslate"><span class="pre">(nframe,</span> <span class="pre">nx,</span> <span class="pre">ny,</span> <span class="pre">nz,</span> <span class="pre">6)</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dipole[...,</span> <span class="pre">0:3]</span></code>: <code class="docutils literal notranslate"><span class="pre">d(Ti)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dipole[...,</span> <span class="pre">3:6]</span></code>: velocity of <code class="docutils literal notranslate"><span class="pre">d(Ti)</span></code></p></li>
+</ul>
+<p>Run the conversion in the directory containing <code class="docutils literal notranslate"><span class="pre">dipole.dat</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>load_dipole_data.py
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">c1.npy</span></code> already exists, you can comment out the <code class="docutils literal notranslate"><span class="pre">load_c1_to_npy</span></code> call
+and regenerate only <code class="docutils literal notranslate"><span class="pre">dipole.npy</span></code> from the mapped structure.</p>
+</section>
+<section id="calculate-sed">
+<h2>Calculate SED<a class="headerlink" href="#calculate-sed" title="Link to this heading"></a></h2>
+<p>All SED APIs are imported from <code class="docutils literal notranslate"><span class="pre">ferrodispcalc.sed</span></code>. The calculation requires
+explicit q-points. Use <code class="docutils literal notranslate"><span class="pre">generate_commensurate_qpath</span></code> to create q-points that
+are allowed by the primitive-cell grid.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">ferrodispcalc.sed</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">calculate_sed</span><span class="p">,</span>
+    <span class="n">generate_commensurate_qpath</span><span class="p">,</span>
+    <span class="n">plot_sed</span><span class="p">,</span>
+    <span class="n">save_sed</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;sed-output&quot;</span><span class="p">)</span>
+<span class="n">output_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">dipole</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;dipole.npy&quot;</span><span class="p">,</span> <span class="n">mmap_mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+
+<span class="n">dt_ps</span> <span class="o">=</span> <span class="mf">0.001</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="n">frame_start</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">max_frames</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="n">primitive_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">num_splits</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">q_path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">grid_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dipole</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">cell_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">g</span> <span class="o">//</span> <span class="n">p</span> <span class="k">for</span> <span class="n">g</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">grid_shape</span><span class="p">,</span> <span class="n">primitive_shape</span><span class="p">))</span>
+<span class="n">qpoints</span><span class="p">,</span> <span class="n">q_distances</span> <span class="o">=</span> <span class="n">generate_commensurate_qpath</span><span class="p">(</span><span class="n">q_path</span><span class="p">,</span> <span class="n">cell_shape</span><span class="p">)</span>
+
+<span class="n">stop</span> <span class="o">=</span> <span class="n">frame_start</span> <span class="o">+</span> <span class="n">max_frames</span>
+
+<span class="n">dti</span> <span class="o">=</span> <span class="n">dipole</span><span class="p">[</span><span class="n">frame_start</span><span class="p">:</span><span class="n">stop</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">dti_result</span> <span class="o">=</span> <span class="n">calculate_sed</span><span class="p">(</span>
+    <span class="n">field</span><span class="o">=</span><span class="n">dti</span><span class="p">,</span>
+    <span class="n">dt_ps</span><span class="o">=</span><span class="n">dt_ps</span><span class="p">,</span>
+    <span class="n">qpoints</span><span class="o">=</span><span class="n">qpoints</span><span class="p">,</span>
+    <span class="n">primitive_shape</span><span class="o">=</span><span class="n">primitive_shape</span><span class="p">,</span>
+    <span class="n">num_splits</span><span class="o">=</span><span class="n">num_splits</span><span class="p">,</span>
+    <span class="n">remove_mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">save_sed</span><span class="p">(</span><span class="n">dti_result</span><span class="p">,</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">&quot;dTi_displacement.npz&quot;</span><span class="p">)</span>
+
+<span class="n">velocity</span> <span class="o">=</span> <span class="n">dipole</span><span class="p">[</span><span class="n">frame_start</span><span class="p">:</span><span class="n">stop</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+<span class="n">velocity_result</span> <span class="o">=</span> <span class="n">calculate_sed</span><span class="p">(</span>
+    <span class="n">field</span><span class="o">=</span><span class="n">velocity</span><span class="p">,</span>
+    <span class="n">dt_ps</span><span class="o">=</span><span class="n">dt_ps</span><span class="p">,</span>
+    <span class="n">qpoints</span><span class="o">=</span><span class="n">qpoints</span><span class="p">,</span>
+    <span class="n">primitive_shape</span><span class="o">=</span><span class="n">primitive_shape</span><span class="p">,</span>
+    <span class="n">num_splits</span><span class="o">=</span><span class="n">num_splits</span><span class="p">,</span>
+    <span class="n">remove_mean</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">save_sed</span><span class="p">(</span><span class="n">velocity_result</span><span class="p">,</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">&quot;dTi_velocity.npz&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">&quot;q_distances.npy&quot;</span><span class="p">,</span> <span class="n">q_distances</span><span class="p">)</span>
+
+<span class="n">plot_sed</span><span class="p">(</span>
+    <span class="n">velocity_result</span><span class="p">,</span>
+    <span class="n">q_distances</span><span class="o">=</span><span class="n">q_distances</span><span class="p">,</span>
+    <span class="n">component</span><span class="o">=</span><span class="s2">&quot;total&quot;</span><span class="p">,</span>
+    <span class="n">q_labels</span><span class="o">=</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\Gamma$&quot;</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">),</span>
+    <span class="n">savepath</span><span class="o">=</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">&quot;dTi_velocity-total-SED.png&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>For displacement-like fields, set <code class="docutils literal notranslate"><span class="pre">remove_mean=True</span></code> to remove the static
+local distortion and the DC component before the time Fourier transform. For
+velocity-like fields, use <code class="docutils literal notranslate"><span class="pre">remove_mean=False</span></code>.</p>
+</section>
+<section id="reference-output">
+<h2>Reference Output<a class="headerlink" href="#reference-output" title="Link to this heading"></a></h2>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/dTi_velocity-total-SED.png"><img alt="../_images/dTi_velocity-total-SED.png" src="../_images/dTi_velocity-total-SED.png" style="width: 520px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Total SED intensity for the Ti displacement velocity field along
+<code class="docutils literal notranslate"><span class="pre">Gamma</span> <span class="pre">-&gt;</span> <span class="pre">Z</span></code>.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="q-point-and-primitive-cell-convention">
+<h2>q-Point and Primitive-Cell Convention<a class="headerlink" href="#q-point-and-primitive-cell-convention" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">calculate_sed</span></code> does not generate q-points internally. The q-points are
+reduced coordinates with shape <code class="docutils literal notranslate"><span class="pre">(nq,</span> <span class="pre">3)</span></code> and use the phase convention
+<code class="docutils literal notranslate"><span class="pre">exp(+i</span> <span class="pre">*</span> <span class="pre">2*pi</span> <span class="pre">*</span> <span class="pre">dot(q,</span> <span class="pre">cell_index))</span></code>.</p>
+<p>For an input grid <code class="docutils literal notranslate"><span class="pre">(nx,</span> <span class="pre">ny,</span> <span class="pre">nz)</span></code> and <code class="docutils literal notranslate"><span class="pre">primitive_shape=(px,</span> <span class="pre">py,</span> <span class="pre">pz)</span></code>, the
+number of primitive cells is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cell_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">nx</span> <span class="o">//</span> <span class="n">px</span><span class="p">,</span> <span class="n">ny</span> <span class="o">//</span> <span class="n">py</span><span class="p">,</span> <span class="n">nz</span> <span class="o">//</span> <span class="n">pz</span><span class="p">)</span>
+<span class="n">qpoints</span><span class="p">,</span> <span class="n">q_distances</span> <span class="o">=</span> <span class="n">generate_commensurate_qpath</span><span class="p">(</span><span class="n">q_path</span><span class="p">,</span> <span class="n">cell_shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Allowed reduced q-points satisfy <code class="docutils literal notranslate"><span class="pre">q</span> <span class="pre">*</span> <span class="pre">cell_shape</span></code> being integer-valued.
+Changing <code class="docutils literal notranslate"><span class="pre">primitive_shape</span></code> changes which grid points are treated as basis
+local modes inside one primitive cell. For example, <code class="docutils literal notranslate"><span class="pre">primitive_shape=(1,</span> <span class="pre">1,</span>
+<span class="pre">5)</span></code> treats five local modes along z as basis modes and reduces the number of
+primitive cells along z by a factor of five.</p>
+</section>
+<section id="sed-array-convention">
+<h2>SED Array Convention<a class="headerlink" href="#sed-array-convention" title="Link to this heading"></a></h2>
+<p>The returned <code class="docutils literal notranslate"><span class="pre">result.sed</span></code> array has shape <code class="docutils literal notranslate"><span class="pre">(nfreq,</span> <span class="pre">nq,</span> <span class="pre">4)</span></code>. The last axis
+is ordered as:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: x component</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: y component</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code>: z component</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code>: total, equal to <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span> <span class="pre">+</span> <span class="pre">z</span></code></p></li>
+</ul>
+<p>The normalization is <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(Nt</span> <span class="pre">*</span> <span class="pre">Ncell)</span></code> before averaging over time blocks,
+where <code class="docutils literal notranslate"><span class="pre">Nt</span></code> is the number of frames in one block and <code class="docutils literal notranslate"><span class="pre">Ncell</span></code> is the number
+of primitive cells. No mass weighting is applied. The absolute intensity is
+therefore an internal convention for the chosen local variable; peak positions,
+frequency axis, and q-point dispersion are the robust comparison targets.</p>
+</section>
+<section id="loading-and-replotting">
+<h2>Loading and Replotting<a class="headerlink" href="#loading-and-replotting" title="Link to this heading"></a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">save_sed</span></code> and <code class="docutils literal notranslate"><span class="pre">load_sed</span></code> for the compressed <code class="docutils literal notranslate"><span class="pre">npz</span></code> format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">ferrodispcalc.sed</span> <span class="kn">import</span> <span class="n">load_sed</span><span class="p">,</span> <span class="n">plot_sed</span>
+
+<span class="n">loaded</span> <span class="o">=</span> <span class="n">load_sed</span><span class="p">(</span><span class="s2">&quot;sed-output/dTi_velocity.npz&quot;</span><span class="p">)</span>
+<span class="n">q_distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;sed-output/q_distances.npy&quot;</span><span class="p">)</span>
+
+<span class="n">plot_sed</span><span class="p">(</span>
+    <span class="n">loaded</span><span class="p">,</span>
+    <span class="n">q_distances</span><span class="o">=</span><span class="n">q_distances</span><span class="p">,</span>
+    <span class="n">component</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">,</span>
+    <span class="n">q_labels</span><span class="o">=</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\Gamma$&quot;</span><span class="p">,</span> <span class="s2">&quot;Z&quot;</span><span class="p">),</span>
+    <span class="n">savepath</span><span class="o">=</span><span class="s2">&quot;sed-output/dTi_velocity-z-SED.png&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../ferrodispcalc.sed.html#ferrodispcalc.sed.calculate_sed" title="ferrodispcalc.sed.calculate_sed"><code class="xref py py-func docutils literal notranslate"><span class="pre">calculate_sed()</span></code></a>,
+<a class="reference internal" href="../ferrodispcalc.sed.html#ferrodispcalc.sed.generate_commensurate_qpath" title="ferrodispcalc.sed.generate_commensurate_qpath"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_commensurate_qpath()</span></code></a>,
+<a class="reference internal" href="../ferrodispcalc.sed.html#ferrodispcalc.sed.load_sed" title="ferrodispcalc.sed.load_sed"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_sed()</span></code></a>, <a class="reference internal" href="../ferrodispcalc.sed.html#ferrodispcalc.sed.save_sed" title="ferrodispcalc.sed.save_sed"><code class="xref py py-func docutils literal notranslate"><span class="pre">save_sed()</span></code></a>, and
+<a class="reference internal" href="../ferrodispcalc.sed.html#ferrodispcalc.sed.plot_sed" title="ferrodispcalc.sed.plot_sed"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_sed()</span></code></a> for API details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dielectric.html" class="btn btn-neutral float-left" title="Example: Dielectric Constant of PbTiO3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example_perov_superlattice.html" class="btn btn-neutral float-right" title="Example: PTO-STO Superlattice Polarization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
