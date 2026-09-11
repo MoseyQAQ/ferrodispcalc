@@ -1,13 +1,15 @@
 default: dispplugin$(DSOEXT)
 
-dispplugin$(DSOEXT): dispplugin.o compute_custom_disp.o
+dispplugin$(DSOEXT): dispplugin.o compute_disp_custom_nn.o compute_disp_lmp_nn.o compute_polar_abo3_lmp_nn.o
 	$(LD) -o $@ $^
 
 .cpp.o:
 	$(CXX) -o $@ $(CXXFLAGS) -c $<
 
-compute_custom_disp.o: compute_custom_disp.cpp compute_custom_disp.h
-dispplugin.o: dispplugin.cpp compute_custom_disp.h
+compute_disp_custom_nn.o: compute_disp_custom_nn.cpp compute_disp_custom_nn.h
+compute_disp_lmp_nn.o: compute_disp_lmp_nn.cpp compute_disp_lmp_nn.h
+compute_polar_abo3_lmp_nn.o: compute_polar_abo3_lmp_nn.cpp compute_polar_abo3_lmp_nn.h
+dispplugin.o: dispplugin.cpp compute_disp_custom_nn.h compute_disp_lmp_nn.h compute_polar_abo3_lmp_nn.h
 
 clean:
 	rm -rf *~ *.so *.dylib *.o log.lammps CMakeCache.txt CMakeFiles
