@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LAMMPS plugin for real-time computation of polar displacement and local polarization &mdash; ferrodispcalc 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3D Space Visualization" href="space_visualization.html" />
+    <link rel="prev" title="Parse LAMMPS Output Files" href="parse_lammps_output.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ferrodispcalc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ase.html">Introduction to ASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fdc.html">Introduction to ferrodispcalc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dielectric.html">Example: Dielectric Constant of PbTiO<sub>3</sub></a></li>
+<li class="toctree-l2"><a class="reference internal" href="sed.html">Local-Mode SED from a LAMMPS Run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_perov_superlattice.html">Example: PTO-STO Superlattice Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_molecular.html">Example: Molecular Ferroelectric (TMCM-CdCl<sub>3</sub>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_aln.html">Example: Wurtzite Ferroelectric (ScAlN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_lammps_output.html">Parse LAMMPS Output Files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LAMMPS plugin for real-time computation of polar displacement and local polarization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#load-the-plugin">Load the plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compute-commands">Compute commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="space_visualization.html">3D Space Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parse_cp2k.html">Parse CP2K Trajectory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ferrodispcalc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">LAMMPS plugin for real-time computation of polar displacement and local polarization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/lammps_plugin.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lammps-plugin-for-real-time-computation-of-polar-displacement-and-local-polarization">
+<h1>LAMMPS plugin for real-time computation of polar displacement and local polarization<a class="headerlink" href="#lammps-plugin-for-real-time-computation-of-polar-displacement-and-local-polarization" title="Link to this heading"></a></h1>
+<section id="load-the-plugin">
+<h2>Load the plugin<a class="headerlink" href="#load-the-plugin" title="Link to this heading"></a></h2>
+<p>Build instructions: <a class="reference internal" href="../installation.html"><span class="doc">Installation</span></a>.</p>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span>plugin load /path/to/dispplugin.so  # Register the three compute styles
+</pre></div>
+</div>
+<p>Alternatively, set the environment variable <code class="docutils literal notranslate"><span class="pre">LAMMPS_PLUGIN_PATH</span></code> to the plugin
+directory for automatic loading at startup.</p>
+</section>
+<section id="compute-commands">
+<h2>Compute commands<a class="headerlink" href="#compute-commands" title="Link to this heading"></a></h2>
+<div class="highlight-lammps notranslate"><div class="highlight"><pre><span></span>atom_modify map array  # Atom-ID lookup for file-based neighbors
+comm_modify vel yes   # Ghost velocities for vel yes
+
+group pb type 2       # A sites
+group ti type 3       # B sites
+group o type 4        # Oxygen sites
+
+# Ti displacement relative to neighbors listed in nn.dat
+compute d_file ti disp/atom nnfile nn.dat vel yes
+
+# Ti displacement relative to the nearest six O atoms
+compute d_auto ti disp/atom/auto o 6 vel yes
+
+# B-centered ABO3 polarization: A group/BEC, B group/BEC, O group/BEC
+compute p_auto all polar/abo3/auto pb 3.74 ti 6.17 o -3.303333 vel yes
+</pre></div>
+</div>
+<p><strong>disp/atom:</strong> <code class="docutils literal notranslate"><span class="pre">nnfile</span></code> rows contain the central atom ID followed by neighbor
+IDs (1-based). It can be generated using python API. Columns 1-3 give the polar displacement;
+<code class="docutils literal notranslate"><span class="pre">vel</span> <span class="pre">yes</span></code> adds relative velocities in columns 4-6 (default: <code class="docutils literal notranslate"><span class="pre">vel</span> <span class="pre">no</span></code>).</p>
+<p><strong>disp/atom/auto:</strong> same as <code class="docutils literal notranslate"><span class="pre">disp/atom</span></code>. The only difference is that this compute doesn’t need additional <code class="docutils literal notranslate"><span class="pre">nnfile</span></code>.
+It uses the neighbor list from LAMMPS.</p>
+<p><strong>polar/abo3/auto:</strong> arguments are three <code class="docutils literal notranslate"><span class="pre">group</span> <span class="pre">BEC</span></code> pairs in A, B, O order.
+Uses eight A and six O neighbors per B center. Columns 1-3 give polarization:
+<code class="docutils literal notranslate"><span class="pre">16.02176634</span> <span class="pre">*</span> <span class="pre">(Z_B*r_B</span> <span class="pre">+</span> <span class="pre">Z_A*sum(r_A)/8</span> <span class="pre">+</span> <span class="pre">Z_O*sum(r_O)/2)</span> <span class="pre">/</span> <span class="pre">V_cell</span></code>
+in C/m², where <code class="docutils literal notranslate"><span class="pre">V_cell</span> <span class="pre">=</span> <span class="pre">box</span> <span class="pre">volume</span> <span class="pre">/</span> <span class="pre">global</span> <span class="pre">B</span> <span class="pre">count</span></code>; <code class="docutils literal notranslate"><span class="pre">metal</span></code> or
+<code class="docutils literal notranslate"><span class="pre">real</span></code> units are required.</p>
+<blockquote>
+<div><p>Currently, the velocity give <code class="docutils literal notranslate"><span class="pre">(Z_B*v_B</span> <span class="pre">+</span> <span class="pre">Z_A*sum(v_A)/8</span> <span class="pre">+</span> <span class="pre">Z_O*sum(v_O)/2)/5</span></code>, not <code class="docutils literal notranslate"><span class="pre">dP/dt</span></code>.</p>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="parse_lammps_output.html" class="btn btn-neutral float-left" title="Parse LAMMPS Output Files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="space_visualization.html" class="btn btn-neutral float-right" title="3D Space Visualization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Denan LI.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

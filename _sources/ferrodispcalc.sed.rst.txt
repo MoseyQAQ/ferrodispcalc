@@ -1,0 +1,29 @@
+ferrodispcalc.sed package
+=========================
+
+Submodules
+----------
+
+ferrodispcalc.sed.calc module
+-----------------------------
+
+.. automodule:: ferrodispcalc.sed.calc
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+ferrodispcalc.sed.plot module
+-----------------------------
+
+.. automodule:: ferrodispcalc.sed.plot
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: ferrodispcalc.sed
+   :members:
+   :show-inheritance:
+   :undoc-members:
