@@ -12,5 +12,6 @@ Tutorials
    example_molecular
    example_aln
    parse_lammps_output
+   lammps_plugin
    space_visualization
    parse_cp2k

@@ -2,7 +2,7 @@
     Contributors: Denan LI
 ----------------------------------------------------------------------- */
 
-#include "compute_custom_disp.h"
+#include "compute_disp_custom_nn.h"
 
 #include "atom.h"
 #include "comm.h"
@@ -39,7 +39,7 @@ void minimum_image_compat(DomainType *domain, double &dx, double &dy, double &dz
 
 /* ---------------------------------------------------------------------- */
 
-ComputeCustomDisp::ComputeCustomDisp(LAMMPS *lmp, int narg, char **arg) :
+ComputeDispCustomNN::ComputeDispCustomNN(LAMMPS *lmp, int narg, char **arg) :
     Compute(lmp, narg, arg)
 {
     if (narg < 3) error->all(FLERR, "Illegal compute disp/atom command");
@@ -80,7 +80,7 @@ ComputeCustomDisp::ComputeCustomDisp(LAMMPS *lmp, int narg, char **arg) :
 }
 /* ---------------------------------------------------------------------- */
 
-void ComputeCustomDisp::init()
+void ComputeDispCustomNN::init()
 {
     if (atom->map_style == Atom::MAP_NONE)
         error->all(FLERR, "Compute disp/atom requires an atom map. Use atom_modify map array");
@@ -91,7 +91,7 @@ void ComputeCustomDisp::init()
 
 /* ---------------------------------------------------------------------- */
 
-ComputeCustomDisp::~ComputeCustomDisp()
+ComputeDispCustomNN::~ComputeDispCustomNN()
 {
     memory->destroy(array_atom);
     delete[] nnfile;
@@ -103,7 +103,7 @@ ComputeCustomDisp::~ComputeCustomDisp()
 
 /* ---------------------------------------------------------------------- */
 
-void ComputeCustomDisp::compute_peratom()
+void ComputeDispCustomNN::compute_peratom()
 {
     invoked_peratom = update->ntimestep;
 
@@ -186,7 +186,7 @@ void ComputeCustomDisp::compute_peratom()
 
 /* ---------------------------------------------------------------------- */
 
-void ComputeCustomDisp::read_file()
+void ComputeDispCustomNN::read_file()
 {
     // Open the neighbor list file, and issue an error if it cannot be opened
     std::ifstream file(nnfile);

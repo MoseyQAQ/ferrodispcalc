@@ -44,8 +44,8 @@ else()
   endif()
 endif()
 
-# C++11 is required
-set(CMAKE_CXX_STANDARD 11)
+# Match the standard used by the LAMMPS binary; override for other builds.
+set(CMAKE_CXX_STANDARD 20 CACHE STRING "C++ standard used to build LAMMPS")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Need -restrict with Intel compilers
@@ -64,7 +64,9 @@ endif()
 
 add_library(dispplugin MODULE
   dispplugin.cpp
-  compute_custom_disp.cpp)
+  compute_disp_custom_nn.cpp
+  compute_disp_lmp_nn.cpp
+  compute_polar_abo3_lmp_nn.cpp)
 target_link_libraries(dispplugin PRIVATE lammps)
 
 set_target_properties(dispplugin PROPERTIES PREFIX "" SUFFIX ".so")

@@ -20,22 +20,22 @@ Output columns:
 
 #ifdef COMPUTE_CLASS
 // clang-format off
-ComputeStyle(disp/atom,ComputeCustomDisp);
+ComputeStyle(disp/atom,ComputeDispCustomNN);
 // clang-format on
 #else
 
-#ifndef COMPUTE_CUSTOM_DISP_H
-#define COMPUTE_CUSTOM_DISP_H
+#ifndef COMPUTE_DISP_CUSTOM_NN_H
+#define COMPUTE_DISP_CUSTOM_NN_H
 
 #include "compute.h"
 #include <vector>
 
 namespace LAMMPS_NS {
 
-    class ComputeCustomDisp : public Compute {
+    class ComputeDispCustomNN : public Compute {
         public:
-            ComputeCustomDisp(class LAMMPS *, int, char **);
-            ~ComputeCustomDisp() override;
+            ComputeDispCustomNN(class LAMMPS *, int, char **);
+            ~ComputeDispCustomNN() override;
             void compute_peratom() override;
             void init() override;
         
